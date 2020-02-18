@@ -15,4 +15,18 @@ services:
       - 6379:6379
     volumes:
       - ./redis/redis_data:/data
-
+  keycloak:
+    image: jboss/keycloak:9.0.0
+    ports:
+      - 8000:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: shogun
+      DB_VENDOR: postgres
+      DB_ADDR: postgis
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: shogun
+      DB_PASSWORD: shogun
+    #volumes:
+    #  - ./redis/redis_data:/data
