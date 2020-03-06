@@ -9,7 +9,9 @@ services:
       POSTGRES_PASSWORD: shogun
     volumes:
       - ./postgis/postgresql_data:/var/lib/postgresql/data:Z
-      - ./postgis/init_data/init_keycloak.sql:/docker-entrypoint-initdb.d/init_keycloak.sql
+      - ./postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
+      - ./postgis/init_data/02_add_keycloak_data.sh:/docker-entrypoint-initdb.d/02_add_keycloak_data.sh
+      - ./postgis/init_data/keycloak_data:/docker-entrypoint-initdb.d/keycloak_data:Z
   redis:
     image: library/redis:5.0.7-alpine
     ports:
