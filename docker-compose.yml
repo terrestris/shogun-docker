@@ -9,10 +9,25 @@ services:
       POSTGRES_PASSWORD: shogun
     volumes:
       - ./postgis/postgresql_data:/var/lib/postgresql/data:Z
+      - ./postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
+      - ./postgis/init_data/02_add_keycloak_data.sh:/docker-entrypoint-initdb.d/02_add_keycloak_data.sh
+      - ./postgis/init_data/keycloak_data:/docker-entrypoint-initdb.d/keycloak_data:Z
   redis:
     image: library/redis:5.0.7-alpine
     ports:
       - 6379:6379
     volumes:
       - ./redis/redis_data:/data
-
+  keycloak:
+    image: jboss/keycloak:9.0.0
+    ports:
+      - 8000:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: shogun
+      DB_VENDOR: postgres
+      DB_ADDR: postgis
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: shogun
+      DB_PASSWORD: shogun
