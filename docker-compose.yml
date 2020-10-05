@@ -1,7 +1,7 @@
 version: '2'
 services:
   postgis:
-    image: mdillon/postgis:11-alpine
+    image: postgis/postgis:13-master
     ports:
       - 5555:5432
     environment:
@@ -13,13 +13,13 @@ services:
       - ./postgis/init_data/02_add_keycloak_data.sh:/docker-entrypoint-initdb.d/02_add_keycloak_data.sh
       - ./postgis/init_data/keycloak_data:/docker-entrypoint-initdb.d/keycloak_data:Z
   redis:
-    image: library/redis:5.0.7-alpine
+    image: library/redis:6-alpine
     ports:
       - 6379:6379
     volumes:
       - ./redis/redis_data:/data
   keycloak:
-    image: jboss/keycloak:9.0.0
+    image: jboss/keycloak:11.0.2
     ports:
       - 8000:8080
     environment:
