@@ -16,8 +16,20 @@ services:
     image: library/redis:6-alpine
     ports:
       - 6379:6379
+    environment:
+      - REDIS_PASS_FILE=/config/.redis
+    command: [
+        "sh",
+        "-c",
+        '
+        docker-entrypoint.sh
+        "/config/redis.conf"
+        --requirepass "$$(cat $$REDIS_PASS_FILE)"
+        ',
+      ]
     volumes:
       - ./redis/redis_data:/data
+      - ./redis/redis_config:/config
   keycloak:
     image: jboss/keycloak:11.0.2
     ports:
