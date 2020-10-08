@@ -1,6 +1,6 @@
 version: '2'
 services:
-  postgis:
+  shogun-postgis:
     image: postgis/postgis:13-master
     ports:
       - 5555:5432
@@ -8,11 +8,11 @@ services:
       POSTGRES_USER: shogun
       POSTGRES_PASSWORD: shogun
     volumes:
-      - ./postgis/postgresql_data:/var/lib/postgresql/data:Z
-      - ./postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
-      - ./postgis/init_data/02_add_keycloak_data.sh:/docker-entrypoint-initdb.d/02_add_keycloak_data.sh
-      - ./postgis/init_data/keycloak_data:/docker-entrypoint-initdb.d/keycloak_data:Z
-  redis:
+      - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
+      - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
+      - ./shogun-postgis/init_data/02_add_keycloak_data.sh:/docker-entrypoint-initdb.d/02_add_keycloak_data.sh
+      - ./shogun-postgis/init_data/keycloak_data:/docker-entrypoint-initdb.d/keycloak_data:Z
+  shogun-redis:
     image: library/redis:6-alpine
     ports:
       - 6379:6379
@@ -28,9 +28,9 @@ services:
         ',
       ]
     volumes:
-      - ./redis/redis_data:/data
-      - ./redis/redis_config:/config
-  keycloak:
+      - ./shogun-redis/redis_data:/data
+      - ./shogun-redis/redis_config:/config
+  shogun-keycloak:
     image: jboss/keycloak:11.0.2
     ports:
       - 8000:8080
@@ -38,8 +38,10 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: shogun
       DB_VENDOR: postgres
-      DB_ADDR: postgis
+      DB_ADDR: shogun-postgis
       DB_PORT: 5432
       DB_DATABASE: keycloak
       DB_USER: shogun
       DB_PASSWORD: shogun
+    depends_on:
+      - shogun-postgis

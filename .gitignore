@@ -1,5 +1,5 @@
-redis/redis_data
-postgis/postgresql_data
+shogun-redis/redis_data
+shogun-postgis/postgresql_data
 
 *iml
 .idea
