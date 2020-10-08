@@ -43,3 +43,5 @@ services:
       DB_DATABASE: keycloak
       DB_USER: shogun
       DB_PASSWORD: shogun
+    depends_on:
+      - shogun-postgis
