@@ -18,20 +18,32 @@ This repository contains two `docker-compose` configuration files:
 
 ## Steps
 
+### Development (databases and Keycloak)
+
 To start the services required for development (databases and Keycloak), just start:
 
-```
+```bash
 docker-compose up
 ```
 
+You can test whether the Keycloak application started by visiting the URL
+`http://localhost:8000/auth/`.
+
+
+### Test a prebuilt SHOGun
+
 If you want to run the prebuilt SHOGun services, just start:
 
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
 ```
 
 Note: Before running the images, you need to set the correct `KEYCLOAK_HOST` (your local IP)
-      for both services.
+      for both services. Please edit the appropriate lines in `docker-compose-shogun.yml` to
+      do so.
+
+You can test whether the SHOGun application started by visiting the URL
+`http://localhost:8080/shogun-boot/`.
 
 ## Default credentials
 
