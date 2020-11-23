@@ -30,6 +30,10 @@ You can test whether the Keycloak application started by visiting the URL
 `http://localhost:8000/auth/`.
 
 
+### Import the initial keycloak data
+
+See [Keycloak import](#import).
+
 ### Test a prebuilt SHOGun
 
 If you want to run the prebuilt SHOGun services, just start:
@@ -54,3 +58,31 @@ You can test whether the SHOGun application started by visiting the URL
 
 The Redis config files are located in `shogun-redis/redis_config`. The default redis password
 can be changed in file `shogun-redis/redis_config/.redis`.
+
+## Keycloak
+
+### Export
+
+While keycloak docker container is runnning execute:
+
+```
+docker exec -it shogun-docker_shogun-keycloak_1 /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
+```
+
+Wait until finished (look out for `Export finished successfully` in the logs) and exit the container.
+
+```
+docker cp shogun-docker_shogun-keycloak_1:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
+```
+
+### Import
+
+```
+docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-docker_shogun-keycloak_1:/tmp/keycloak_export.json
+```
+
+```
+docker exec -it shogun-docker_shogun-keycloak_1 /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
+```
+
+Wait until fininshed (look out for `Import finished successfully` in the logs) and exit the container.
