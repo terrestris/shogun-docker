@@ -30,9 +30,9 @@ You can test whether the Keycloak application started by visiting the URL
 `http://localhost:8000/auth/`.
 
 
-### Import the initial keycloak data
+### Import the initial Keycloak data
 
-See [Keycloak import](#import).
+See section [Keycloak Import](#import).
 
 ### Test a prebuilt SHOGun
 
@@ -63,7 +63,7 @@ can be changed in file `shogun-redis/redis_config/.redis`.
 
 ### Export
 
-While keycloak docker container is runnning execute:
+While the Keycloak docker container is runnning execute:
 
 ```
 docker exec -it shogun-docker_shogun-keycloak_1 /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
@@ -85,4 +85,4 @@ docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-docker_shogun-
 docker exec -it shogun-docker_shogun-keycloak_1 /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
 ```
 
-Wait until fininshed (look out for `Import finished successfully` in the logs) and exit the container.
+Wait until finished (look out for `Import finished successfully` in the logs) and exit the container.
