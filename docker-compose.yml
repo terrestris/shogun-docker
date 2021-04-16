@@ -29,7 +29,7 @@ services:
       - ./shogun-redis/redis_data:/data
       - ./shogun-redis/redis_config:/config
   shogun-keycloak:
-    image: jboss/keycloak:11.0.2
+    image: jboss/keycloak:12.0.4@sha256:67e0c88e69bd0c7aef972c40bdeb558a974013a28b3668ca790ed63a04d70584
     ports:
       - 8000:8080
     environment:
