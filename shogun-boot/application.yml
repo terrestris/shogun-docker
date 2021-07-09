@@ -1,11 +1,15 @@
-spring:
-  profiles:
-    include: base
-    active: base, boot
+server:
+  port: 8080
+  servlet:
+    context-path: /shogun-boot
+    session:
+      timeout: 86400
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: never
 
----
 spring:
-  profiles: boot
   servlet:
     multipart:
       max-file-size: 10MB
@@ -34,6 +38,7 @@ spring:
           envers:
             default_schema: shogun_rev
             audit_table_prefix: _rev
+            global_with_modified_flag: true
       hibernate:
         javax:
           cache:
@@ -90,17 +95,6 @@ spring:
           starttls:
             enable: true
           timeout: 8000
-
-server:
-  port: 8080
-  servlet:
-    context-path: /shogun-boot
-    session:
-      timeout: 86400
-  error:
-    whitelabel:
-      enabled: true
-    include-stacktrace: never
 
 keycloak:
   auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
