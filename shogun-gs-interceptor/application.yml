@@ -1,17 +1,15 @@
-spring:
-  profiles:
-    include: base
-    active: base, interceptor
+server:
+  port: 8081
+  servlet:
+    context-path: /shogun-gs-interceptor
+    session:
+      timeout: 86400
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: never
 
----
 spring:
-  profiles:
-    include: base
-    active: base, boot
-
----
-spring:
-  profiles: interceptor
   servlet:
     multipart:
       max-file-size: 10MB
@@ -40,6 +38,7 @@ spring:
           envers:
             default_schema: shogun_rev
             audit_table_prefix: _rev
+            global_with_modified_flag: true
       hibernate:
         javax:
           cache:
@@ -82,17 +81,6 @@ spring:
     port: 6379
     password: pass
 
-server:
-  port: 8081
-  servlet:
-    context-path: /shogun-gs-interceptor
-    session:
-      timeout: 86400
-  error:
-    whitelabel:
-      enabled: true
-    include-stacktrace: never
-
 keycloak:
   auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
   realm: SpringBootKeycloak
@@ -113,6 +101,10 @@ management:
     web:
       exposure:
         include: "*"
+
+upload:
+  basePath: /data
+  maxSize: 500M
 
 interceptor:
   namespaceBoundUrl: true
