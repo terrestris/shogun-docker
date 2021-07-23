@@ -10,6 +10,8 @@ This repository contains two `docker-compose` configuration files:
   `SHOGun` services (either in dev or non-dev environment).
 * `docker-compose-shogun.yml`: Contains an example configuration for the latest
   prebuilt SHOGun images.
+* `docker-compose-dev.yml`: Contains an example configuration for a locally
+  mounted / linked shogun checkout.
 
 ## Requirements
 
@@ -20,14 +22,16 @@ This repository contains two `docker-compose` configuration files:
 
 ### Development (databases and Keycloak)
 
+Configure the environment variables in the dev compose file (e.g. keycloak host).
+
 To start the services required for development (databases and Keycloak), just start:
 
 ```bash
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
 ```
 
 You can test whether the Keycloak application started by visiting the URL
-`http://localhost:8000/auth/`.
+`https://localhost/auth/`.
 
 
 ### Import the initial Keycloak data
@@ -47,7 +51,7 @@ Note: Before running the images, you need to set the correct `KEYCLOAK_HOST` (yo
       do so.
 
 You can test whether the SHOGun application started by visiting the URL
-`http://localhost:8080/shogun-boot/`.
+`https://localhost/`.
 
 ## Default credentials
 

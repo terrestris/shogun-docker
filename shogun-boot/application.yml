@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /shogun-boot
+    context-path: /
     session:
       timeout: 86400
   error:
@@ -97,7 +97,7 @@ spring:
           timeout: 8000
 
 keycloak:
-  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
+  auth-server-url: https://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
   realm: SpringBootKeycloak
   resource: shogun-app
   public-client: true
