@@ -6,7 +6,7 @@ services:
       - 8080:8080
       - 5005:5005
     environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g"
+      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g -Dspring.config.location=/config/application.yml"
       MAIL_PASSWORD: "super secret"
       KEYCLOAK_HOST: 1.2.3.4
       KEYCLOAK_PORT: 8000
