@@ -12,6 +12,18 @@ services:
     depends_on:
       - shogun-keycloak
       - shogun-boot
+  shogun-geoserver:
+    build:
+      context: ./shogun-geoserver
+      args:
+        USER_UID: ${UID}
+        USER_GID: ${GID}
+        USER_NAME: ${UNAME}
+    environment:
+      EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
+    volumes:
+      - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
+      - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
   shogun-postgis:
     image: postgis/postgis:13-3.1-alpine
     ports:
