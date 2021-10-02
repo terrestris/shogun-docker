@@ -18,6 +18,15 @@ This repository contains two `docker-compose` configuration files:
 * docker
 * docker-compose
 
+## Recommended directory structure
+
+```bash
+shogun-directory/
+├── shogun (https://github.com/terrestris/shogun)
+├── shogun-docker (this repository)
+└── …
+```
+
 ## Steps
 
 To set all required environment variables, just execute the `./setEnvironment.sh`.
