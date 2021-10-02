@@ -11,7 +11,9 @@ services:
       - "443:443"
     depends_on:
       - shogun-keycloak
-      - shogun-boot
+      - shogun-boot-1
+      - shogun-boot-2
+      - shogun-boot-3
   shogun-geoserver:
     build:
       context: ./shogun-geoserver
