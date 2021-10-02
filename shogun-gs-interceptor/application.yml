@@ -72,8 +72,8 @@ spring:
   datasource:
     platform: postgres
     url: jdbc:postgresql://shogun-postgis:5432/shogun?currentSchema=interceptor
-    username: shogun
-    password: shogun
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   session:
     store-type: redis
   redis:
@@ -82,17 +82,18 @@ spring:
     password: pass
 
 keycloak:
-  auth-server-url: http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
+  auth-server-url: https://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
   realm: SpringBootKeycloak
   resource: shogun-app
   public-client: true
   ssl-required: external
+  disable-trust-manager: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
   principal-attribute: preferred_username
   enable-basic-auth: true
 
 keycloakauth:
-  username: admin
-  password: shogun
+  username: ${KEYCLOAK_USER}
+  password: ${KEYCLOAK_PASSWORD}
   master-realm: master
   admin-client: admin-cli
 
@@ -108,7 +109,7 @@ upload:
 
 interceptor:
   namespaceBoundUrl: true
-  defaultOwsUrl: http://localhost:1234/geoserver
+  defaultOwsUrl: http://shogun-geoserver:8080/geoserver
   namespaces:
     - namespace: SHOGUN
-      url: http://localhost:1234/geoserver/SHOGUN
+      url: http://shogun-geoserver:8080/geoserver/SHOGUN

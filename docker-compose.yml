@@ -67,5 +67,6 @@ services:
       DB_DATABASE: keycloak
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
+      PROXY_ADDRESS_FORWARDING: "true"
     depends_on:
       - shogun-postgis

@@ -72,8 +72,8 @@ spring:
   datasource:
     platform: postgres
     url: jdbc:postgresql://shogun-postgis:5432/shogun?currentSchema=shogun
-    username: shogun
-    password: shogun
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   session:
     store-type: redis
   redis:
@@ -81,8 +81,8 @@ spring:
     port: 6379
     password: pass
   mail:
-    host: mail.terrestris.de
-    port: 587
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
     protocol: smtp
     username: noreply
     password: ${MAIL_PASSWORD}
@@ -102,12 +102,13 @@ keycloak:
   resource: shogun-app
   public-client: true
   ssl-required: external
+  disable-trust-manager: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
   principal-attribute: preferred_username
   enable-basic-auth: true
 
 keycloakauth:
-  username: admin
-  password: shogun
+  username: ${KEYCLOAK_USER}
+  password: ${KEYCLOAK_PASSWORD}
   master-realm: master
   admin-client: admin-cli
 

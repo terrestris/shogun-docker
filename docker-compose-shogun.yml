@@ -7,9 +7,14 @@ services:
       - "5005:5005"
     environment:
       JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g -Dspring.config.location=/config/application.yml"
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
       KEYCLOAK_PORT: ${KEYCLOAK_PORT}
+      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
