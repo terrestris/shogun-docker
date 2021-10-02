@@ -15,6 +15,6 @@ services:
       - ../shogun/shogun-boot/:/shogun-boot/
       - ~/.m2:/root/.m2
     environment:
-      MAIL_PASSWORD: "super secret"
-      KEYCLOAK_HOST: 1.2.3.4
-      KEYCLOAK_PORT: 443
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
+      KEYCLOAK_PORT: ${KEYCLOAK_PORT}
