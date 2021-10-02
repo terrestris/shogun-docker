@@ -9,7 +9,7 @@ services:
       JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g -Dspring.config.location=/config/application.yml"
       MAIL_PASSWORD: "super secret"
       KEYCLOAK_HOST: 1.2.3.4
-      KEYCLOAK_PORT: 8000
+      KEYCLOAK_PORT: 443
     volumes:
       - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
@@ -22,7 +22,7 @@ services:
       - 8081:8081
     environment:
       KEYCLOAK_HOST: 1.2.3.4
-      KEYCLOAK_PORT: 8000
+      KEYCLOAK_PORT: 443
     volumes:
       - ./shogun-gs-interceptor/application.yml:/config/application.yml
     depends_on:
