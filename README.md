@@ -29,7 +29,11 @@ shogun-directory/
 
 ## Steps
 
-To set all required environment variables, just execute the `./setEnvironment.sh`.
+### Required steps for the very first start
+
+* Set all required environment variables by executing `./setEnvironment.sh`.
+
+* Generate a self-signed SSL certificate by executing `generateKey.sh`.
 
 ### Development (databases and Keycloak)
 
@@ -61,6 +65,7 @@ You can test whether the SHOGun application started by visiting the URL
 
 * Keycloak Admin: `admin:shogun`
 * SHOGun Admin: `shogun:shogun`
+* GeoServer: `admin:geoserver`
 
 ## Redis
 
