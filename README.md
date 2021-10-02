@@ -20,9 +20,9 @@ This repository contains two `docker-compose` configuration files:
 
 ## Steps
 
-### Development (databases and Keycloak)
+To set all required environment variables, just execute the `./setEnvironment.sh`.
 
-Configure the environment variables in the dev compose file (e.g. keycloak host).
+### Development (databases and Keycloak)
 
 To start the services required for development (databases and Keycloak), just start:
 
@@ -32,7 +32,6 @@ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
 
 You can test whether the Keycloak application started by visiting the URL
 `https://localhost/auth/`.
-
 
 ### Import the initial Keycloak data
 
@@ -45,10 +44,6 @@ If you want to run the prebuilt SHOGun services, just start:
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
 ```
-
-Note: Before running the images, you need to set the correct `KEYCLOAK_HOST` (your local IP)
-      for both services. Please edit the appropriate lines in `docker-compose-shogun.yml` to
-      do so.
 
 You can test whether the SHOGun application started by visiting the URL
 `https://localhost/`.

@@ -17,8 +17,8 @@ services:
     ports:
       - 5555:5432
     environment:
-      POSTGRES_USER: shogun
-      POSTGRES_PASSWORD: shogun
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
@@ -45,13 +45,13 @@ services:
     ports:
       - 8000:8080
     environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: shogun
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       DB_VENDOR: postgres
       DB_ADDR: shogun-postgis
       DB_PORT: 5432
       DB_DATABASE: keycloak
-      DB_USER: shogun
-      DB_PASSWORD: shogun
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
       - shogun-postgis
