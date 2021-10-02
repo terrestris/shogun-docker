@@ -1,3 +1,4 @@
+shogun-boot/keystore/cacerts
 shogun-nginx/ssl/private
 shogun-postgis/postgresql_data
 shogun-redis/redis_data

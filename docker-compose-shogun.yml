@@ -30,6 +30,7 @@ services:
       KEYCLOAK_PORT: ${KEYCLOAK_PORT}
     volumes:
       - ./shogun-gs-interceptor/application.yml:/config/application.yml
+      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
     depends_on:
       - shogun-postgis
       - shogun-redis
