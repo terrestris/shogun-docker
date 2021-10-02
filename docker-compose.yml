@@ -43,14 +43,14 @@ services:
     environment:
       - REDIS_PASS_FILE=/config/.redis
     command: [
-        "sh",
-        "-c",
-        '
-        docker-entrypoint.sh
-        "/config/redis.conf"
-        --requirepass "$$(cat $$REDIS_PASS_FILE)"
-        ',
-      ]
+      "sh",
+      "-c",
+      '
+      docker-entrypoint.sh
+      "/config/redis.conf"
+      --requirepass "$$(cat $$REDIS_PASS_FILE)"
+      ',
+    ]
     volumes:
       - ./shogun-redis/redis_data:/data
       - ./shogun-redis/redis_config:/config
