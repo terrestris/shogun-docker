@@ -3,8 +3,8 @@ services:
   shogun-boot:
     image: nexus.terrestris.de/shogun/shogun-boot:latest
     ports:
-      - 8080:8080
-      - 5005:5005
+      - "8080:8080"
+      - "5005:5005"
     environment:
       JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g -Dspring.config.location=/config/application.yml"
       MAIL_PASSWORD: ${MAIL_PASSWORD}
@@ -19,7 +19,7 @@ services:
   shogun-gs-interceptor:
     image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
     ports:
-      - 8081:8081
+      - "8083:8081"
     environment:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
       KEYCLOAK_PORT: ${KEYCLOAK_PORT}

@@ -7,8 +7,8 @@ services:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     depends_on:
       - shogun-keycloak
       - shogun-boot
@@ -19,6 +19,8 @@ services:
         USER_UID: ${UID}
         USER_GID: ${GID}
         USER_NAME: ${UNAME}
+    ports:
+      - "8001:8080"
     environment:
       EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
     volumes:
@@ -27,7 +29,7 @@ services:
   shogun-postgis:
     image: postgis/postgis:13-3.1-alpine
     ports:
-      - 5555:5432
+      - "5555:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -37,7 +39,7 @@ services:
   shogun-redis:
     image: redis:6.2.1-alpine
     ports:
-      - 6379:6379
+      - "6379:6379"
     environment:
       - REDIS_PASS_FILE=/config/.redis
     command: [
@@ -55,7 +57,7 @@ services:
   shogun-keycloak:
     image: jboss/keycloak:14.0.0
     ports:
-      - 8000:8080
+      - "8000:8080"
     environment:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
