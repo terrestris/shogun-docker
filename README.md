@@ -18,11 +18,24 @@ This repository contains two `docker-compose` configuration files:
 * docker
 * docker-compose
 
+## Recommended directory structure
+
+```bash
+shogun-directory/
+├── shogun (https://github.com/terrestris/shogun)
+├── shogun-docker (this repository)
+└── …
+```
+
 ## Steps
 
-### Development (databases and Keycloak)
+### Required steps for the very first start
 
-Configure the environment variables in the dev compose file (e.g. keycloak host).
+* Set all required environment variables by executing `./setEnvironment.sh`.
+
+* Generate a self-signed SSL certificate by executing `generateKey.sh`.
+
+### Development (databases and Keycloak)
 
 To start the services required for development (databases and Keycloak), just start:
 
@@ -32,7 +45,6 @@ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
 
 You can test whether the Keycloak application started by visiting the URL
 `https://localhost/auth/`.
-
 
 ### Import the initial Keycloak data
 
@@ -46,10 +58,6 @@ If you want to run the prebuilt SHOGun services, just start:
 docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
 ```
 
-Note: Before running the images, you need to set the correct `KEYCLOAK_HOST` (your local IP)
-      for both services. Please edit the appropriate lines in `docker-compose-shogun.yml` to
-      do so.
-
 You can test whether the SHOGun application started by visiting the URL
 `https://localhost/`.
 
@@ -57,6 +65,7 @@ You can test whether the SHOGun application started by visiting the URL
 
 * Keycloak Admin: `admin:shogun`
 * SHOGun Admin: `shogun:shogun`
+* GeoServer: `admin:geoserver`
 
 ## Redis
 
