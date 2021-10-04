@@ -1,5 +1,7 @@
 server:
   port: 8080
+  # this flag is needed to properly redirect to https:
+  forward-headers-strategy: framework
   servlet:
     context-path: /
     session:
@@ -71,7 +73,7 @@ spring:
     schemas: shogun, public
   datasource:
     platform: postgres
-    url: jdbc:postgresql://shogun-postgis:5432/shogun?currentSchema=shogun
+    url: jdbc:postgresql://shogun-postgis/shogun?currentSchema=shogun
     username: ${DB_USER}
     password: ${DB_PASSWORD}
   session:
@@ -97,7 +99,7 @@ spring:
           timeout: 8000
 
 keycloak:
-  auth-server-url: https://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
+  auth-server-url: https://${KEYCLOAK_HOST}/auth
   realm: SpringBootKeycloak
   resource: shogun-app
   public-client: true
