@@ -14,7 +14,7 @@ services:
       - shogun-boot
   shogun-boot:
     build:
-      context: ../shogun/
+      context: ../shogun/shogun-boot/
     ports:
       - "8080:8080"
       - "4711:4711"
@@ -31,7 +31,7 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
-      - ../shogun/:/shogun/
+      - ../shogun/shogun-boot/:/shogun-boot/
       - ~/.m2:/root/.m2
       - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
     depends_on:

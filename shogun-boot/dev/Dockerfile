@@ -1,5 +1,5 @@
 FROM openjdk@sha256:2b6eb2c178908b6704d82258652806eca3c0cd9261df7f5edcc3486d63bc6e60
-WORKDIR /shogun-kotlin
+WORKDIR /shogun-boot
 
 RUN mkdir /usr/share/man/man1 && apt-get update && apt-get install -y maven
 
