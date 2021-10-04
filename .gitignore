@@ -1,7 +1,5 @@
-shogun-boot/keystore/cacerts
 shogun-geoserver/geoserver_data/logs/log.*
 shogun-geoserver/geoserver_data/logs/*.log*
-shogun-nginx/ssl/private
 shogun-postgis/postgresql_data
 shogun-redis/redis_data
 

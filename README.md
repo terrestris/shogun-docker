@@ -33,8 +33,6 @@ shogun-directory/
 
 * Set all required environment variables by executing `./setEnvironment.sh`.
 
-* Generate a self-signed SSL certificate by executing `generateKey.sh`.
-
 ### Development (databases and Keycloak)
 
 To start the services required for development (databases and Keycloak), just start:

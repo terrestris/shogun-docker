@@ -14,7 +14,3 @@ services:
     volumes:
       - ../shogun/shogun-boot/:/shogun-boot/
       - ~/.m2:/root/.m2
-    environment:
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_PORT: ${KEYCLOAK_PORT}
