@@ -19,7 +19,7 @@ services:
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
+      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-17/lib/security/cacerts
     depends_on:
       - shogun-postgis
       - shogun-redis
@@ -43,7 +43,7 @@ services:
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
+      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-17/lib/security/cacerts
     depends_on:
       - shogun-postgis
       - shogun-redis
@@ -86,7 +86,7 @@ services:
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-gs-interceptor/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
+      - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-17/lib/security/cacerts
     depends_on:
       - shogun-postgis
       - shogun-redis
