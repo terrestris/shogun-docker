@@ -35,7 +35,20 @@ shogun-directory/
 
 ### Development (databases and Keycloak)
 
-To start the services required for development (databases and Keycloak), just start:
+To start the services required for development of SHOGun (no custom project), just run:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
+```
+
+If you are working on a custom project that inherits from SHOGun you have to adjust the following settings first:
+
+* Copy the file `shogun-boot/dev/Dockerfile` to your project root dir
+* Add your project profile to the `Dockerfile`
+* In the [docker-compose-dev.yml](docker-compose-dev.yml) update the build context to point to your project root dir
+* Also update the volumes to point the `/shogun-boot` folder in the container to your project root dir
+
+Now you can start the containers:
 
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
