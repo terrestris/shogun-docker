@@ -1,19 +1,5 @@
 version: '2'
 services:
-  shogun-nginx:
-    image: nginx:1.21.1
-    volumes:
-      - ./shogun-nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
-      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - shogun-keycloak
-      - shogun-boot-1
-      - shogun-boot-2
-      - shogun-boot-3
   shogun-geoserver:
     build:
       context: ./shogun-geoserver
