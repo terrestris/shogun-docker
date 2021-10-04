@@ -35,12 +35,12 @@ shogun-directory/
 
 ### Development (databases and Keycloak)
 
-To start the services required for development, first configure the neccessary files:
+To start the services required for development, first configure the necessary files:
 
-* copy the file `shogun-boot/dev/Dockerfile` to your shogun project root dir
-* add your project profile to the `Dockerfile`
-* in the `docker-compose-dev.yaml` update the build context to point to your shogun project root dir
-* also update the volumes to point the `/shogun` folder in the container to your shogun project root dir
+* Copy the file `shogun-boot/dev/Dockerfile` to your shogun project root dir
+* Add your project profile to the `Dockerfile`
+* in the [docker-compose-dev.yml](docker-compose-dev.yml) update the build context to point to your shogun project root dir
+* Also update the volumes to point the `/shogun` folder in the container to your shogun project root dir
 
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
