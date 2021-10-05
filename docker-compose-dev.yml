@@ -31,7 +31,7 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
-      - ../shogun/shogun-boot/:/shogun-boot/
+      - ../shogun/:/shogun/
       - ~/.m2:/root/.m2
       - ./shogun-boot/keystore/cacerts:/usr/local/openjdk-11/lib/security/cacerts
     depends_on:
