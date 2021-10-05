@@ -57,6 +57,10 @@ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
 You can test whether the Keycloak application started by visiting the URL
 `https://localhost/auth/`.
 
+If you want to use a custom `application.yml` you can achieve this by enabling the volume mount for `shogun-boot` here: [docker-compose-dev.yml](docker-compose-dev.yml#L37).
+
+You also need to modify https://github.com/terrestris/shogun/blob/main/shogun-boot/Dockerfile#L29
+
 ### Import the initial Keycloak data
 
 See section [Keycloak Import](#import).
