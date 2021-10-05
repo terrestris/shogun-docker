@@ -19,15 +19,6 @@ services:
       - "8080:8080"
       - "4711:4711"
       - "9010:9010"
-    depends_on:
-      - shogun-postgis
-      - shogun-redis
-      - shogun-keycloak
-    volumes:
-      - ../shogun/:/shogun/
-      - ~/.m2:/root/.m2
-      - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/usr/lib/jvm/java-17-openjdk-amd64/lib/security/cacerts
     environment:
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
