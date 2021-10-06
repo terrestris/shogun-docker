@@ -82,7 +82,7 @@ spring:
     password: pass
 
 keycloak:
-  auth-server-url: https://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth
+  auth-server-url: https://${KEYCLOAK_HOST}/auth
   realm: SpringBootKeycloak
   resource: shogun-app
   public-client: true
