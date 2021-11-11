@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 services:
   shogun-nginx:
     image: nginx:1.21.1
@@ -11,65 +11,24 @@ services:
       - "443:443"
     depends_on:
       - shogun-keycloak
-      - shogun-boot-1
-      - shogun-boot-2
-      - shogun-boot-3
-  shogun-boot-1:
+      - shogun-boot
+  shogun-boot:
     image: nexus.terrestris.de/shogun/shogun-boot:latest
+    deploy:
+      mode: replicated
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1G
     ports:
-      - "8080:8080"
-      - "5005:5005"
+      - "8080-8082:8080"
+      - "5005-5007:5005"
     environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1g -Dspring.config.location=/config/application.yml"
+      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
-    volumes:
-      - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-    depends_on:
-      - shogun-postgis
-      - shogun-redis
-      - shogun-keycloak
-  shogun-boot-2:
-    image: nexus.terrestris.de/shogun/shogun-boot:latest
-    ports:
-      - "8081:8080"
-      - "5006:5005"
-    environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xmx1g -Dspring.config.location=/config/application.yml"
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
-    volumes:
-      - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-    depends_on:
-      - shogun-postgis
-      - shogun-redis
-      - shogun-keycloak
-  shogun-boot-3:
-    image: nexus.terrestris.de/shogun/shogun-boot:latest
-    ports:
-      - "8082:8080"
-      - "5007:5005"
-    environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -Xmx1g -Dspring.config.location=/config/application.yml"
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
