@@ -15,7 +15,7 @@ services:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
       - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
   shogun-postgis:
-    image: postgis/postgis:13-3.1-alpine
+    image: postgis/postgis:13-3.2-alpine
     ports:
       - "5555:5432"
     environment:
@@ -25,7 +25,7 @@ services:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
   shogun-redis:
-    image: redis:6.2.1-alpine
+    image: redis:6.2.6-alpine
     ports:
       - "6379:6379"
     environment:
@@ -43,7 +43,7 @@ services:
       - ./shogun-redis/redis_data:/data
       - ./shogun-redis/redis_config:/config
   shogun-keycloak:
-    image: jboss/keycloak:15.0.2
+    image: jboss/keycloak:16.1.1
     ports:
       - "8000:8080"
     environment:
