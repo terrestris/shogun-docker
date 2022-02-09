@@ -12,6 +12,7 @@ services:
     depends_on:
       - shogun-keycloak
       - shogun-boot
+      - shogun-geoserver
   shogun-boot:
     build:
       context: ../shogun/shogun-boot/
