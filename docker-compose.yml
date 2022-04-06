@@ -58,3 +58,7 @@ services:
       PROXY_ADDRESS_FORWARDING: "true"
     depends_on:
       - shogun-postgis
+  shogun-admin:
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
+    ports:
+      - 8005:80
