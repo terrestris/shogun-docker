@@ -23,6 +23,7 @@ This repository contains two `docker-compose` configuration files:
 ```bash
 shogun-directory/
 ├── shogun (https://github.com/terrestris/shogun)
+├── shogun-demo-client (https://github.com/terrestris/shogun-demo-client)
 ├── shogun-docker (this repository)
 └── …
 ```

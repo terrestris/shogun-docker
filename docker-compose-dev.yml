@@ -40,6 +40,12 @@ services:
       - shogun-postgis
       - shogun-redis
       - shogun-keycloak
+  shogun-demo-client:
+    build:
+      context: ../shogun-demo-client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ../shogun-demo-client:/app
   shogun-admin:
     image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
     ports:
