@@ -60,7 +60,3 @@ services:
       - shogun-postgis
       - shogun-redis
       - shogun-keycloak
-  shogun-admin:
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:latest
-    ports:
-      - 8005:80

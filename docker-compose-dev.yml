@@ -46,3 +46,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ../shogun-demo-client:/app
+  shogun-admin:
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.2.0
+    ports:
+      - 8005:80

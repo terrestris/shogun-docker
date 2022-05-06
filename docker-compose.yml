@@ -59,6 +59,6 @@ services:
     depends_on:
       - shogun-postgis
   shogun-admin:
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:latest
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.2.0
     ports:
       - 8005:80
