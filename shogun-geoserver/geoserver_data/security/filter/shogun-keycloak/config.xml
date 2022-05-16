@@ -1,0 +1,18 @@
+<keycloakAdapter>
+  <id>1076f299:180ccd7a56f:-7ffb</id>
+  <name>shogun-keycloak</name>
+  <className>org.geoserver.security.keycloak.GeoServerKeycloakFilter</className>
+  <adapterConfig>{&#xd;
+  &quot;realm&quot;: &quot;SpringBootKeycloak&quot;,&#xd;
+  &quot;auth-server-url&quot;: &quot;https://192.168.178.91/auth/&quot;,&#xd;
+  &quot;ssl-required&quot;: &quot;external&quot;,&#xd;
+  &quot;resource&quot;: &quot;geoserver-client&quot;,&#xd;
+  &quot;credentials&quot;: {&#xd;
+    &quot;secret&quot;: &quot;K84ZIbwrzPtjtK1vHbBN2S3bSWArnwuR&quot;&#xd;
+  },&#xd;
+  &quot;use-resource-role-mappings&quot;: false,&#xd;
+  &quot;disable-trust-manager&quot;: true,&#xd;
+  &quot;confidential-port&quot;: 0,&#xd;
+  &quot;enable-basic-auth&quot;: true&#xd;
+}</adapterConfig>
+</keycloakAdapter>

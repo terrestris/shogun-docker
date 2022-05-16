@@ -1,0 +1,17 @@
+<layer>
+  <name>COUNTRIES</name>
+  <id>LayerInfoImpl--62503b90:180ccdc4118:-7ff6</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--317b3c:17c4154fe00:-7ffe</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--62503b90:180ccdc4118:-7ff7</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-05-16 12:59:15.154 UTC</dateCreated>
+  <dateModified>2022-05-16 12:59:51.521 UTC</dateModified>
+</layer>
