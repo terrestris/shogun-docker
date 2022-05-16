@@ -52,6 +52,8 @@ services:
       - ../shogun/:/shogun/
       - ~/.m2:/root/.m2
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
+      - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
     # enable this line when using a custom application.yml
     #  - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
