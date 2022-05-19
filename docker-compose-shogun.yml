@@ -16,7 +16,7 @@ services:
       - shogun-admin
       # - shogun-demo-client
   shogun-admin:
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
     ports:
       - 8005:80
   # TODO Image does not exist yet
