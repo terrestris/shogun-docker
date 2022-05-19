@@ -93,7 +93,7 @@
         }
       },
       {
-        "title": "Last modified",
+        "title": "Zuletzt editiert am",
         "dataIndex": "modified",
         "key": "modified",
         "sortConfig": {

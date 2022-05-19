@@ -1,11 +1,11 @@
 {
-  "endpoint": "/layers",
-  "entityType": "layer",
-  "entityName": "Thema",
-  "navigationTitle": "Themen",
+  "endpoint": "/users",
+  "entityType": "user",
+  "entityName": "Benutzer",
+  "navigationTitle": "Benutzer",
   "subTitle": "",
   "formConfig": {
-    "name": "layer",
+    "name": "user",
     "fields": [
       {
         "dataType": "number",
@@ -34,39 +34,29 @@
         }
       },
       {
-        "component": "Input",
-        "dataField": "name",
-        "labelI18n": "Name",
-        "required": "true"
+        "component": "DisplayField",
+        "dataField": "authProviderId",
+        "labelI18n": "Keycloak ID"
       },
       {
-        "component": "LayerTypeSelect",
-        "dataField": "type",
-        "labelI18n": "Typ",
-        "required": "true"
+        "component": "JSONEditor",
+        "dataField": "providerDetails",
+        "labelI18n": "Keycloak Details"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "details",
+        "labelI18n": "Details",
+        "fieldProps": {
+          "entityName": "UserDetails"
+        }
       },
       {
         "component": "JSONEditor",
         "dataField": "clientConfig",
-        "labelI18n": "Konfiguration",
-        "fieldProps": {
-          "entityName": "DefaultLayerClientConfig"
-        }
-      },
-      {
-        "component": "JSONEditor",
-        "dataField": "sourceConfig",
         "labelI18n": "Datenquelle",
         "fieldProps": {
-          "entityName": "DefaultLayerSourceConfig"
-        }
-      },
-      {
-        "component": "JSONEditor",
-        "dataField": "features",
-        "labelI18n": "Features",
-        "fieldProps": {
-          "entityName": "GeoJsonObject"
+          "entityName": "UserClientConfig"
         }
       }
     ]
@@ -81,9 +71,9 @@
         }
       },
       {
-        "title": "Name",
-        "dataIndex": "name",
-        "key": "name",
+        "title": "Keycloak ID",
+        "dataIndex": "authProviderId",
+        "key": "authProviderId",
         "sortConfig": {
           "isSortable": true
         },
@@ -92,22 +82,13 @@
         }
       },
       {
-        "title": "Typ",
-        "dataIndex": "type",
-        "key": "type",
-        "sortConfig": {
-          "isSortable": true
-        }
-      },
-      {
-        "title": "Layervorschau (GeoServer)",
-        "dataIndex": "sourceConfig",
-        "key": "preview",
+        "title": "Link zum User",
+        "dataIndex": "authProviderId",
+        "key": "link",
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
-          "title": "Öffne Layervorschau",
-          "valuePath": "layerNames",
-          "template": "/geoserver/wms/reflect?format=application/openlayers&layers={}"
+          "title": "Öffne User in Keycloak",
+          "template": "/auth/admin/master/console/#/realms/SpringBootKeycloak/users/{}"
         }
       }
     ]
