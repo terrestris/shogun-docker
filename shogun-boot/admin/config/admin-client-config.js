@@ -16,15 +16,16 @@ var shogunApplicationConfig = {
     graphql: '/graphql',
     loggers: '/actuator/loggers',
     logfile: '/actuator/logfile',
-    // TODO Fix path
-    logo: '/static/img/shogun_logo.ed603078.png',
+    logo: '/assets/img/shogun_logo.png',
     evictCache: '/cache/evict',
     metrics: '/actuator/metrics',
     modelConfigs: '/modelconfigs'
   },
   models: [
     'Application',
-    'Layer'
+    'Layer',
+    'User',
+    'Group'
   ],
   dashboard: {
     news: {
@@ -45,25 +46,6 @@ var shogunApplicationConfig = {
   },
   navigation: {
     general: {
-      applications: {
-        visible: true,
-        schemas: {
-          clientConfig: 'DefaultApplicationClientConfig',
-          layerTree: 'DefaultLayerTree',
-          layerConfig: 'DefaultApplicationLayerConfig'
-        }
-      },
-      layers: {
-        visible: true,
-        schemas: {
-          clientConfig: 'DefaultLayerClientConfig',
-          sourceConfig: 'DefaultLayerSourceConfig',
-          features: 'GeoJsonObject'
-        }
-      },
-      users: {
-        visible: true
-      },
       imagefiles: {
         visible: false
       }
