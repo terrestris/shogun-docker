@@ -14,16 +14,16 @@ services:
       - shogun-boot
       - shogun-gs-interceptor
       - shogun-admin
-      - shogun-demo-client
+      # - shogun-demo-client
   shogun-admin:
     image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
     ports:
       - 8005:80
-  shogun-demo-client:
-    # TODO Image does not exist yet
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:latest
-    ports:
-      - 8005:80
+  # TODO Image does not exist yet
+  # shogun-demo-client:
+  #   image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:latest
+  #   ports:
+  #     - 8005:80
   shogun-boot:
     image: nexus.terrestris.de/shogun/shogun-boot:latest
     deploy:
