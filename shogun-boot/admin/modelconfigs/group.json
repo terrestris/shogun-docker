@@ -1,0 +1,75 @@
+{
+  "endpoint": "/groups",
+  "entityType": "group",
+  "entityName": "Gruppe",
+  "navigationTitle": "Gruppen",
+  "subTitle": "",
+  "formConfig": {
+    "name": "group",
+    "fields": [
+      {
+        "dataType": "number",
+        "dataField": "id",
+        "labelI18n": "ID",
+        "readOnly": "true"
+      },
+      {
+        "dataField": "created",
+        "dataType": "date",
+        "readOnly": "true",
+        "component": "DateField",
+        "labelI18n": "Erstellt am",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "dataField": "modified",
+        "dataType": "date",
+        "readOnly": "true",
+        "labelI18n": "Zuletzt editiert am",
+        "component": "DateField",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "component": "DisplayField",
+        "dataField": "authProviderId",
+        "labelI18n": "Keycloak ID"
+      }
+    ]
+  },
+  "tableConfig": {
+    "columnDefinition": [
+      {
+        "title": "ID",
+        "dataIndex": "id",
+        "sortConfig": {
+          "isSortable": false
+        }
+      },
+      {
+        "title": "Keycloak ID",
+        "dataIndex": "authProviderId",
+        "key": "authProviderId",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
+        }
+      },
+      {
+        "title": "Link zur Gruppe",
+        "dataIndex": "authProviderId",
+        "key": "link",
+        "cellRenderComponentName": "LinkCell",
+        "cellRenderComponentProps": {
+          "title": "Öffne Gruppe in Keycloak",
+          "template": "/auth/admin/master/console/#/realms/SpringBootKeycloak/groups/{}"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "endpoint": "/users",
+  "entityType": "user",
+  "entityName": "Benutzer",
+  "navigationTitle": "Benutzer",
+  "subTitle": "",
+  "formConfig": {
+    "name": "user",
+    "fields": [
+      {
+        "dataType": "number",
+        "dataField": "id",
+        "labelI18n": "ID",
+        "readOnly": "true"
+      },
+      {
+        "dataField": "created",
+        "dataType": "date",
+        "readOnly": "true",
+        "component": "DateField",
+        "labelI18n": "Erstellt am",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "dataField": "modified",
+        "dataType": "date",
+        "readOnly": "true",
+        "labelI18n": "Zuletzt editiert am",
+        "component": "DateField",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "component": "DisplayField",
+        "dataField": "authProviderId",
+        "labelI18n": "Keycloak ID"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "providerDetails",
+        "labelI18n": "Keycloak Details"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "details",
+        "labelI18n": "Details",
+        "fieldProps": {
+          "entityName": "UserDetails"
+        }
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "clientConfig",
+        "labelI18n": "Datenquelle",
+        "fieldProps": {
+          "entityName": "UserClientConfig"
+        }
+      }
+    ]
+  },
+  "tableConfig": {
+    "columnDefinition": [
+      {
+        "title": "ID",
+        "dataIndex": "id",
+        "sortConfig": {
+          "isSortable": false
+        }
+      },
+      {
+        "title": "Keycloak ID",
+        "dataIndex": "authProviderId",
+        "key": "authProviderId",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
+        }
+      },
+      {
+        "title": "Link zum User",
+        "dataIndex": "authProviderId",
+        "key": "link",
+        "cellRenderComponentName": "LinkCell",
+        "cellRenderComponentProps": {
+          "title": "Öffne User in Keycloak",
+          "template": "/auth/admin/master/console/#/realms/SpringBootKeycloak/users/{}"
+        }
+      }
+    ]
+  }
+}

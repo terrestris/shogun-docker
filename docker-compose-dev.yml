@@ -3,7 +3,7 @@ services:
   shogun-nginx:
     image: nginx:1.21.6
     volumes:
-      - ./shogun-nginx/default-dev.conf:/etc/nginx/conf.d/default.conf
+      - ./shogun-nginx/dev/default.conf:/etc/nginx/conf.d/default.conf
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
     ports:
@@ -13,6 +13,24 @@ services:
       - shogun-keycloak
       - shogun-boot
       - shogun-geoserver
+      - shogun-demo-client
+      - shogun-admin
+  shogun-demo-client:
+    build:
+      context: ../shogun-demo-client
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ../shogun-demo-client:/app
+  shogun-admin:
+    build:
+      context: ../shogun-admin
+      dockerfile: Dockerfile.dev
+    ports:
+      - 9090:9090
+    volumes:
+      - ../shogun-admin:/app
   shogun-boot:
     build:
       context: ../shogun/shogun-boot/
@@ -34,19 +52,11 @@ services:
       - ../shogun/:/shogun/
       - ~/.m2:/root/.m2
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
+      - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
     # enable this line when using a custom application.yml
     #  - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
       - shogun-redis
       - shogun-keycloak
-  shogun-demo-client:
-    build:
-      context: ../shogun-demo-client
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ../shogun-demo-client:/app
-  shogun-admin:
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
-    ports:
-      - 8005:80

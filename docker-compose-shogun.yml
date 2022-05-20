@@ -3,7 +3,7 @@ services:
   shogun-nginx:
     image: nginx:1.21.6
     volumes:
-      - ./shogun-nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./shogun-nginx/test/default.conf:/etc/nginx/conf.d/default.conf
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
     ports:
@@ -12,6 +12,18 @@ services:
     depends_on:
       - shogun-keycloak
       - shogun-boot
+      - shogun-gs-interceptor
+      - shogun-admin
+      # - shogun-demo-client
+  shogun-admin:
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
+    ports:
+      - 8005:80
+  # TODO Image does not exist yet
+  # shogun-demo-client:
+  #   image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:latest
+  #   ports:
+  #     - 8005:80
   shogun-boot:
     image: nexus.terrestris.de/shogun/shogun-boot:latest
     deploy:
@@ -38,6 +50,8 @@ services:
     volumes:
       - ./shogun-boot/application.yml:/config/application.yml
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-boot/admin/config/admin-client-config.js:/app/resources/templates/admin-client-config.js
+      - ./shogun-boot/admin/modelconfigs/:/app/resources/static/modelconfigs/
     depends_on:
       - shogun-postgis
       - shogun-redis
@@ -60,7 +74,3 @@ services:
       - shogun-postgis
       - shogun-redis
       - shogun-keycloak
-  shogun-admin:
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:5.1.0
-    ports:
-      - 8005:80

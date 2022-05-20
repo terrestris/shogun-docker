@@ -1,74 +1,35 @@
 # SHOGun-Boot Docker
 
-This project contains a basic docker-compose setup required to run / develop a [SHOGun-Boot](https://github.com/terrestris/shogun) webapplication.
+This project contains a basic docker-compose setup required to develop / run a
+[SHOGun-Boot](https://github.com/terrestris/shogun) webapplication.
 
-## Description
+## Description 📙
 
-This repository contains two `docker-compose` configuration files:
+This repository contains three `docker-compose` configuration files:
 
-* `docker-compose.yml`: Contains the required ready-to-use services to run all
+- `docker-compose.yml`: Contains the required ready-to-use services to run all
   `SHOGun` services (either in dev or non-dev environment).
-* `docker-compose-shogun.yml`: Contains an example configuration for the latest
+- `docker-compose-shogun.yml`: Contains an example configuration for the latest
   prebuilt SHOGun images.
-* `docker-compose-dev.yml`: Contains an example configuration for a locally
+- `docker-compose-dev.yml`: Contains an example configuration for a locally
   mounted / linked shogun checkout.
 
-## Requirements
+## Requirements 🛠️
 
-* docker
-* docker-compose
+- docker
+- docker-compose
 
-## Recommended directory structure
+Please note: If you want to develop SHOGun or some of it's components you might need
+additional tools (e.g. `mvn` and `node`). Consider the README files of the associated
+repositories for more details.
 
-```bash
-shogun-directory/
-├── shogun (https://github.com/terrestris/shogun)
-├── shogun-demo-client (https://github.com/terrestris/shogun-demo-client)
-├── shogun-docker (this repository)
-└── …
-```
+## System architecture
 
-## Steps
+![System architecture](./docs/components.png)
 
-### Required steps for the very first start
+## Test a prebuilt SHOGun 🏭
 
-* Set all required environment variables by executing `./setEnvironment.sh`.
-
-### Development (databases and Keycloak)
-
-To start the services required for development of SHOGun (no custom project), just run:
-
-```bash
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
-```
-
-If you are working on a custom project that inherits from SHOGun you have to adjust the following settings first:
-
-* Copy the file `shogun-boot/dev/Dockerfile` to your project root dir
-* Add your project profile to the `Dockerfile`
-* In the [docker-compose-dev.yml](docker-compose-dev.yml) update the build context to point to your project root dir
-* Also update the volumes to point the `/shogun-boot` folder in the container to your project root dir
-
-Now you can start the containers:
-
-```bash
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
-```
-
-You can test whether the Keycloak application started by visiting the URL
-`https://localhost/auth/`.
-
-If you want to use a custom `application.yml` you can achieve this by enabling the volume mount for `shogun-boot` here: [docker-compose-dev.yml](docker-compose-dev.yml#L37).
-
-You also need to modify https://github.com/terrestris/shogun/blob/main/shogun-boot/Dockerfile#L29
-
-### Import the initial Keycloak data
-
-See section [Keycloak Import](#import).
-
-### Test a prebuilt SHOGun
-
-If you want to run the prebuilt SHOGun services, just start:
+You want to see SHOGun in action? Just start the prebuilt images via:
 
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
@@ -77,11 +38,78 @@ docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
 You can test whether the SHOGun application started by visiting the URL
 `https://localhost/`.
 
-## Default credentials
+## Development 🧑‍💻
 
-* Keycloak Admin: `admin:shogun`
-* SHOGun Admin: `shogun:shogun`
-* GeoServer: `admin:geoserver`
+This repository contains all required configurations to develop all SHOGun related
+components:
+
+- SHOGun (the backend part)
+- SHOGun-Admin (the UI for handling SHOGun entities)
+- SHOGun-Demo-Client (the demo mapping client)
+
+### Recommended directory structure
+
+To get things started, please check out all required repositories in the recommended
+directory structure:
+
+```bash
+your-shogun-workspace-directory/
+├── shogun (https://github.com/terrestris/shogun)
+├── shogun-admin (https://github.com/terrestris/shogun-admin)
+├── shogun-demo-client (https://github.com/terrestris/shogun-demo-client)
+├── shogun-docker (this repository)
+└── …
+```
+
+Please note: If your local checkouts differ, you need to adjust the corresponding paths
+(e.g. in the `docker-compose-dev.yml`).
+
+### Required steps for the very first start
+
+- Check and fulfill all development notes of the child components (e.g. installing the
+  `maven` and `node` dependencies).
+- Set all required environment variables by executing `./setEnvironment.sh`.
+- Import the initial Keycloak data, see section [Keycloak Import](#import).
+
+### Development
+
+Please ensure you have checked out all required repositores (see [Recommended directory structure](#recommended-directory-structure))
+and have fulfilled the required steps for the very first start (see [Required steps for the very first start](#required-steps-for-the-very-first-start)).
+
+To start the services required for development of SHOGun (no custom project), just run:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up --build
+```
+
+You can test whether the SHOGun application started by visiting the URL `https://localhost/`.
+
+If you want to use a custom `application.yml` you can achieve this by enabling the
+volume mount for `shogun-boot` here: [docker-compose-dev.yml](docker-compose-dev.yml#L37).
+
+### Custom project development
+
+If you are working on a custom project that inherits from SHOGun you have to adjust the
+following settings first:
+
+- Copy the file `shogun-boot/dev/Dockerfile` to your project root dir
+- Add your project profile to the `Dockerfile`
+- In the [docker-compose-dev.yml](docker-compose-dev.yml) update the build context to
+  point to your project root dir
+- Also update the volumes to point the `/shogun-boot` folder in the container to
+  your project root dir
+
+Now you can start the containers:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
+```
+
+## Default credentials 🔐
+
+- Keycloak Admin: `admin:shogun`
+- SHOGun Admin: `shogun:shogun`
+- GeoServer: `admin:geoserver`
 
 ## Redis
 
