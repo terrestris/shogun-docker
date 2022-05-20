@@ -67,7 +67,7 @@
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
           "title": "Öffne Gruppe in Keycloak",
-          "template": "https://localhost/auth/admin/master/console/#/realms/SpringBootKeycloak/groups/{}"
+          "template": "/auth/admin/master/console/#/realms/SpringBootKeycloak/groups/{}"
         }
       }
     ]
