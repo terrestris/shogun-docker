@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   shogun-geoserver:
+    container_name: shogun-geoserver
     build:
       context: ./shogun-geoserver
       args:
@@ -16,6 +17,7 @@ services:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
       - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
   shogun-postgis:
+    container_name: shogun-postgis
     image: postgis/postgis:13-3.2-alpine
     ports:
       - "5555:5432"
@@ -26,6 +28,7 @@ services:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
   shogun-redis:
+    container_name: shogun-redis
     image: redis:6.2.6-alpine
     ports:
       - "6379:6379"
@@ -44,6 +47,7 @@ services:
       - ./shogun-redis/redis_data:/data
       - ./shogun-redis/redis_config:/config
   shogun-keycloak:
+    container_name: shogun-keycloak
     image: jboss/keycloak:16.1.1
     ports:
       - "8000:8080"

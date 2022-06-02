@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   shogun-nginx:
+    container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.21.6
     volumes:
       - ./shogun-nginx/test/default.conf:/etc/nginx/conf.d/default.conf
@@ -14,17 +15,15 @@ services:
       - shogun-boot
       - shogun-gs-interceptor
       - shogun-admin
-      # - shogun-demo-client
+      - shogun-demo-client
   shogun-admin:
+    container_name: ${CONTAINER_NAME_PREFIX}-admin
     image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
-    ports:
-      - 8005:80
-  # TODO Image does not exist yet
-  # shogun-demo-client:
-  #   image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:latest
-  #   ports:
-  #     - 8005:80
+  shogun-client:
+    container_name: ${CONTAINER_NAME_PREFIX}-client
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.1.1
   shogun-boot:
+    container_name: ${CONTAINER_NAME_PREFIX}-boot
     image: nexus.terrestris.de/shogun/shogun-boot:latest
     deploy:
       mode: replicated
@@ -33,9 +32,6 @@ services:
         limits:
           cpus: '0.50'
           memory: 1G
-    ports:
-      - "8080-8082:8080"
-      - "5005-5007:5005"
     environment:
       JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
       MAIL_HOST: ${MAIL_HOST}
@@ -57,9 +53,8 @@ services:
       - shogun-redis
       - shogun-keycloak
   shogun-gs-interceptor:
+    container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
     image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
-    ports:
-      - "8083:8081"
     environment:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}

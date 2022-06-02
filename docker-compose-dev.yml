@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   shogun-nginx:
+    container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.21.6
     volumes:
       - ./shogun-nginx/dev/default.conf:/etc/nginx/conf.d/default.conf
@@ -15,25 +16,28 @@ services:
       - shogun-geoserver
       - shogun-demo-client
       - shogun-admin
-  shogun-demo-client:
+  shogun-client:
+    container_name: ${CONTAINER_NAME_PREFIX}-demo-client
     build:
-      context: ../shogun-demo-client
+      context: ${SHOGUN_CLIENT_DIR}
       dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
     volumes:
-      - ../shogun-demo-client:/app
+      - ${SHOGUN_CLIENT_DIR}:/app
   shogun-admin:
+    container_name: ${CONTAINER_NAME_PREFIX}-admin
     build:
-      context: ../shogun-admin
+      context: ${SHOGUN_ADMIN_DIR}
       dockerfile: Dockerfile.dev
     ports:
       - 9090:9090
     volumes:
-      - ../shogun-admin:/app
+      - ${SHOGUN_ADMIN_DIR}:/app
   shogun-boot:
+    container_name: ${CONTAINER_NAME_PREFIX}-boot
     build:
-      context: ../shogun/shogun-boot/
+      context: ${SHOGUN_DIR}/shogun-boot/
     ports:
       - "8080:8080"
       - "4711:4711"
@@ -49,13 +53,32 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
-      - ../shogun/:/shogun/
+      - ${SHOGUN_DIR}/:/shogun/
       - ~/.m2:/root/.m2
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
       - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
     # enable this line when using a custom application.yml
     #  - ./shogun-boot/application.yml:/config/application.yml
+    depends_on:
+      - shogun-postgis
+      - shogun-redis
+      - shogun-keycloak
+  shogun-gs-interceptor:
+    container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
+    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
+    ports:
+      - "8083:8081"
+    environment:
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
+    volumes:
+      - ./shogun-gs-interceptor/application.yml:/config/application.yml
+      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
     depends_on:
       - shogun-postgis
       - shogun-redis
