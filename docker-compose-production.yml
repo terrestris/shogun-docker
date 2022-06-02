@@ -26,8 +26,6 @@ services:
   shogun-redis:
     container_name: ${CONTAINER_NAME_PREFIX}-redis
     image: redis:6.2.6-alpine
-    ports:
-      - "6379:6379"
     environment:
       - REDIS_PASS_FILE=/config/.redis
     command: [
