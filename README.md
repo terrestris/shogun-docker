@@ -29,7 +29,7 @@ repositories for more details.
 You want to see SHOGun in action? Just start the prebuilt images via:
 
 ```bash
-docker-compose -f docker-compose-prodution.yml
+docker-compose -f docker-compose-prod.yml
 ```
 
 You can test whether the SHOGun application started by visiting the URL

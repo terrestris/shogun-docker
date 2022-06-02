@@ -1,86 +1,37 @@
 version: '3.7'
 services:
   shogun-geoserver:
-    container_name: ${CONTAINER_NAME_PREFIX}-geoserver
-    build:
-      context: ./shogun-geoserver
-      args:
-        USER_UID: ${UID}
-        USER_GID: ${GID}
-        USER_NAME: ${UNAME}
+    extends:
+      file: ./common-services.yml
+      service: shogun-geoserver
     ports:
       - "8001:8080"
-    environment:
-      EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
-      STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak
-    volumes:
-      - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
-      - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
   shogun-postgis:
-    container_name: ${CONTAINER_NAME_PREFIX}-postgis
-    image: postgis/postgis:13-3.2-alpine
+    extends:
+      file: ./common-services.yml
+      service: shogun-postgis
     ports:
       - "5555:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
-      - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
   shogun-redis:
-    container_name: shogun-redis
-    image: redis:6.2.6-alpine
+    extends:
+      file: ./common-services.yml
+      service: shogun-redis
     ports:
       - "6379:6379"
-    environment:
-      - REDIS_PASS_FILE=/config/.redis
-    command: [
-      "sh",
-      "-c",
-      '
-      docker-entrypoint.sh
-      "/config/redis.conf"
-      --requirepass "$$(cat $$REDIS_PASS_FILE)"
-      ',
-    ]
-    volumes:
-      - ./shogun-redis/redis_data:/data
-      - ./shogun-redis/redis_config:/config
   shogun-keycloak:
-    container_name: ${CONTAINER_NAME_PREFIX}-keycloak
-    image: jboss/keycloak:16.1.1
+    extends:
+      file: ./common-services.yml
+      service: shogun-keycloak
     ports:
       - "8000:8080"
-    environment:
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      DB_VENDOR: postgres
-      DB_ADDR: shogun-postgis
-      DB_PORT: 5432
-      DB_DATABASE: keycloak
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      PROXY_ADDRESS_FORWARDING: "true"
-    depends_on:
-      - shogun-postgis
   shogun-nginx:
-    container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.21.6
-    volumes:
-      - ./shogun-nginx/dev/default.conf:/etc/nginx/conf.d/default.conf
-      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
-      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - shogun-keycloak
-      - shogun-boot
-      - shogun-geoserver
-      - shogun-demo-client
-      - shogun-admin
+    extends:
+      file: ./common-services.yml
+      service: shogun-nginx
   shogun-client:
-    container_name: ${CONTAINER_NAME_PREFIX}-demo-client
+    extends:
+      file: ./common-services.yml
+      service: shogun-client
     build:
       context: ${SHOGUN_CLIENT_DIR}
       dockerfile: Dockerfile.dev
@@ -89,7 +40,9 @@ services:
     volumes:
       - ${SHOGUN_CLIENT_DIR}:/app
   shogun-admin:
-    container_name: ${CONTAINER_NAME_PREFIX}-admin
+    extends:
+      file: ./common-services.yml
+      service: shogun-admin
     build:
       context: ${SHOGUN_ADMIN_DIR}
       dockerfile: Dockerfile.dev
@@ -99,50 +52,19 @@ services:
       - ${SHOGUN_ADMIN_DIR}:/app
   shogun-boot:
     container_name: ${CONTAINER_NAME_PREFIX}-boot
+    extends:
+      file: ./common-services.yml
+      service: shogun-boot
     build:
       context: ${SHOGUN_DIR}/shogun-boot/
     ports:
       - "8080:8080"
       - "4711:4711"
       - "9010:9010"
-    environment:
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ${SHOGUN_DIR}/:/shogun/
       - ~/.m2:/root/.m2
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-      - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
-      - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
-    # enable this line when using a custom application.yml
-    #  - ./shogun-boot/application.yml:/config/application.yml
-    depends_on:
-      - shogun-postgis
-      - shogun-redis
-      - shogun-keycloak
   shogun-gs-interceptor:
-    container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
-    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
-    ports:
-      - "8083:8081"
-    environment:
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
-    volumes:
-      - ./shogun-gs-interceptor/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-    depends_on:
-      - shogun-postgis
-      - shogun-redis
-      - shogun-keycloak
+    extends:
+      file: ./common-services.yml
+      service: shogun-gs-interceptor

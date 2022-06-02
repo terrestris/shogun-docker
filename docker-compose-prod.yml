@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+  shogun-geoserver:
+    extends:
+      file: ./common-services.yml
+      service: shogun-geoserver
+  shogun-postgis:
+    extends:
+      file: ./common-services.yml
+      service: shogun-postgis
+  shogun-redis:
+    extends:
+      file: ./common-services.yml
+      service: shogun-redis
+  shogun-keycloak:
+    extends:
+      file: ./common-services.yml
+      service: shogun-keycloak
+  shogun-nginx:
+    extends:
+      file: ./common-services.yml
+      service: shogun-nginx
+  shogun-admin:
+    extends:
+      file: ./common-services.yml
+      service: shogun-admin
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
+  shogun-client:
+    extends:
+      file: ./common-services.yml
+      service: shogun-client
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.1.1
+  shogun-boot:
+    extends:
+      file: ./common-services.yml
+      service: shogun-boot
+    image: nexus.terrestris.de/shogun/shogun-boot:latest
+    deploy:
+      mode: replicated
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1G
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
+    volumes:
+      - ./shogun-boot/application.yml:/config/application.yml
+      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-boot/admin/config/admin-client-config.js:/app/resources/templates/admin-client-config.js
+      - ./shogun-boot/admin/modelconfigs/:/app/resources/static/modelconfigs/
+  shogun-gs-interceptor:
+    extends:
+      file: ./common-services.yml
+      service: shogun-gs-interceptor

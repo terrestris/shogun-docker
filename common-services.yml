@@ -59,7 +59,7 @@ services:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.21.6
     volumes:
-      - ./shogun-nginx/test/default.conf:/etc/nginx/conf.d/default.conf
+      - ./shogun-nginx/dev/default.conf:/etc/nginx/conf.d/default.conf
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
     ports:
@@ -68,27 +68,15 @@ services:
     depends_on:
       - shogun-keycloak
       - shogun-boot
-      - shogun-gs-interceptor
-      - shogun-admin
+      - shogun-geoserver
       - shogun-demo-client
+      - shogun-admin
+  shogun-client:
+    container_name: ${CONTAINER_NAME_PREFIX}-demo-client
   shogun-admin:
     container_name: ${CONTAINER_NAME_PREFIX}-admin
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
-  shogun-client:
-    container_name: ${CONTAINER_NAME_PREFIX}-client
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.1.1
   shogun-boot:
-    container_name: ${CONTAINER_NAME_PREFIX}-boot
-    image: nexus.terrestris.de/shogun/shogun-boot:latest
-    deploy:
-      mode: replicated
-      replicas: 3
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 1G
     environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
@@ -99,10 +87,10 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
-      - ./shogun-boot/application.yml:/config/application.yml
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-      - ./shogun-boot/admin/config/admin-client-config.js:/app/resources/templates/admin-client-config.js
-      - ./shogun-boot/admin/modelconfigs/:/app/resources/static/modelconfigs/
+      - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
+      - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
+      - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
       - shogun-redis
@@ -110,6 +98,8 @@ services:
   shogun-gs-interceptor:
     container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
     image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
+    ports:
+      - "8083:8081"
     environment:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
