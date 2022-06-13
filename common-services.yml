@@ -69,7 +69,7 @@ services:
       - shogun-keycloak
       - shogun-boot
       - shogun-geoserver
-      - shogun-demo-client
+      - shogun-client
       - shogun-admin
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-demo-client

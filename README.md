@@ -10,7 +10,6 @@ This repository contains three `docker-compose` configuration files:
 - `docker-compose.yml`: Contains all `SHOGun` services for DEVELOPMENT.
 - `docker-compose-prod.yml`: Contains all `SHOGun` services for PRODUCTION.
 
-
 ## Requirements 🛠️
 
 - docker
