@@ -4,6 +4,12 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
+    build:
+      context: ./shogun-geoserver
+      args:
+        USER_UID: ${UID}
+        USER_GID: ${GID}
+        USER_NAME: ${UNAME}
     ports:
       - "8001:8080"
   shogun-postgis:

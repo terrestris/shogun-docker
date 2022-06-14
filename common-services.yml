@@ -2,12 +2,6 @@ version: '3.7'
 services:
   shogun-geoserver:
     container_name: ${CONTAINER_NAME_PREFIX}-geoserver
-    build:
-      context: ./shogun-geoserver
-      args:
-        USER_UID: ${UID}
-        USER_GID: ${GID}
-        USER_NAME: ${UNAME}
     environment:
       EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
       STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak
