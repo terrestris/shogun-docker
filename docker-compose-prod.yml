@@ -4,6 +4,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
+    image: terrestris/geoserver:2.20.2
   shogun-postgis:
     extends:
       file: ./common-services.yml
