@@ -1,6 +1,9 @@
 version: '3.7'
 services:
   shogun-geoserver:
+    extends:
+      file: ./common-services.yml
+      service: shogun-geoserver
     build:
       context: ./shogun-geoserver
       args:
@@ -9,53 +12,65 @@ services:
         USER_NAME: ${UNAME}
     ports:
       - "8001:8080"
-    environment:
-      EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
-      STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak
-    volumes:
-      - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
-      - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
   shogun-postgis:
-    image: postgis/postgis:13-3.2-alpine
+    extends:
+      file: ./common-services.yml
+      service: shogun-postgis
     ports:
       - "5555:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
-      - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
   shogun-redis:
-    image: redis:6.2.6-alpine
+    extends:
+      file: ./common-services.yml
+      service: shogun-redis
     ports:
       - "6379:6379"
-    environment:
-      - REDIS_PASS_FILE=/config/.redis
-    command: [
-      "sh",
-      "-c",
-      '
-      docker-entrypoint.sh
-      "/config/redis.conf"
-      --requirepass "$$(cat $$REDIS_PASS_FILE)"
-      ',
-    ]
-    volumes:
-      - ./shogun-redis/redis_data:/data
-      - ./shogun-redis/redis_config:/config
   shogun-keycloak:
-    image: jboss/keycloak:16.1.1
+    extends:
+      file: ./common-services.yml
+      service: shogun-keycloak
     ports:
       - "8000:8080"
-    environment:
-      KEYCLOAK_USER: ${KEYCLOAK_USER}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      DB_VENDOR: postgres
-      DB_ADDR: shogun-postgis
-      DB_PORT: 5432
-      DB_DATABASE: keycloak
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      PROXY_ADDRESS_FORWARDING: "true"
-    depends_on:
-      - shogun-postgis
+  shogun-nginx:
+    extends:
+      file: ./common-services.yml
+      service: shogun-nginx
+  shogun-client:
+    extends:
+      file: ./common-services.yml
+      service: shogun-client
+    build:
+      context: ${SHOGUN_CLIENT_DIR}
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ${SHOGUN_CLIENT_DIR}:/app
+  shogun-admin:
+    extends:
+      file: ./common-services.yml
+      service: shogun-admin
+    build:
+      context: ${SHOGUN_ADMIN_DIR}
+      dockerfile: Dockerfile.dev
+    ports:
+      - 9090:9090
+    volumes:
+      - ${SHOGUN_ADMIN_DIR}:/app
+  shogun-boot:
+    container_name: ${CONTAINER_NAME_PREFIX}-boot
+    extends:
+      file: ./common-services.yml
+      service: shogun-boot
+    build:
+      context: ${SHOGUN_DIR}/shogun-boot/
+    ports:
+      - "8080:8080"
+      - "4711:4711"
+      - "9010:9010"
+    volumes:
+      - ${SHOGUN_DIR}/:/shogun/
+      - ~/.m2:/root/.m2
+  shogun-gs-interceptor:
+    extends:
+      file: ./common-services.yml
+      service: shogun-gs-interceptor

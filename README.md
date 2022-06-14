@@ -7,12 +7,8 @@ This project contains a basic docker-compose setup required to develop / run a
 
 This repository contains three `docker-compose` configuration files:
 
-- `docker-compose.yml`: Contains the required ready-to-use services to run all
-  `SHOGun` services (either in dev or non-dev environment).
-- `docker-compose-shogun.yml`: Contains an example configuration for the latest
-  prebuilt SHOGun images.
-- `docker-compose-dev.yml`: Contains an example configuration for a locally
-  mounted / linked shogun checkout.
+- `docker-compose.yml`: Contains all `SHOGun` services for DEVELOPMENT.
+- `docker-compose-prod.yml`: Contains all `SHOGun` services for PRODUCTION.
 
 ## Requirements 🛠️
 
@@ -32,7 +28,7 @@ repositories for more details.
 You want to see SHOGun in action? Just start the prebuilt images via:
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-shogun.yml up
+docker-compose -f docker-compose-prod.yml
 ```
 
 You can test whether the SHOGun application started by visiting the URL
@@ -61,8 +57,8 @@ your-shogun-workspace-directory/
 └── …
 ```
 
-Please note: If your local checkouts differ, you need to adjust the corresponding paths
-(e.g. in the `docker-compose-dev.yml`).
+Please note: Setup the directories in the `.env` file. You may want to copy `.env_sample` as
+a starting point.
 
 ### Required steps for the very first start
 
@@ -79,7 +75,7 @@ and have fulfilled the required steps for the very first start (see [Required st
 To start the services required for development of SHOGun (no custom project), just run:
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up --build
+docker-compose up --build
 ```
 
 You can test whether the SHOGun application started by visiting the URL `https://localhost/`.
@@ -102,7 +98,7 @@ following settings first:
 Now you can start the containers:
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
+docker-compose up --build
 ```
 
 ## Default credentials 🔐
