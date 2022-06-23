@@ -70,6 +70,7 @@ services:
   shogun-admin:
     container_name: ${CONTAINER_NAME_PREFIX}-admin
   shogun-boot:
+    container_name: ${CONTAINER_NAME_PREFIX}-boot
     environment:
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
