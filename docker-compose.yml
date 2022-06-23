@@ -66,3 +66,11 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
+    build:
+      context: ${SHOGUN_DIR}/shogun-gs-interceptor/
+    ports:
+      - "4712:4711"
+      - "9011:9010"
+    volumes:
+      - ${SHOGUN_DIR}/:/shogun/
+      - ~/.m2:/root/.m2
