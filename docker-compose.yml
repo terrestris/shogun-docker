@@ -51,7 +51,6 @@ services:
     volumes:
       - ${SHOGUN_ADMIN_DIR}:/app
   shogun-boot:
-    container_name: ${CONTAINER_NAME_PREFIX}-boot
     extends:
       file: ./common-services.yml
       service: shogun-boot
