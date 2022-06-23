@@ -57,14 +57,11 @@ your-shogun-workspace-directory/
 └── …
 ```
 
-Please note: Setup the directories in the `.env` file. You may want to copy `.env_sample` as
-a starting point.
-
 ### Required steps for the very first start
 
 - Check and fulfill all development notes of the child components (e.g. installing the
   `maven` and `node` dependencies).
-- Set all required environment variables by executing `./setEnvironment.sh`.
+- Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Development
