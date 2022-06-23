@@ -92,9 +92,6 @@ services:
       - shogun-keycloak
   shogun-gs-interceptor:
     container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
-    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
-    ports:
-      - "8083:8081"
     environment:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
