@@ -56,3 +56,4 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
+    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
