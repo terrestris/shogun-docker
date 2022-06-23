@@ -10,8 +10,6 @@ services:
         USER_UID: ${UID}
         USER_GID: ${GID}
         USER_NAME: ${UNAME}
-    ports:
-      - "8001:8080"
   shogun-postgis:
     extends:
       file: ./common-services.yml
@@ -22,14 +20,10 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-redis
-    ports:
-      - "6379:6379"
   shogun-keycloak:
     extends:
       file: ./common-services.yml
       service: shogun-keycloak
-    ports:
-      - "8000:8080"
   shogun-nginx:
     extends:
       file: ./common-services.yml
@@ -64,7 +58,6 @@ services:
     build:
       context: ${SHOGUN_DIR}/shogun-boot/
     ports:
-      - "8080:8080"
       - "4711:4711"
       - "9010:9010"
     volumes:
