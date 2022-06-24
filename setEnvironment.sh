@@ -37,6 +37,13 @@ GROUP_ID=$(id -g)
 # The name of the host user the GS image should run as
 USER_NAME=$(whoami)
 
+read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
+
+# Check if prompted to continue
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
+
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 ENV_FILE=.env
 
