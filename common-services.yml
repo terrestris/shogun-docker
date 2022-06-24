@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  shogun-print:
+    container_name: ${CONTAINER_NAME_PREFIX}-print
+    image: camptocamp/mapfish_print:3.29.3
+    volumes:
+      - ./shogun-print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z
   shogun-geoserver:
     container_name: ${CONTAINER_NAME_PREFIX}-geoserver
     environment:
@@ -65,6 +70,7 @@ services:
       - shogun-geoserver
       - shogun-client
       - shogun-admin
+      - shogun-print
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-demo-client
   shogun-admin:

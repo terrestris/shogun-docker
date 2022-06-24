@@ -1,0 +1,121 @@
+throwErrorOnExtraParameters: true
+
+templates:
+  A4 Hochformat: !template
+    reportTemplate: a4_portrait.jrxml
+    attributes:
+      printLegend: !boolean {}
+      printScalebar: !boolean
+        default: true
+      title: !string
+        default: "SHOGun"
+      comment: !string
+        default: ""
+      copyright: !string
+        default: ""
+      attributions: !string
+        default: ""
+      map: !map
+        maxDpi: 254
+        width: 556
+        height: 722
+      legend: !legend {}
+      legendTitle: !string
+        default: "Legend"
+      logo: !string
+        default: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+      scalebar: !scalebar
+        width: 240
+        height: 30
+        default:
+          backgroundColor: "rgba(255, 255, 255, .5)"
+          type: "line"
+          fontSize: 6
+          labelDistance: 5
+          padding: 0
+          barSize: 5
+          subIntervals: true
+    processors:
+      - !reportBuilder
+        directory: "."
+      - !configureHttpRequests
+        httpProcessors:
+          - !forwardHeaders
+            matchers:
+              - !hostnameMatch
+                host: shogun-geoserver
+                port: 8080
+            headers:
+              - Authorization
+      - !createMap {}
+      - !createScalebar {}
+      - !prepareLegend
+        maxWidth: 135
+        dpi: 150
+        scaled: true
+        template: a4_portrait_legend.jrxml
+        inputMapper: { legend: legend }
+        outputMapper:
+          {
+            legendDataSource: legendDataSource,
+            legendSubReport: legendSubReport
+          }
+  A4 Querformat: !template
+    reportTemplate: a4_landscape.jrxml
+    attributes:
+      printLegend: !boolean {}
+      printScalebar: !boolean
+        default: true
+      title: !string
+        default: "SHOGun"
+      comment: !string
+        default: ""
+      copyright: !string
+        default: ""
+      attributions: !string
+        default: ""
+      map: !map
+        maxDpi: 254
+        width: 804
+        height: 477
+      legend: !legend {}
+      legendTitle: !string
+        default: "Legend"
+      logo: !string
+        default: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+      scalebar: !scalebar
+        width: 240
+        height: 30
+        default:
+          backgroundColor: "rgba(255, 255, 255, .5)"
+          type: "line"
+          fontSize: 6
+          labelDistance: 5
+          padding: 0
+          barSize: 5
+          subIntervals: true
+    processors:
+      - !reportBuilder
+        directory: "."
+      - !configureHttpRequests
+        httpProcessors:
+          - !forwardHeaders
+            matchers:
+              - !hostnameMatch
+                host: shogun-geoserver
+                port: 8080
+            headers:
+              - Authorization
+      - !createMap {}
+      - !createScalebar {}
+      - !prepareLegend
+        maxWidth: 135
+        dpi: 150
+        scaled: true
+        template: a4_landscape_legend.jrxml
+        inputMapper: { legend: legend }
+        outputMapper:
+          {
+            legendDataSource: legendDataSource,
+            legendSubReport: legendSubReport
+          }
