@@ -1,5 +1,9 @@
 version: '3.7'
 services:
+  shogun-print:
+    extends:
+      file: ./common-services.yml
+      service: shogun-print
   shogun-geoserver:
     extends:
       file: ./common-services.yml
@@ -9,10 +13,6 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-postgis
-  shogun-redis:
-    extends:
-      file: ./common-services.yml
-      service: shogun-redis
   shogun-keycloak:
     extends:
       file: ./common-services.yml

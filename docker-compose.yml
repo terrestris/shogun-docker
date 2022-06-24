@@ -1,5 +1,9 @@
 version: '3.7'
 services:
+  shogun-print:
+    extends:
+      file: ./common-services.yml
+      service: shogun-print
   shogun-geoserver:
     extends:
       file: ./common-services.yml
@@ -16,10 +20,6 @@ services:
       service: shogun-postgis
     ports:
       - "5555:5432"
-  shogun-redis:
-    extends:
-      file: ./common-services.yml
-      service: shogun-redis
   shogun-keycloak:
     extends:
       file: ./common-services.yml

@@ -1,0 +1,38 @@
+{
+  "layout": "A4 Hochformat",
+  "attributes": {
+      "printLegend": true,
+      "comment": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At",
+      "copyright": "© SHOGun",
+      "title": "Vorschlag Kartendruck",
+      "map": {
+          "areaOfInterest": "{\"type\":\"Polygon\",\"coordinates\":[[[87741.27046802844,5468479.575967243],[87741.27046802844,5892512.424032757],[1090000.7295319715,5892512.424032757],[1090000.7295319715,5468479.575967243],[87741.27046802844,5468479.575967243]]]}",
+          "bbox": [
+              87741.27046802844,
+              5468479.575967243,
+              1090000.7295319715,
+              5892512.424032757
+          ],
+          "rotation": 0,
+          "layers": [{
+              "baseURL": "http://ows.terrestris.de/osm/service?",
+              "customParams": {
+                  "VERSION": "1.1.1",
+                  "STYLES": "",
+                  "TRANSPARENT": true,
+                  "LAYERS": "OSM-WMS"
+              },
+              "tileSize": [
+                  512,
+                  512
+              ],
+              "layers": ["OSM-WMS"],
+              "styles": [""],
+              "opacity": 1,
+              "type": "tiledwms"
+          }],
+          "projection": "EPSG:25832",
+          "dpi": 72
+      }
+  }
+}
