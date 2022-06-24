@@ -5,5 +5,4 @@ shogun-redis/redis_data
 
 *iml
 .idea
-
-
+.env
