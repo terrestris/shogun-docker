@@ -22,23 +22,6 @@ services:
     volumes:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
-  shogun-redis:
-    container_name: ${CONTAINER_NAME_PREFIX}-redis
-    image: redis:6.2.6-alpine
-    environment:
-      - REDIS_PASS_FILE=/config/.redis
-    command: [
-      "sh",
-      "-c",
-      '
-      docker-entrypoint.sh
-      "/config/redis.conf"
-      --requirepass "$$(cat $$REDIS_PASS_FILE)"
-      ',
-    ]
-    volumes:
-      - ./shogun-redis/redis_data:/data
-      - ./shogun-redis/redis_config:/config
   shogun-keycloak:
     container_name: ${CONTAINER_NAME_PREFIX}-keycloak
     image: jboss/keycloak:16.1.1
@@ -93,7 +76,6 @@ services:
       - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
-      - shogun-redis
       - shogun-keycloak
   shogun-gs-interceptor:
     container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
@@ -112,5 +94,4 @@ services:
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
     depends_on:
       - shogun-postgis
-      - shogun-redis
       - shogun-keycloak
