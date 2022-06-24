@@ -13,7 +13,7 @@ This repository contains three `docker-compose` configuration files:
 ## Requirements 🛠️
 
 - docker
-- docker-compose
+- docker-compose-plugin
 
 Please note: If you want to develop SHOGun or some of it's components you might need
 additional tools (e.g. `mvn` and `node`). Consider the README files of the associated
@@ -28,7 +28,7 @@ repositories for more details.
 You want to see SHOGun in action? Just start the prebuilt images via:
 
 ```bash
-docker-compose -f docker-compose-prod.yml
+docker compose -f docker-compose-prod.yml
 ```
 
 You can test whether the SHOGun application started by visiting the URL
@@ -75,7 +75,7 @@ and have fulfilled the required steps for the very first start (see [Required st
 To start the services required for development of SHOGun (no custom project), just run:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 You can test whether the SHOGun application started by visiting the URL `https://localhost/`.
@@ -98,7 +98,7 @@ following settings first:
 Now you can start the containers:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 ## Default credentials 🔐
