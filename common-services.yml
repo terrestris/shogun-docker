@@ -69,7 +69,6 @@ services:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
@@ -86,10 +85,9 @@ services:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
-      - ./shogun-gs-interceptor/application.yml:/config/application.yml
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-gs-interceptor/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
       - shogun-keycloak

@@ -47,11 +47,6 @@ services:
           memory: 1G
     environment:
       JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
-    volumes:
-      - ./shogun-boot/application.yml:/config/application.yml
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-      - ./shogun-boot/admin/config/admin-client-config.js:/app/resources/templates/admin-client-config.js
-      - ./shogun-boot/admin/modelconfigs/:/app/resources/static/modelconfigs/
   shogun-gs-interceptor:
     extends:
       file: ./common-services.yml
