@@ -1,11 +1,11 @@
 {
-  "endpoint": "/groups",
-  "entityType": "group",
-  "entityName": "Gruppe",
-  "navigationTitle": "Gruppen",
+  "endpoint": "/users",
+  "entityType": "user",
+  "entityName": "Benutzer",
+  "navigationTitle": "Benutzer",
   "subTitle": "",
   "formConfig": {
-    "name": "group",
+    "name": "user",
     "fields": [
       {
         "dataType": "number",
@@ -37,6 +37,27 @@
         "component": "DisplayField",
         "dataField": "authProviderId",
         "labelI18n": "Keycloak ID"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "providerDetails",
+        "labelI18n": "Keycloak Details"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "details",
+        "labelI18n": "Details",
+        "fieldProps": {
+          "entityName": "UserDetails"
+        }
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "clientConfig",
+        "labelI18n": "Datenquelle",
+        "fieldProps": {
+          "entityName": "UserClientConfig"
+        }
       }
     ]
   },
@@ -61,13 +82,13 @@
         }
       },
       {
-        "title": "Link zur Gruppe",
+        "title": "Link zum User",
         "dataIndex": "authProviderId",
         "key": "link",
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
-          "title": "Öffne Gruppe in Keycloak",
-          "template": "/auth/admin/master/console/#/realms/SpringBootKeycloak/groups/{}"
+          "title": "Öffne User in Keycloak",
+          "template": "/auth/admin/master/console/#/realms/SHOGun/users/{}"
         }
       }
     ]

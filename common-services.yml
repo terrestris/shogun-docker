@@ -41,12 +41,17 @@ services:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.21.6
     volumes:
-      - ./shogun-nginx/dev/default.conf:/etc/nginx/conf.d/default.conf
+      - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
+      - ./shogun-admin/config/admin-client-config.js:/usr/share/nginx/html/admin/config/admin-client-config.js
+      - ./shogun-admin/modelconfigs/:/usr/share/nginx/html/admin/modelconfigs/
+      - ./shogun-client/config/gis-client-config.js:/usr/share/nginx/html/client/gis-client-config.js
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
     depends_on:
       - shogun-keycloak
       - shogun-boot
@@ -72,8 +77,6 @@ services:
       KEYCLOAK_DISABLE_TRUST_MANAGER: ${KEYCLOAK_DISABLE_TRUST_MANAGER}
     volumes:
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
-      - ./shogun-boot/admin/config/admin-client-config.js:/shogun/shogun-boot/src/main/resources/templates/admin-client-config.js
-      - ./shogun-boot/admin/modelconfigs/:/shogun/shogun-boot/src/main/resources/static/modelconfigs/
       - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
