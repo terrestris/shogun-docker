@@ -1,25 +1,17 @@
 var shogunApplicationConfig = {
   appPrefix: '/admin',
   path: {
-    base: 'https://localhost',
-    swagger: '/v2/api-docs',
-    user: '/users',
-    layer: '/layers',
-    imageFile: '/imagefiles',
-    application: '/applications',
-    appInfo: '/info/app',
-    auth: {
-      login: '/auth/login',
-      logout: '/auth/logout',
-      isSessionValid: '/auth/isSessionValid'
-    },
-    graphql: '/graphql',
-    loggers: '/actuator/loggers',
-    logfile: '/actuator/logfile',
-    logo: '/assets/img/shogun_logo.png',
-    evictCache: '/cache/evict',
-    metrics: '/actuator/metrics',
-    modelConfigs: '/modelconfigs'
+    modelConfigs: './formconfigs',
+    shogunBase: '/',
+    logo: null
+  },
+  security: {
+    keycloak: {
+      enabled: true,
+      host: 'https://<!--# echo var="keycloakhost" -->/auth',
+      realm: 'SHOGun',
+      clientId: 'shogun-admin'
+    }
   },
   models: [
     'Application',
@@ -29,7 +21,7 @@ var shogunApplicationConfig = {
   ],
   dashboard: {
     news: {
-      visible: false
+      visible: true
     },
     statistics: {
       visible: false
