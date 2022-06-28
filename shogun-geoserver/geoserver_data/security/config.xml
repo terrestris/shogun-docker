@@ -24,9 +24,6 @@
     <filters name="gwc" class="org.geoserver.security.ServiceLoginFilterChain" interceptorName="restInterceptor" exceptionTranslationName="exception" path="/gwc/rest/**" disabled="false" allowSessionCreation="false" ssl="false" matchHTTPMethod="false">
       <filter>basic</filter>
     </filters>
-    <filters name="getsession" class="org.geoserver.security.ServiceLoginFilterChain" interceptorName="interceptor" exceptionTranslationName="exception" path="/www/getsession.json" disabled="false" allowSessionCreation="false" ssl="false" matchHTTPMethod="true" httpMethods="GET">
-      <filter>shogun-keycloak</filter>
-    </filters>
     <filters name="default" class="org.geoserver.security.ServiceLoginFilterChain" interceptorName="interceptor" exceptionTranslationName="exception" path="/**" disabled="false" allowSessionCreation="false" ssl="false" matchHTTPMethod="false">
       <filter>shogun-keycloak</filter>
       <filter>anonymous</filter>

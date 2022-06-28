@@ -1,5 +1,7 @@
 shogun-geoserver/geoserver_data/logs/log.*
 shogun-geoserver/geoserver_data/logs/*.log*
+shogun-geoserver/geoserver_data/geofence/geofence_db/*.log.db
+shogun-geoserver/geoserver_data/geofence/geofence_db/*.lock.db
 shogun-postgis/postgresql_data
 shogun-redis/redis_data
 
