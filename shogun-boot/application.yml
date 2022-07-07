@@ -91,6 +91,13 @@ spring:
           starttls:
             enable: true
           timeout: 8000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://${KEYCLOAK_HOST:shogun-keycloak}/auth/realms/SHOGun
+          jwk-set-uri: https://${KEYCLOAK_HOST:shogun-keycloak}/auth/realms/SHOGun/protocol/openid-connect/certs
+
 
 keycloak:
   enabled: true
