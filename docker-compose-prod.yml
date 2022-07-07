@@ -40,7 +40,7 @@ services:
     image: nexus.terrestris.de/shogun/shogun-boot:latest
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 1
       resources:
         limits:
           cpus: '0.50'
