@@ -27,7 +27,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:8.0.0
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
   shogun-client:
     extends:
       file: ./common-services.yml
