@@ -98,7 +98,6 @@ spring:
           issuer-uri: https://${KEYCLOAK_HOST:shogun-keycloak}/auth/realms/SHOGun
           jwk-set-uri: https://${KEYCLOAK_HOST:shogun-keycloak}/auth/realms/SHOGun/protocol/openid-connect/certs
 
-
 keycloak:
   enabled: true
   server-url: https://${KEYCLOAK_HOST:shogun-keycloak}/auth
