@@ -22,33 +22,33 @@ services:
       file: ./common-services.yml
       service: shogun-nginx
     volumes:
-      - ./shogun-nginx/prod/default.conf:/etc/nginx/conf.d/default.conf
+      - ./shogun-nginx/prod/default.conf:/etc/nginx/templates/default.conf.template
   shogun-admin:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:7.5.2
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
   shogun-client:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.1.1
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.2.0
   shogun-boot:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: nexus.terrestris.de/shogun/shogun-boot:latest
+    image: nexus.terrestris.de/shogun/shogun-boot:13.0.0
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 1
       resources:
         limits:
           cpus: '0.50'
           memory: 1G
     environment:
-      JAVA_TOOL_OPTIONS: "-Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
+      JAVA_TOOL_OPTIONS: "-Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml"
   shogun-gs-interceptor:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:latest
+    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:13.0.0

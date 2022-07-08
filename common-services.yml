@@ -41,7 +41,6 @@ services:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.21.6
     volumes:
-      - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-admin/config/admin-client-config.js:/usr/share/nginx/html/admin/config/admin-client-config.js
