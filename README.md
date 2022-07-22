@@ -5,10 +5,11 @@ This project contains a basic docker-compose setup required to develop / run a
 
 ## Description 📙
 
-This repository contains three `docker-compose` configuration files:
+This repository contains several `docker-compose` configuration files:
 
-- `docker-compose.yml`: Contains all `SHOGun` services for DEVELOPMENT.
-- `docker-compose-prod.yml`: Contains all `SHOGun` services for PRODUCTION.
+- `common-services.yml`: Contains the shared service configurations for all environments.
+- `docker-compose.yml`: Contains the service configurations for DEVELOPMENT.
+- `docker-compose-prod.yml`: Contains the service configurations for PRODUCTION.
 
 ## Requirements 🛠️
 
@@ -23,20 +24,9 @@ repositories for more details.
 
 ![System architecture](./docs/components.png)
 
-## Test a prebuilt SHOGun 🏭
-
-You want to see SHOGun in action? Just start the prebuilt images via:
-
-```bash
-docker compose -f docker-compose-prod.yml
-```
-
-You can test whether the SHOGun application started by visiting the URL
-`https://localhost/`.
-
 ## Development 🧑‍💻
 
-This repository contains all required configurations to develop all SHOGun related
+This repository contains the required configurations to develop all SHOGun related
 components:
 
 - SHOGun (the backend part)
@@ -64,7 +54,7 @@ your-shogun-workspace-directory/
 - Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
-### Development
+### Startup
 
 Please ensure you have checked out all required repositores (see [Recommended directory structure](#recommended-directory-structure))
 and have fulfilled the required steps for the very first start (see [Required steps for the very first start](#required-steps-for-the-very-first-start)).
@@ -76,9 +66,6 @@ docker compose up --build
 ```
 
 You can test whether the SHOGun application started by visiting the URL `https://localhost/`.
-
-If you want to use a custom `application.yml` you can achieve this by enabling the
-volume mount for `shogun-boot` here: [docker-compose-dev.yml](docker-compose-dev.yml#L37).
 
 ### Custom project development
 
@@ -98,16 +85,27 @@ Now you can start the containers:
 docker compose up --build
 ```
 
+## Test a prebuilt SHOGun 🏭
+
+You want to see SHOGun in action?
+
+- Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
+- Import the initial Keycloak data, see section [Keycloak Import](#import).
+
+And start the prebuilt images via:
+
+```bash
+docker compose -f docker-compose-prod.yml up
+```
+
+You can test whether the SHOGun application started by visiting the URL
+`https://localhost/`.
+
 ## Default credentials 🔐
 
 - Keycloak Admin: `admin:shogun`
 - SHOGun Admin: `shogun:shogun`
 - GeoServer: `admin:geoserver`
-
-## Redis
-
-The Redis config files are located in `shogun-redis/redis_config`. The default redis password
-can be changed in file `shogun-redis/redis_config/.redis`.
 
 ## Keycloak
 
