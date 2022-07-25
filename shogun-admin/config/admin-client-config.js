@@ -39,7 +39,7 @@ var shogunApplicationConfig = {
   navigation: {
     general: {
       imagefiles: {
-        visible: false
+        visible: true
       }
     },
     status: {
