@@ -43,8 +43,7 @@ your-shogun-workspace-directory/
 ├── shogun (https://github.com/terrestris/shogun)
 ├── shogun-admin (https://github.com/terrestris/shogun-admin)
 ├── shogun-demo-client (https://github.com/terrestris/shogun-demo-client)
-├── shogun-docker (this repository)
-└── …
+└── shogun-docker (this repository)
 ```
 
 ### Required steps for the very first start
@@ -69,21 +68,76 @@ You can test whether the SHOGun application started by visiting the URL `https:/
 
 ### Custom project development
 
-If you are working on a custom project that inherits from SHOGun you have to adjust the
-following settings first:
+The contents of this repository may be a good starting point for creating a custom project
+based on [SHOGun](https://github.com/terrestris/shogun).
 
-- Copy the file `shogun-boot/dev/Dockerfile` to your project root dir
-- Add your project profile to the `Dockerfile`
-- In the [docker-compose-dev.yml](docker-compose-dev.yml) update the build context to
-  point to your project root dir
-- Also update the volumes to point the `/shogun-boot` folder in the container to
-  your project root dir
+There is a SHOGun example app repository at [https://github.com/terrestris/shogun-example-app](https://github.com/terrestris/shogun-example-app) which demonstrates on how SHOGun can be extended for custom implementations and can be used as follows:
 
-Now you can start the containers:
+1. Create a new folder directory as suggested:
 
 ```bash
-docker compose up --build
+your-custom-shogun-workspace-directory/
+├── shogun-example-app (export of https://github.com/terrestris/shogun-example-app)
+└── shogun-example-docker (export of this repository)
 ```
+
+1. Initialize git in both subdirectories (`git init`) and adjust the upstream to your
+   needs (e.g. `git remote add upstream git@github.com:yourorg/shogun-example.git`).
+
+1. (Optional) Make use of the prebuilt images for both the `shogun-admin` and `shogun-demo-client`
+   by adjusting the `docker-compose.yml`:
+
+    ```diff
+    -    build:
+    -      context: ${SHOGUN_ADMIN_DIR}
+    -      dockerfile: Dockerfile.dev
+    -    ports:
+    -      - 9090:9090
+    -    volumes:
+    -      - ${SHOGUN_ADMIN_DIR}:/app
+    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
+    ```
+
+    ```diff
+    -    build:
+    -      context: ${SHOGUN_CLIENT_DIR}
+    -      dockerfile: Dockerfile.dev
+    -    ports:
+    -      - 3000:3000
+    -    volumes:
+    -      - ${SHOGUN_CLIENT_DIR}:/app
+    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.2.0
+    ```
+
+1. Remove the `shogun-gs-interceptor` service from the `docker-compose.yml`.
+
+1. Update the context path to the `shogun-boot` service:
+
+    ```diff
+    -    context: ${SHOGUN_DIR}/shogun-boot/
+    +    context: ${SHOGUN_DIR}/example-backend/
+    ```
+
+1. Check for all comments _TODO: Adjust to your project_ in the `shogun-example-app` and
+   adjust the appropriate lines to your needs (e.g. the name of the project).
+
+1. Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
+
+1. Depending on the mode (development or production) of the `shogun-admin` and `shogun-demo-client`,
+   you might need to adjust the reverse proxy settings in the `shogun-nginx/dev/default.conf` file, e.g.:
+
+    ```diff
+    -    proxy_pass https://shogun-admin:9090/;
+    +    proxy_pass http://shogun-admin/;
+    ```
+    ```diff
+    -    proxy_pass https://shogun-client:3000/;
+    +    proxy_pass http://shogun-demo-client/;
+    ```
+
+1. Run the services with `docker compose up` which should be available at `https://localhost/` afterwards.
+
+1. Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ## Test a prebuilt SHOGun 🏭
 
