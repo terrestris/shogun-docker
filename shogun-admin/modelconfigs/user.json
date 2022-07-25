@@ -34,9 +34,10 @@
         }
       },
       {
-        "component": "DisplayField",
+        "component": "Input",
         "dataField": "authProviderId",
-        "labelI18n": "Keycloak ID"
+        "labelI18n": "Keycloak ID",
+        "required": "true"
       },
       {
         "component": "JSONEditor",
@@ -54,7 +55,7 @@
       {
         "component": "JSONEditor",
         "dataField": "clientConfig",
-        "labelI18n": "Datenquelle",
+        "labelI18n": "Konfiguration",
         "fieldProps": {
           "entityName": "UserClientConfig"
         }

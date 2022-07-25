@@ -34,9 +34,10 @@
         }
       },
       {
-        "component": "DisplayField",
+        "component": "Input",
         "dataField": "authProviderId",
-        "labelI18n": "Keycloak ID"
+        "labelI18n": "Keycloak ID",
+        "required": "true"
       }
     ]
   },
