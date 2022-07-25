@@ -1,7 +1,7 @@
 var shogunApplicationConfig = {
   appPrefix: '/admin',
   path: {
-    modelConfigs: './formconfigs',
+    modelConfigs: './modelconfigs',
     shogunBase: '/',
     logo: null
   },
