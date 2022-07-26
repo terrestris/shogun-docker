@@ -1,7 +1,7 @@
 var shogunApplicationConfig = {
   appPrefix: '/admin',
   path: {
-    modelConfigs: './formconfigs',
+    modelConfigs: './modelconfigs',
     shogunBase: '/',
     logo: null
   },
@@ -39,7 +39,7 @@ var shogunApplicationConfig = {
   navigation: {
     general: {
       imagefiles: {
-        visible: false
+        visible: true
       }
     },
     status: {
