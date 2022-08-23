@@ -32,7 +32,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.2.0
+    image: nexus.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
   shogun-boot:
     extends:
       file: ./common-services.yml
