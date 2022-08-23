@@ -6,7 +6,7 @@ set -e
 # SHOGun paths
 SHOGUN_DIR=../shogun
 SHOGUN_ADMIN_DIR=../shogun-admin
-SHOGUN_CLIENT_DIR=../shogun-demo-client
+SHOGUN_CLIENT_DIR=../shogun-gis-client
 
 # Container prefix
 CONTAINER_NAME_PREFIX=shogun

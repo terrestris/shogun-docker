@@ -31,7 +31,7 @@ components:
 
 - SHOGun (the backend part)
 - SHOGun-Admin (the UI for handling SHOGun entities)
-- SHOGun-Demo-Client (the demo mapping client)
+- SHOGun-GIS-Client (the default mapping client)
 
 ### Recommended directory structure
 
@@ -42,7 +42,7 @@ directory structure:
 your-shogun-workspace-directory/
 ├── shogun (https://github.com/terrestris/shogun)
 ├── shogun-admin (https://github.com/terrestris/shogun-admin)
-├── shogun-demo-client (https://github.com/terrestris/shogun-demo-client)
+├── shogun-gis-client (https://github.com/terrestris/shogun-gis-client)
 └── shogun-docker (this repository)
 ```
 
@@ -84,7 +84,7 @@ your-custom-shogun-workspace-directory/
 1. Initialize git in both subdirectories (`git init`) and adjust the upstream to your
    needs (e.g. `git remote add upstream git@github.com:yourorg/shogun-example.git`).
 
-1. (Optional) Make use of the prebuilt images for both the `shogun-admin` and `shogun-demo-client`
+1. (Optional) Make use of the prebuilt images for both the `shogun-admin` and `shogun-gis-client`
    by adjusting the `docker-compose.yml`:
 
     ```diff
@@ -106,7 +106,7 @@ your-custom-shogun-workspace-directory/
     -      - 3000:3000
     -    volumes:
     -      - ${SHOGUN_CLIENT_DIR}:/app
-    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-demo-client:3.2.0
+    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
     ```
 
 1. Remove the `shogun-gs-interceptor` service from the `docker-compose.yml`.
@@ -123,7 +123,7 @@ your-custom-shogun-workspace-directory/
 
 1. Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
 
-1. Depending on the mode (development or production) of the `shogun-admin` and `shogun-demo-client`,
+1. Depending on the mode (development or production) of the `shogun-admin` and `shogun-gis-client`,
    you might need to adjust the reverse proxy settings in the `shogun-nginx/dev/default.conf` file, e.g.:
 
     ```diff
@@ -132,7 +132,7 @@ your-custom-shogun-workspace-directory/
     ```
     ```diff
     -    proxy_pass https://shogun-client:3000/;
-    +    proxy_pass http://shogun-demo-client/;
+    +    proxy_pass http://shogun-gis-client/;
     ```
 
 1. Run the services with `docker compose up` which should be available at `https://localhost/` afterwards.
