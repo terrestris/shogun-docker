@@ -37,7 +37,17 @@ GROUP_ID=$(id -g)
 # The name of the host user the GS image should run as
 USER_NAME=$(whoami)
 
-read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
+# The current mode we're in, it's either create or update
+MODE=$1
+
+if [ "$MODE" = "create" ]; then
+  read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
+elif [ "$MODE" = "update" ]; then
+  read -rp "This will update the current .env file with your local IP only. Do you want to continue (y/n)? "
+else
+  echo "Missing argument 'create' or 'update'"
+  exit 1
+fi
 
 # Check if prompted to continue
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -49,25 +59,35 @@ ENV_FILE=.env
 
 rm -rf $SCRIPT_DIR/$ENV_FILE
 
-echo "SHOGUN_DIR=${SHOGUN_DIR}" > $SCRIPT_DIR/$ENV_FILE
-echo "SHOGUN_ADMIN_DIR=${SHOGUN_ADMIN_DIR}" >> $SCRIPT_DIR/$ENV_FILE
-echo "SHOGUN_CLIENT_DIR=${SHOGUN_CLIENT_DIR}" >> $SCRIPT_DIR/$ENV_FILE
+if [ "$MODE" = "create" ]; then
+  echo "SHOGUN_DIR=${SHOGUN_DIR}" > $SCRIPT_DIR/$ENV_FILE
+  echo "SHOGUN_ADMIN_DIR=${SHOGUN_ADMIN_DIR}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "SHOGUN_CLIENT_DIR=${SHOGUN_CLIENT_DIR}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "MAIL_HOST=${MAIL_HOST}" >> $SCRIPT_DIR/$ENV_FILE
-echo "MAIL_PORT=${MAIL_PORT}" >> $SCRIPT_DIR/$ENV_FILE
-echo "MAIL_PASSWORD=${MAIL_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "MAIL_HOST=${MAIL_HOST}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "MAIL_PORT=${MAIL_PORT}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "MAIL_PASSWORD=${MAIL_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "POSTGRES_USER=${POSTGRES_USER}" >> $SCRIPT_DIR/$ENV_FILE
-echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "POSTGRES_USER=${POSTGRES_USER}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "KEYCLOAK_HOST=${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
-echo "KEYCLOAK_USER=${KEYCLOAK_USER}" >> $SCRIPT_DIR/$ENV_FILE
-echo "KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "KEYCLOAK_HOST=${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "KEYCLOAK_USER=${KEYCLOAK_USER}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
-echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
-echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
 
-echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
+  echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
+else
+  echo "KEYCLOAK_HOST=${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
+
+  echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
+fi
+
+printf "\nUpdating ./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml with ${KEYCLOAK_HOST}\n"
+
+sed -i -E "s/&quot;auth-server-url&quot;: &quot;https:\/\/(.+)\/auth\/&quot;,&#xd;/\&quot;auth-server-url\&quot;: \&quot;https:\/\/${KEYCLOAK_HOST}\/auth\/\&quot;,\&#xd;/" ./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml

@@ -50,7 +50,7 @@ your-shogun-workspace-directory/
 
 - Check and fulfill all development notes of the child components (e.g. installing the
   `maven` and `node` dependencies).
-- Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
+- Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Startup
@@ -121,7 +121,7 @@ your-custom-shogun-workspace-directory/
 1. Check for all comments _TODO: Adjust to your project_ in the `shogun-example-app` and
    adjust the appropriate lines to your needs (e.g. the name of the project).
 
-1. Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
+1. Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 
 1. Depending on the mode (development or production) of the `shogun-admin` and `shogun-gis-client`,
    you might need to adjust the reverse proxy settings in the `shogun-nginx/dev/default.conf` file, e.g.:
@@ -143,7 +143,7 @@ your-custom-shogun-workspace-directory/
 
 You want to see SHOGun in action?
 
-- Set all required environment variables by executing `./setEnvironment.sh` (and adjusting the values if needed).
+- Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 And start the prebuilt images via:
