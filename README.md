@@ -188,3 +188,8 @@ docker exec -it shogun-keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.so
 ```
 
 Wait until finished (look out for `Import finished successfully` in the logs) and exit the container.
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
