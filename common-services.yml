@@ -93,3 +93,9 @@ services:
     depends_on:
       - shogun-postgis
       - shogun-keycloak
+  shogun-solr:
+    container_name: ${CONTAINER_NAME_PREFIX}-solr
+    image: docker.terrestris.de/solr:9
+    volumes:
+      - ./shogun-solr/solr_data:/var/solr:RW
+      - ./jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
