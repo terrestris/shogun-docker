@@ -4,6 +4,7 @@ var clientConfig = {
     enabled: true,
     host: 'https://<!--# echo var="keycloakhost" -->/auth',
     realm: 'SHOGun',
-    clientId: 'shogun-client'
+    clientId: 'shogun-client',
+    onLoadAction: 'check-sso'
   }
 };
