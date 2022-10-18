@@ -27,12 +27,12 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
+    image: docker-public.terrestris.de/terrestris/shogun-admin:10.6.1
   shogun-client:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:4.7.1
   shogun-boot:
     extends:
       file: ./common-services.yml
