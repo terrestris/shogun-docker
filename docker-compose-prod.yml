@@ -37,7 +37,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: nexus.terrestris.de/shogun/shogun-boot:13.0.0
+    image: nexus.terrestris.de/shogun/shogun-boot:14.1.0
     deploy:
       mode: replicated
       replicas: 1
@@ -53,4 +53,4 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:13.0.0
+    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:14.1.0
