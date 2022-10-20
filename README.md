@@ -188,3 +188,7 @@ docker exec -it shogun-keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.so
 ```
 
 Wait until finished (look out for `Import finished successfully` in the logs) and exit the container.
+
+## Solr
+
+The solr instance is preconfigured with a core named `search`. This can be used immediately after start to import documents.

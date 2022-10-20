@@ -54,3 +54,7 @@ services:
       file: ./common-services.yml
       service: shogun-gs-interceptor
     image: nexus.terrestris.de/shogun/shogun-gs-interceptor:14.1.0
+  shogun-solr:
+    extends:
+      file: ./common-services.yml
+      service: shogun-solr
