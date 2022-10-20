@@ -27,17 +27,17 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
+    image: docker-public.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
   shogun-client:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: nexus.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
+    image: docker-public.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
   shogun-boot:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: nexus.terrestris.de/shogun/shogun-boot:13.0.0
+    image: docker-public.terrestris.de/shogun/shogun-boot:13.0.0
     deploy:
       mode: replicated
       replicas: 1
@@ -53,7 +53,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: nexus.terrestris.de/shogun/shogun-gs-interceptor:13.0.0
+    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:13.0.0
   shogun-solr:
     extends:
       file: ./common-services.yml
