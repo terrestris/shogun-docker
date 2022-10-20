@@ -28,7 +28,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-nginx
-    volumes: 
+    volumes:
       - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
   shogun-client:
     extends:
