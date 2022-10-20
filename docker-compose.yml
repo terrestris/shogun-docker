@@ -28,7 +28,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-nginx
-    volumes: 
+    volumes:
       - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
   shogun-client:
     extends:
@@ -77,3 +77,12 @@ services:
     volumes:
       - ${SHOGUN_DIR}/:/shogun/
       - ~/.m2:/root/.m2
+  shogun-solr:
+    extends:
+      file: ./common-services.yml
+      service: shogun-solr
+    ports:
+      - 8983:8983
+    volumes:
+      - ./shogun-solr/solr_data:/var/solr:RW
+      - ./jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar

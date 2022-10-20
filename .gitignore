@@ -4,6 +4,8 @@ shogun-geoserver/geoserver_data/geofence/geofence_db/*.log.db
 shogun-geoserver/geoserver_data/geofence/geofence_db/*.lock.db
 shogun-postgis/postgresql_data
 shogun-redis/redis_data
+shogun-solr/solr_data/data/search/data/
+shogun-solr/solr_data/logs/
 
 *iml
 .idea
