@@ -83,7 +83,7 @@ if [ "$MODE" = "create" ]; then
 
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
-  echo "KEYCLOAK_HOST=${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
+  sed -i -E "s/KEYCLOAK_HOST=(.+)/KEYCLOAK_HOST=${KEYCLOAK_HOST}/" .env
 
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi

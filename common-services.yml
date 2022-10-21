@@ -2,7 +2,7 @@ version: '3.7'
 services:
   shogun-print:
     container_name: ${CONTAINER_NAME_PREFIX}-print
-    image: camptocamp/mapfish_print:3.29.3
+    image: camptocamp/mapfish_print:3.29.4
     volumes:
       - ./shogun-print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z
   shogun-geoserver:
@@ -39,7 +39,7 @@ services:
       - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.21.6
+    image: nginx:1.23.1
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key

@@ -6,5 +6,6 @@ var clientConfig = {
     realm: 'SHOGun',
     clientId: 'shogun-client',
     onLoadAction: 'check-sso'
-  }
+  },
+  plugins: []
 };
