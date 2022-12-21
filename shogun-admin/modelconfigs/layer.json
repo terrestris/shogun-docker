@@ -87,7 +87,9 @@
         "dataField": "clientConfig",
         "label": "#i18n.labelConfig",
         "fieldProps": {
-          "showInformationButton": true
+          "showInformationButton": true,
+          "customExample": ""
+
         }
       },
       {
@@ -95,7 +97,8 @@
         "dataField": "sourceConfig",
         "label": "#i18n.labelSource",
         "fieldProps": {
-          "showInformationButton": true
+          "showInformationButton": true,
+          "customExample": ""
         }
       },
       {
@@ -103,7 +106,8 @@
         "dataField": "features",
         "label": "#i18n.labelFeat",
         "fieldProps": {
-          "showInformationButton": true
+          "showInformationButton": true,
+          "customExample": ""
         }
       }
     ]
