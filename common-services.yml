@@ -39,7 +39,7 @@ services:
       - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.23.1
+    image: nginx:1.23.3
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
