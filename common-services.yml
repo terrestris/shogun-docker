@@ -74,6 +74,7 @@ services:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
     volumes:
+      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
@@ -87,7 +88,7 @@ services:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
     volumes:
-      - ./shogun-boot/keystore/cacerts:/etc/ssl/certs/java/cacerts
+      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-gs-interceptor/application.yml:/config/application.yml
     depends_on:
       - shogun-postgis
