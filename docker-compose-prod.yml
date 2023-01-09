@@ -27,7 +27,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: docker-public.terrestris.de/terrestris/shogun-admin:10.6.1
+    image: docker-public.terrestris.de/terrestris/shogun-admin:11.1.0
   shogun-client:
     extends:
       file: ./common-services.yml
