@@ -1,4 +1,4 @@
-FROM terrestris/geoserver:2.20.2
+FROM terrestris/geoserver:2.22.1
 
 ARG USER_UID
 ARG USER_GID
