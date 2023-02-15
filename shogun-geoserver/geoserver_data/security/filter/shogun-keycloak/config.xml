@@ -1,4 +1,6 @@
 <keycloakAdapter>
+  <roleSource class="org.geoserver.security.config.PreAuthenticatedUserNameFilterConfig$PreAuthenticatedUserNameRoleSource">RoleService</roleSource>
+  <roleServiceName>default</roleServiceName>
   <id>1076f299:180ccd7a56f:-7ffb</id>
   <name>shogun-keycloak</name>
   <className>org.geoserver.security.keycloak.GeoServerKeycloakFilter</className>
@@ -13,4 +15,5 @@
   &quot;confidential-port&quot;: 0,&#xd;
   &quot;enable-basic-auth&quot;: true&#xd;
 }</adapterConfig>
+  <enableRedirectEntryPoint>false</enableRedirectEntryPoint>
 </keycloakAdapter>
