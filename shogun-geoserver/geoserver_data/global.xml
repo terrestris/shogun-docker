@@ -20,6 +20,7 @@
     <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
     <showCreatedTimeColumnsInAdminList>false</showCreatedTimeColumnsInAdminList>
     <showModifiedTimeColumnsInAdminList>false</showModifiedTimeColumnsInAdminList>
+    <useHeadersProxyURL>true</useHeadersProxyURL>
   </settings>
   <jai>
     <allowInterpolation>false</allowInterpolation>
@@ -68,10 +69,12 @@
     <queueType>UNBOUNDED</queueType>
     <imageIOCacheThreshold>10240</imageIOCacheThreshold>
   </coverageAccess>
-  <updateSequence>20</updateSequence>
+  <metadata>
+    <entry key="logRequestsEnabled">false</entry>
+  </metadata>
+  <updateSequence>65</updateSequence>
   <featureTypeCacheSize>0</featureTypeCacheSize>
   <globalServices>true</globalServices>
-  <useHeadersProxyURL>true</useHeadersProxyURL>
   <xmlPostRequestLogBufferSize>1024</xmlPostRequestLogBufferSize>
   <xmlExternalEntitiesEnabled>false</xmlExternalEntitiesEnabled>
   <webUIMode>DEFAULT</webUIMode>

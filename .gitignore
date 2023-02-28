@@ -1,7 +1,10 @@
+shogun-geoserver/geoserver_data/data
 shogun-geoserver/geoserver_data/logs/log.*
 shogun-geoserver/geoserver_data/logs/*.log*
 shogun-geoserver/geoserver_data/geofence/geofence_db/*.log.db
 shogun-geoserver/geoserver_data/geofence/geofence_db/*.lock.db
+shogun-geoserver/geoserver_data/gwc/diskquota_page_store_h2
+shogun-geoserver/geoserver_data/gwc/SHOGUN_COUNTRIES
 shogun-postgis/postgresql_data
 shogun-redis/redis_data
 shogun-solr/solr_data/data/search/data/

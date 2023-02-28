@@ -1,4 +1,4 @@
 <logging>
-  <level>PRODUCTION_LOGGING.properties</level>
+  <level>PRODUCTION_LOGGING</level>
   <stdOutLogging>true</stdOutLogging>
 </logging>

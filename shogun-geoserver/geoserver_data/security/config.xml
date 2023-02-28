@@ -18,6 +18,7 @@
       <filter>formLogout</filter>
     </filters>
     <filters name="rest" class="org.geoserver.security.ServiceLoginFilterChain" interceptorName="restInterceptor" exceptionTranslationName="exception" path="/rest/**" disabled="false" allowSessionCreation="false" ssl="false" matchHTTPMethod="false">
+      <filter>shogun-keycloak</filter>
       <filter>basic</filter>
       <filter>anonymous</filter>
     </filters>
