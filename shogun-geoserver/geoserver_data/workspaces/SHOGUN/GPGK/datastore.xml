@@ -7,14 +7,16 @@
     <id>WorkspaceInfoImpl--62503b90:180ccdc4118:-7ffb</id>
   </workspace>
   <connectionParameters>
-    <entry key="fetch size">1000</entry>
-    <entry key="Expose primary keys">true</entry>
     <entry key="Batch insert size">1</entry>
     <entry key="database">file:example-data/ne_50m_admin_0_countries.gpkg</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="Expose primary keys">true</entry>
     <entry key="read_only">false</entry>
     <entry key="dbtype">geopkg</entry>
     <entry key="namespace">http://localhost/SHOGUN</entry>
   </connectionParameters>
   <__default>false</__default>
   <dateCreated>2022-05-16 12:58:55.784 UTC</dateCreated>
+  <dateModified>2023-02-15 10:40:22.427 UTC</dateModified>
+  <disableOnConnFailure>false</disableOnConnFailure>
 </dataStore>

@@ -26,7 +26,7 @@
     <entry key="create database">false</entry>
     <entry key="Method used to simplify geometries">FAST</entry>
     <entry key="port">5432</entry>
-    <entry key="passwd">crypt1:j5FCSpN8qe8avTLK5AxrGg==</entry>
+    <entry key="passwd">crypt1:vP72qYH3vXO8W/Ks4+TbCA==</entry>
     <entry key="min connections">1</entry>
     <entry key="dbtype">postgis</entry>
     <entry key="namespace">http://localhost/SHOGUN</entry>
@@ -38,4 +38,6 @@
   </connectionParameters>
   <__default>false</__default>
   <dateCreated>2022-05-16 12:50:18.757 UTC</dateCreated>
+  <dateModified>2023-02-15 10:40:29.451 UTC</dateModified>
+  <disableOnConnFailure>false</disableOnConnFailure>
 </dataStore>
