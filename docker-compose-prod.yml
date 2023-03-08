@@ -32,7 +32,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:4.12.2
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:5.1.1
   shogun-boot:
     extends:
       file: ./common-services.yml
