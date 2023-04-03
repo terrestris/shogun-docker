@@ -2,7 +2,7 @@ version: '3.7'
 services:
   shogun-print:
     container_name: ${CONTAINER_NAME_PREFIX}-print
-    image: camptocamp/mapfish_print:3.29.4
+    image: camptocamp/mapfish_print:3.30.3
     volumes:
       - ./shogun-print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z
   shogun-geoserver:
@@ -13,9 +13,10 @@ services:
     volumes:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
       - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
+      - ./shogun-geoserver/keystore/cacerts:/etc/ssl/certs/java/cacerts
   shogun-postgis:
     container_name: ${CONTAINER_NAME_PREFIX}-postgis
-    image: postgis/postgis:13-3.2-alpine
+    image: postgis/postgis:13-3.3-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -40,7 +41,7 @@ services:
       - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.23.3
+    image: nginx:1.23.4
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key

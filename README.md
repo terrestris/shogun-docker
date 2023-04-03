@@ -50,7 +50,7 @@ your-shogun-workspace-directory/
 
 - Check and fulfill all development notes of the child components (e.g. installing the
   `maven` and `node` dependencies).
-- Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
+- Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Startup
@@ -192,3 +192,11 @@ Wait until finished (look out for `Import finished successfully` in the logs) an
 ## Solr
 
 The solr instance is preconfigured with a core named `search`. This can be used immediately after start to import documents.
+
+To avoid error on insufficient permissions while accessing solr update folder permissions as follows:
+
+```bash
+sudo addgroup --gid 8983 solr
+sudo chown -R .solr shogun-solr
+sudo chmod -R g+w shogun-solr
+```
