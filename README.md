@@ -192,3 +192,11 @@ Wait until finished (look out for `Import finished successfully` in the logs) an
 ## Solr
 
 The solr instance is preconfigured with a core named `search`. This can be used immediately after start to import documents.
+
+To avoid error on insufficient permissions while accessing solr update folder permissions as follows:
+
+```bash
+sudo addgroup --gid 8983 solr
+sudo chown -R .solr shogun-solr
+sudo chmod -R g+w shogun-solr
+```
