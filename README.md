@@ -50,7 +50,7 @@ your-shogun-workspace-directory/
 
 - Check and fulfill all development notes of the child components (e.g. installing the
   `maven` and `node` dependencies).
-- Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
+- Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Startup
