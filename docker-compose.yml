@@ -82,6 +82,3 @@ services:
       service: shogun-solr
     ports:
       - 8983:8983
-    volumes:
-      - ./shogun-solr/solr_data:/var/solr:RW
-      - ./jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
