@@ -8,7 +8,7 @@ services:
   shogun-geoserver:
     container_name: ${CONTAINER_NAME_PREFIX}-geoserver
     environment:
-      EXTRA_JAVA_OPTS: "-Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=localhost"
+      EXTRA_JAVA_OPTS: -Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}
       STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak,web-resource
     volumes:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z

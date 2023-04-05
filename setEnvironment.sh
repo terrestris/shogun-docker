@@ -40,6 +40,9 @@ USER_NAME=$(whoami)
 # The current mode we're in, it's either create or update
 MODE=$1
 
+# GEOSERVER_CSRF_WHITELIST
+GEOSERVER_CSRF_WHITELIST=localhost
+
 if [ "$MODE" = "create" ]; then
   read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
 elif [ "$MODE" = "update" ]; then
@@ -80,6 +83,8 @@ if [ "$MODE" = "create" ]; then
   echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
+
+  echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
