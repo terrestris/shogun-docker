@@ -165,7 +165,7 @@ You can test whether the SHOGun application started by visiting the URL
 
 ### Export
 
-While the Keycloak docker container is runnning execute:
+While the Keycloak docker container is running execute:
 
 ```
 docker exec -it shogun-keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
