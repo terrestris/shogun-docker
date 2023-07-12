@@ -34,7 +34,7 @@ deploy-internal:
     - rsync -avh --exclude={'.git','Dockerfile','geoserver_data'} shogun-geoserver -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-gs-interceptor -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-keycloak -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-nginx -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
+    - rsync -avh --exclude '.git' shogun-nginx/terrestris-dev/ -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun-nginx/prod --progress  --mkpath
     - rsync -avh --exclude '.git' shogun-postgis -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-print -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-solr -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
