@@ -8,10 +8,9 @@
       "labelEdit": "Zuletzt editiert am",
       "labelKey": "Keycloak ID",
       "labelKeyProvDetail": "Keycloak Details",
-      "labelKeyDetail": "Details",
-      "labelSource": "Client-Konfiguration",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "titleUsername": "Benutzername",
       "titleLink": "Link zum Benutzer",
       "titleOpen": "Öffne User in Keycloak"
     },
@@ -23,10 +22,9 @@
       "labelEdit": "Last edited on",
       "labelKey": "Keycloak ID",
       "labelKeyProvDetail": "Keycloak details",
-      "labelKeyDetail": "Details",
-      "labelSource": "Client configuration",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "titleUsername": "Username",
       "titleLink": "Link to user",
       "titleOpen": "Open user in Keycloak"
     }
@@ -42,8 +40,8 @@
       {
         "dataType": "number",
         "dataField": "id",
-        "label": "#i18n.labelId",
-        "readOnly": "true"
+        "readOnly": true,
+        "label": "#i18n.labelId"
       },
       {
         "dataField": "created",
@@ -66,7 +64,7 @@
         }
       },
       {
-        "component": "DisplayField",
+        "dataType": "string",
         "dataField": "authProviderId",
         "label": "#i18n.labelKey"
       },
@@ -74,18 +72,6 @@
         "component": "JSONEditor",
         "dataField": "providerDetails",
         "label": "#i18n.labelKeyProvDetail",
-        "fieldProps": {}
-      },
-      {
-        "component": "JSONEditor",
-        "dataField": "details",
-        "label": "#i18n.labelKeyDetail",
-        "fieldProps": {}
-      },
-      {
-        "component": "JSONEditor",
-        "dataField": "clientConfig",
-        "label": "#i18n.labelSource",
         "fieldProps": {}
       }
     ]
@@ -96,7 +82,18 @@
         "title": "#i18n.titleId",
         "dataIndex": "id",
         "sortConfig": {
-          "isSortable": false
+          "isSortable": true
+        }
+      },
+      {
+        "title": "#i18n.titleUsername",
+        "dataIndex":  ["providerDetails", "username"],
+        "key": "username",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
         }
       },
       {

@@ -7,8 +7,10 @@
       "labelEstabl": "Erstellt am",
       "labelEdit": "Zuletzt editiert am",
       "labelKey": "Keycloak ID",
+      "labelKeyProvDetail": "Keycloak Details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "titleGroupname": "Gruppenname",
       "titleLink": "Link zur Gruppe",
       "titleGroup": "Öffne Gruppe in Keycloak"
     },
@@ -19,8 +21,10 @@
       "labelEstabl": "Created at",
       "labelEdit": "Last edited on",
       "labelKey": "Keycloak ID",
+      "labelKeyProvDetail": "Keycloak details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "titleGroupname": "Group name",
       "titleLink": "Link to group",
       "titleGroup": "Open group in Keycloak"
     }
@@ -36,8 +40,8 @@
       {
         "dataType": "number",
         "dataField": "id",
-        "label": "#i18n.labelId",
-        "readOnly": "true"
+        "readOnly": true,
+        "label": "#i18n.labelId"
       },
       {
         "dataField": "created",
@@ -60,9 +64,15 @@
         }
       },
       {
-        "component": "DisplayField",
+        "dataType": "string",
         "dataField": "authProviderId",
         "label": "#i18n.labelKey"
+      },
+      {
+        "component": "JSONEditor",
+        "dataField": "providerDetails",
+        "label": "#i18n.labelKeyProvDetail",
+        "fieldProps": {}
       }
     ]
   },
@@ -72,7 +82,18 @@
         "title": "#i18n.titleId",
         "dataIndex": "id",
         "sortConfig": {
-          "isSortable": false
+          "isSortable": true
+        }
+      },
+      {
+        "title": "#i18n.titleGroupname",
+        "dataIndex":  ["providerDetails", "name"],
+        "key": "name",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
         }
       },
       {
