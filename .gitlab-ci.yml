@@ -37,5 +37,6 @@ deploy-internal:
     - rsync -avh --exclude '.git' shogun-nginx -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-postgis -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-print -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
+    - rsync -avh --exclude '.git' shogun-solr -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml pull
     - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml up -d
