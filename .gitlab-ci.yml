@@ -28,7 +28,6 @@ deploy-internal:
     - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker login -u $NEXUS_USER -p $NEXUS_PASSWORD nexus.terrestris.de
     - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker system prune -f
     - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml down
-    - rsync -avh --exclude '.git' docs -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-admin -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-boot -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
     - rsync -avh --exclude '.git' shogun-client -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
