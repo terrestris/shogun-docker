@@ -50,7 +50,7 @@ your-shogun-workspace-directory/
 
 - Check and fulfill all development notes of the child components (e.g. installing the
   `maven` and `node` dependencies).
-- Set all required environment variables by executing `./setEnvironment.sh create` (and adjusting the values if needed).
+- Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Startup
@@ -165,13 +165,13 @@ You can test whether the SHOGun application started by visiting the URL
 
 ### Export
 
-While the Keycloak docker container is runnning execute:
+While the Keycloak docker container is running execute:
 
 ```
-docker exec -it shogun-keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
+docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
 ```
 
-Wait until finished (look out for `Export finished successfully` in the logs) and exit the container.
+Wait until finished and copy the configuration to your host:
 
 ```
 docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
@@ -179,16 +179,27 @@ docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/
 
 ### Import
 
+Copy the configuration to the running Keycloak container:
+
 ```
 docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
 ```
 
-```
-docker exec -it shogun-keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/keycloak_export.json
-```
+and start the import with:
 
-Wait until finished (look out for `Import finished successfully` in the logs) and exit the container.
+
+```
+docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
+```
 
 ## Solr
 
 The solr instance is preconfigured with a core named `search`. This can be used immediately after start to import documents.
+
+To avoid error on insufficient permissions while accessing solr update folder permissions as follows:
+
+```bash
+sudo addgroup --gid 8983 solr
+sudo chown -R .solr shogun-solr
+sudo chmod -R g+w shogun-solr
+```

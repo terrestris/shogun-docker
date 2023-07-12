@@ -40,6 +40,9 @@ USER_NAME=$(whoami)
 # The current mode we're in, it's either create or update
 MODE=$1
 
+# GEOSERVER_CSRF_WHITELIST
+GEOSERVER_CSRF_WHITELIST=localhost
+
 if [ "$MODE" = "create" ]; then
   read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
 elif [ "$MODE" = "update" ]; then
@@ -81,6 +84,8 @@ if [ "$MODE" = "create" ]; then
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
 
+  echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
+
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
   sed -i -E "s/KEYCLOAK_HOST=(.+)/KEYCLOAK_HOST=${KEYCLOAK_HOST}/" .env
@@ -88,6 +93,39 @@ else
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi
 
-printf "\nUpdating ./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml with ${KEYCLOAK_HOST}\n"
+KEYCLOAK_SECURITY_FILTER_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml'
+KEYCLOAK_SECURITY_ROLE_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/role/keycloak/config.xml'
 
-sed -i -E "s/&quot;auth-server-url&quot;: &quot;https:\/\/(.+)\/auth\/&quot;,&#xd;/\&quot;auth-server-url\&quot;: \&quot;https:\/\/${KEYCLOAK_HOST}\/auth\/\&quot;,\&#xd;/" ./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml
+if [ -f "${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE}" ]; then
+  printf "\nUpdating ${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
+  sed -i -E "s/&quot;auth-server-url&quot;: &quot;https:\/\/(.+)\/auth\/&quot;,&#xd;/\&quot;auth-server-url\&quot;: \&quot;https:\/\/${KEYCLOAK_HOST}\/auth\/\&quot;,\&#xd;/" $KEYCLOAK_SECURITY_FILTER_CONFIG_FILE
+fi
+
+if [ -f "${KEYCLOAK_SECURITY_ROLE_CONFIG_FILE}" ]; then
+  printf "\nUpdating ${KEYCLOAK_SECURITY_ROLE_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
+  sed -i -E "s/<serverURL>https:\/\/(.+)<\/serverURL>/<serverURL>https:\/\/${KEYCLOAK_HOST}<\/serverURL>/" $KEYCLOAK_SECURITY_ROLE_CONFIG_FILE
+fi
+
+printf "Updating the SSL certificate\n"
+
+sed -i -E "s/IP.2    = (.+)/IP.2    = ${KEYCLOAK_HOST}/g" shogun-nginx/ssl/localhost.conf
+
+openssl req \
+  -config ./shogun-nginx/ssl/localhost.conf \
+  -batch \
+  -x509 \
+  -nodes \
+  -days 3650 \
+  -newkey rsa:2048 \
+  -keyout ./shogun-nginx/ssl/private/localhost.key \
+  -out ./shogun-nginx/ssl/private/localhost.crt
+
+if keytool -list -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
+  keytool -delete -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
+fi
+keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
+
+if keytool -list -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
+  keytool -delete -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
+fi
+keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit

@@ -112,6 +112,7 @@ keycloak:
   client-id: shogun-boot
   principal-attribute: preferred_username
   disableHostnameVerification: true
+  internal-server-url: shogun-keycloak
 
 controller:
   applications:
@@ -159,6 +160,11 @@ upload:
 
 support:
   email: noreply@terrestris.de
+
+logging:
+  config: /config/log4j2.yml
+  file:
+    name: /var/log/shogun/shogun.log
 
 management:
   endpoints:
