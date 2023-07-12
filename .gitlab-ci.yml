@@ -10,6 +10,9 @@ deploy-internal:
     - internal_deploy@terrestris/shogun-docker
   when: manual
   tags: ['intranet']
+  variables:
+    TARGET_PATH: /home/$DEPLOY_SSH_USER_INTERNAL/shogun
+    SSH_CONNECTION: $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL
   before_script:
     - apk add openssh rsync
   script:
@@ -23,21 +26,21 @@ deploy-internal:
     # you will overwrite your user's SSH config.
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL mkdir -p /home/$DEPLOY_SSH_USER_INTERNAL/shogun
-    - scp docker-compose-prod.yml $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml
-    - scp common-services.yml $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun/common-services.yml
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker login -u $NEXUS_USER -p $NEXUS_PASSWORD nexus.terrestris.de
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker system prune -f
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml down
-    - rsync -avh --exclude '.git' shogun-admin -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-boot -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-client -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' --exclude 'Dockerfile' --exclude 'geoserver_data' shogun-geoserver -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-gs-interceptor -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-keycloak -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-nginx/terrestris-dev/ -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun-nginx/prod --progress --mkpath
-    - rsync -avh --exclude '.git' shogun-postgis -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-print -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - rsync -avh --exclude '.git' shogun-solr -e ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL:/home/$DEPLOY_SSH_USER_INTERNAL/shogun --progress
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml pull
-    - ssh $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL docker compose --file /home/$DEPLOY_SSH_USER_INTERNAL/shogun/docker-compose.yml up -d
+    - ssh $SSH_CONNECTION mkdir -p $TARGET_PATH
+    - scp docker-compose-prod.yml $SSH_CONNECTION:$TARGET_PATH/docker-compose.yml
+    - scp common-services.yml $SSH_CONNECTION:$TARGET_PATH/common-services.yml
+    - ssh $SSH_CONNECTION docker login -u $NEXUS_USER -p $NEXUS_PASSWORD nexus.terrestris.de
+    - ssh $SSH_CONNECTION docker system prune -f
+    - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml down
+    - rsync -avh --exclude '.git' shogun-admin -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-boot -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-client -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' --exclude 'Dockerfile' --exclude 'geoserver_data' shogun-geoserver -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-gs-interceptor -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-keycloak -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-nginx/terrestris-dev/ -e ssh $SSH_CONNECTION:$TARGET_PATH/shogun-nginx/prod --progress --mkpath
+    - rsync -avh --exclude '.git' shogun-postgis -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-print -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - rsync -avh --exclude '.git' shogun-solr -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
+    - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml pull
+    - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml up -d
