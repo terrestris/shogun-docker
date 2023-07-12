@@ -5,17 +5,35 @@ services:
       file: ./common-services.yml
       service: shogun-print
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:8080/ || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-geoserver:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
     image: terrestris/geoserver:2.22.2
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-postgis:
     extends:
       file: ./common-services.yml
       service: shogun-postgis
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -h localhost -t 5 || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-keycloak:
     extends:
       file: ./common-services.yml
@@ -28,18 +46,36 @@ services:
     volumes:
       - ./shogun-nginx/prod/default.conf:/etc/nginx/templates/default.conf.template
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-admin:
     extends:
       file: ./common-services.yml
       service: shogun-admin
     image: docker-public.terrestris.de/terrestris/shogun-admin:11.4.4
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-client:
     extends:
       file: ./common-services.yml
       service: shogun-client
     image: docker-public.terrestris.de/terrestris/shogun-gis-client:6.7.0
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-boot:
     extends:
       file: ./common-services.yml
@@ -54,14 +90,33 @@ services:
           memory: 1G
     environment:
       JAVA_TOOL_OPTIONS: "-Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml -Dlog4j2.configurationFile=file:/config/log4j2.yml"
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail "http://localhost:8080" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-gs-interceptor:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
     image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:17.1.1
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail "http://localhost:8081/shogun-gs-interceptor" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
   shogun-solr:
     extends:
       file: ./common-services.yml
       service: shogun-solr
     restart: unless-stopped
+    healthcheck:
+      test: curl --fail "http://localhost:8983" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s

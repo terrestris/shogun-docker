@@ -5,7 +5,22 @@ var clientConfig = {
     host: 'https://<!--# echo var="keycloakhost" -->/auth',
     realm: 'SHOGun',
     clientId: 'shogun-client',
-    onLoadAction: 'check-sso'
+    onLoadAction: 'login-required'
   },
+  featureEditRoles: {
+    authorizedRolesForCreate: [
+      'admin'
+    ],
+    authorizedRolesForUpdate: [
+      'admin'
+    ],
+    authorizedRolesForDelete: [
+      'admin'
+    ],
+    authorizedRolesForEditingGeometries: [
+      'admin'
+    ]
+  },
+  enableFallbackConfig: false,
   plugins: []
 };
