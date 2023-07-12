@@ -10,7 +10,6 @@
       "labelType": "Typ",
       "labelConfig": "Konfiguration",
       "labelSource": "Datenquelle",
-      "labelFeat": "Features",
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Typ",
@@ -26,7 +25,6 @@
       "labelType": "Type",
       "labelConfig": "Configuration",
       "labelSource": "Datasource",
-      "labelFeat": "Features",
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Type",
@@ -90,12 +88,6 @@
         "dataField": "sourceConfig",
         "label": "#i18n.labelSource",
         "fieldProps": {}
-      },
-      {
-        "component": "JSONEditor",
-        "dataField": "features",
-        "label": "#i18n.labelFeat",
-        "fieldProps": {}
       }
     ]
   },
@@ -105,7 +97,7 @@
         "title": "#i18n.titleId",
         "dataIndex": "id",
         "sortConfig": {
-          "isSortable": false
+          "isSortable": true
         }
       },
       {

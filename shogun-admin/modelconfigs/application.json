@@ -122,8 +122,7 @@
         "title": "#i18n.titleId",
         "dataIndex": "id",
         "sortConfig": {
-          "isSortable": true,
-          "defaultSortOrder": "descend"
+          "isSortable": true
         }
       },
       {
@@ -131,7 +130,7 @@
         "dataIndex": "name",
         "key": "name",
         "sortConfig": {
-          "isSortable": false
+          "isSortable": true
         },
         "filterConfig": {
           "isFilterable": true
