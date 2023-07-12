@@ -107,5 +107,4 @@ services:
     image: docker.terrestris.de/solr:9
     volumes:
       - ./shogun-solr/solr_data:/var/solr:RW
-      - ./jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
-    restart: unless-stopped
+      - ./shogun-solr/jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
