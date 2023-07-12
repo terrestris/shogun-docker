@@ -82,6 +82,7 @@ services:
     volumes:
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
+      - ./shogun-boot/log4j2.yml:/config/log4j2.yml
     depends_on:
       - shogun-postgis
       - shogun-keycloak

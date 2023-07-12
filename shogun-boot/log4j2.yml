@@ -1,0 +1,64 @@
+Configuration:
+  Appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: '%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=white, DEBUG=green bold, TRACE=blue}'
+    RollingFile:
+      name: ROLLING_FILE
+      fileName: /var/log/shogun/shogun.log
+      filePattern: "/var/log/shogun/shogun.log.%d{yyyy-MM-dd}.gz"
+      PatternLayout:
+        Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+        SizeBasedTriggeringPolicy:
+          size: 100 MB
+        DefaultRolloverStrategy:
+          Delete:
+            basePath: /var/log/shogun
+            maxDepth: 2
+            IfFileName:
+              glob: "*/$shogun*log.gz"
+            IfLastModified:
+              age: 30d
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: STDOUT
+        - ref: ROLLING_FILE
+
+    logger:
+      - name: de.terrestris
+        level: info
+      - name: org.flywaydb
+        level: info
+      - name: com.zaxxer.hikari
+        level: info
+      - name: io.lettuce
+        level: info
+      - name: io.netty
+        level: info
+      - name: org.thymeleaf
+        level: info
+      - name: org.hibernate
+        level: info
+      - name: org.hibernate.SQL
+        level: info
+      - name: org.hibernate.type.descriptor.sql
+        level: info
+      - name: org.springframework.boot
+        level: info
+      - name: org.springframework
+        level: info
+      - name: org.keycloak
+        level: info
+      - name: org.springdoc
+        level: info
+      - name: com.graphql-java
+        level: info
+      - name: org.reflections
+        level: error
