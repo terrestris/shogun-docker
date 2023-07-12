@@ -23,7 +23,6 @@ services:
     volumes:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
-    restart: unless-stopped
   shogun-keycloak:
     container_name: ${CONTAINER_NAME_PREFIX}-keycloak
     image: quay.io/keycloak/keycloak:21.1.2
@@ -65,7 +64,6 @@ services:
       - shogun-client
       - shogun-admin
       - shogun-print
-    restart: unless-stopped
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-gis-client
   shogun-admin:
@@ -101,7 +99,6 @@ services:
     depends_on:
       - shogun-postgis
       - shogun-keycloak
-    restart: unless-stopped
   shogun-solr:
     container_name: ${CONTAINER_NAME_PREFIX}-solr
     image: docker.terrestris.de/solr:9
