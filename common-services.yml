@@ -102,7 +102,7 @@ services:
       - shogun-keycloak
   shogun-solr:
     container_name: ${CONTAINER_NAME_PREFIX}-solr
-    image: docker.terrestris.de/solr:9
+    image: solr:9.2.1
     volumes:
       - ./shogun-solr/solr_data:/var/solr:RW
       - ./shogun-solr/jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
