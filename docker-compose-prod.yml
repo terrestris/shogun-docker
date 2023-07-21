@@ -80,7 +80,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:17.1.1
+    image: docker-public.terrestris.de/shogun/shogun-boot:17.2.0
     deploy:
       mode: replicated
       replicas: 1
@@ -101,7 +101,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:17.1.1
+    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:17.2.0
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8081/shogun-gs-interceptor" || exit 1
