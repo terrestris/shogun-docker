@@ -1,5 +1,6 @@
 var shogunApplicationConfig = {
   appPrefix: '/admin',
+  defaultPageSize: 20,
   path: {
     modelConfigs: './modelconfigs',
     shogunBase: '/',
