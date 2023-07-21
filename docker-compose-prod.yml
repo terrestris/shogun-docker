@@ -15,7 +15,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    image: terrestris/geoserver:2.22.2
+    image: terrestris/geoserver:2.23.1
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
