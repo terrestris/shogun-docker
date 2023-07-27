@@ -23,6 +23,7 @@ deploy-internal:
   variables:
     TARGET_PATH: /home/$DEPLOY_SSH_USER_INTERNAL/shogun
     SSH_CONNECTION: $DEPLOY_SSH_USER_INTERNAL@$DEPLOY_SSH_HOST_INTERNAL
+    CI_DEBUG_TRACE: "true"
   before_script:
     - apk add openssh rsync
   script:
