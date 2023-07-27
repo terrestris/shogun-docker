@@ -1,5 +1,14 @@
+variables:
+  E2E_IMAGE_NAME: docker-public.terrestris.de/terrestris/shogun-gis-client-e2e-tests:latest
+
 stages:
   - deploy
+  - e2e
+
+include:
+  - project: 'ci-templates/playwright'
+    ref: main
+    file: '.gitlab-ci-template.yml'
 
 deploy-internal:
   stage: deploy
@@ -9,6 +18,7 @@ deploy-internal:
   only:
     - internal_deploy@terrestris/shogun-docker
   when: manual
+  allow_failure: false
   tags: ['intranet']
   variables:
     TARGET_PATH: /home/$DEPLOY_SSH_USER_INTERNAL/shogun
