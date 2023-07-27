@@ -54,3 +54,10 @@ deploy-internal:
     - rsync -avh --exclude '.git' shogun-solr -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml pull
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml up -d
+
+run_e2e_tests:
+  only:
+    - internal_deploy@terrestris/shogun-docker
+  when: delayed
+  start_in: 5 minutes
+  needs: ["deploy-internal"]
