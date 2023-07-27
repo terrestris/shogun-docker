@@ -54,6 +54,7 @@ deploy-internal:
     - rsync -avh --exclude '.git' shogun-solr -e ssh $SSH_CONNECTION:$TARGET_PATH --progress
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml pull
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml up -d
+    - echo $(pwd)
     - ./scripts/waitForStart.sh $DEPLOY_SSH_HOST_INTERNAL
 
 run_e2e_tests:
