@@ -16,14 +16,14 @@ Configuration:
           modulate: true
         SizeBasedTriggeringPolicy:
           size: 100 MB
-        DefaultRolloverStrategy:
-          Delete:
-            basePath: /var/log/shogun
-            maxDepth: 2
-            IfFileName:
-              glob: "*/$shogun*log.gz"
-            IfLastModified:
-              age: 30d
+      DefaultRolloverStrategy:
+        Delete:
+          basePath: /var/log/shogun
+          maxDepth: 2
+          IfFileName:
+            glob: "*/$shogun*log.gz"
+          IfLastModified:
+            age: 30d
   Loggers:
     Root:
       level: info
