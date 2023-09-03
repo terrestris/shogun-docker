@@ -45,7 +45,7 @@ services:
       - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.25.1
+    image: nginx:1.25.2-alpine
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
@@ -80,7 +80,7 @@ services:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
     volumes:
-      - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
+      - ./shogun-boot/keystore/cacerts:/opt/java/openjdk/lib/security/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
       - ./shogun-boot/log4j2.yml:/config/log4j2.yml
     depends_on:

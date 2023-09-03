@@ -112,6 +112,7 @@ sed -i -E "s/IP.2    = (.+)/IP.2    = ${KEYCLOAK_HOST}/g" shogun-nginx/ssl/local
 
 openssl req \
   -config ./shogun-nginx/ssl/localhost.conf \
+  -addext basicConstraints=critical,CA:TRUE,pathlen:1 \
   -batch \
   -x509 \
   -nodes \

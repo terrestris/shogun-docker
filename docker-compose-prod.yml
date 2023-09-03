@@ -89,7 +89,7 @@ services:
           cpus: '0.50'
           memory: 1G
     environment:
-      JAVA_TOOL_OPTIONS: "-Xmx512m -Djdk.serialSetFilterAfterRead=true -Dspring.config.location=/config/application.yml -Dlog4j2.configurationFile=file:/config/log4j2.yml"
+      JAVA_TOOL_OPTIONS: "-Xmx512m -Dspring.config.location=/config/application.yml -Dlog4j2.configurationFile=file:/config/log4j2.yml"
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080" || exit 1

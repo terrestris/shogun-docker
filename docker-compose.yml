@@ -38,7 +38,7 @@ services:
       context: ${SHOGUN_CLIENT_DIR}
       dockerfile: Dockerfile.dev
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - ${SHOGUN_CLIENT_DIR}:/app
   shogun-admin:
@@ -49,7 +49,7 @@ services:
       context: ${SHOGUN_ADMIN_DIR}
       dockerfile: Dockerfile.dev
     ports:
-      - 9090:9090
+      - "9090:9090"
     volumes:
       - ${SHOGUN_ADMIN_DIR}:/app
   shogun-boot:
@@ -81,4 +81,4 @@ services:
       file: ./common-services.yml
       service: shogun-solr
     ports:
-      - 8983:8983
+      - "8983:8983"
