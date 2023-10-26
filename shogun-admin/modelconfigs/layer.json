@@ -75,7 +75,17 @@
         "component": "LayerTypeSelect",
         "dataField": "type",
         "label": "#i18n.labelType",
-        "required": "true"
+        "required": "true",
+        "fieldProps": {
+          "supportedTypes": [
+            "TILEWMS",
+            "WFS",
+            "WMS",
+            "WMSTIME",
+            "WMTS",
+            "XYZ"
+          ]
+        }
       },
       {
         "component": "JSONEditor",

@@ -56,7 +56,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: docker-public.terrestris.de/terrestris/shogun-admin:11.5.2
+    image: docker-public.terrestris.de/terrestris/shogun-admin:11.6.0
     restart: unless-stopped
     healthcheck:
       test: curl --fail http://localhost || exit 1
@@ -68,7 +68,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:6.8.1
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:6.13.0
     restart: unless-stopped
     healthcheck:
       test: curl --fail http://localhost || exit 1
@@ -80,7 +80,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:17.2.0
+    image: docker-public.terrestris.de/shogun/shogun-boot:18.0.0
     deploy:
       mode: replicated
       replicas: 1
@@ -101,7 +101,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:17.2.0
+    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:18.0.0
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8081/shogun-gs-interceptor" || exit 1
