@@ -14,7 +14,7 @@ var clientConfig = {
     base: '/geoserver',
     upload: {
       workspace: 'SHOGUN-UPLOADS',
-      limit: 200000000, // ~200MB
+      limit: 209715200, // 200MB
       authorizedRoles: [
         'admin'
       ]
