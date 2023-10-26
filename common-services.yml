@@ -2,7 +2,7 @@ version: '3.7'
 services:
   shogun-print:
     container_name: ${CONTAINER_NAME_PREFIX}-print
-    image: camptocamp/mapfish_print:3.30.5
+    image: camptocamp/mapfish_print:3.30.6
     volumes:
       - ./shogun-print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z
   shogun-geoserver:
@@ -25,7 +25,7 @@ services:
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
   shogun-keycloak:
     container_name: ${CONTAINER_NAME_PREFIX}-keycloak
-    image: quay.io/keycloak/keycloak:22.0.1
+    image: quay.io/keycloak/keycloak:22.0.5
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
@@ -45,7 +45,7 @@ services:
       - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.25.2-alpine
+    image: nginx:1.25.3-alpine
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
