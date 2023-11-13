@@ -2,6 +2,7 @@ server:
   port: 8080
   # this flag is needed to properly redirect to https:
   forward-headers-strategy: framework
+  max-http-header-size: 64KB
   servlet:
     context-path: /
   error:
@@ -20,14 +21,14 @@ spring:
     # Show SQL statements
     show-sql: true
     open-in-view: true
-    database-platform: org.hibernate.spatial.dialect.postgis.PostgisPG95Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       jdbc:
         lob:
           non_contextual_creation: true
       ddl-auto: none
     properties:
-      javax:
+      jakarta:
         persistence:
           sharedCache:
             # Only entities with @Cacheable annotation will use L2 cache
@@ -40,7 +41,9 @@ spring:
             audit_table_prefix: _rev
             global_with_modified_flag: true
       hibernate:
-        javax:
+        id:
+          db_structure_naming_strategy: single
+        jakarta:
           cache:
             provider: org.ehcache.jsr107.EhcacheCachingProvider
             uri: ehcache.xml
@@ -69,6 +72,7 @@ spring:
     locations: classpath:db/migration
     defaultSchema: shogun
     schemas: shogun, public
+    outOfOrder: true
   datasource:
     platform: postgres
     url: jdbc:postgresql://shogun-postgis/shogun?currentSchema=shogun
