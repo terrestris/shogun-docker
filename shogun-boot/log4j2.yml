@@ -1,3 +1,7 @@
+# Please note: This file is not used in the development environment/mode by default!
+#              To make use of it, enable the "Dlog4j2.configurationFile=/config/log4j2.yml"
+#              config option via the JAVA_TOOL_OPTIONS environment variable in the compose file.
+
 Configuration:
   Appenders:
     Console:
