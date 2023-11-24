@@ -87,7 +87,7 @@
       },
       {
         "title": "#i18n.titleGroupname",
-        "dataIndex":  ["providerDetails", "name"],
+        "dataIndex": ["providerDetails", "name"],
         "key": "name",
         "sortConfig": {
           "isSortable": true
@@ -114,7 +114,7 @@
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
           "title": "#i18n.titleGroup",
-          "template": "/auth/admin/master/console/#/realms/SHOGun/groups/{}"
+          "template": "/auth/admin/master/console/#/SHOGun/groups/{}/settings"
         }
       }
     ]
