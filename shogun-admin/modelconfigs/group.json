@@ -10,6 +10,7 @@
       "labelKeyProvDetail": "Keycloak Details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "userDoesNotExistTitle": "Die Gruppe existiert nicht in Keycloak",
       "titleGroupname": "Gruppenname",
       "titleLink": "Link zur Gruppe",
       "titleGroup": "Öffne Gruppe in Keycloak"
@@ -24,6 +25,7 @@
       "labelKeyProvDetail": "Keycloak details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "userDoesNotExistTitle": "Group does not exist in Keycloak",
       "titleGroupname": "Group name",
       "titleLink": "Link to group",
       "titleGroup": "Open group in Keycloak"
@@ -100,6 +102,10 @@
         "title": "#i18n.titleKeyId",
         "dataIndex": "authProviderId",
         "key": "authProviderId",
+        "cellRenderComponentName": "VerifyProviderDetailsCell",
+        "cellRenderComponentProps": {
+          "title": "#i18n.groupDoesNotExistTitle"
+        },
         "sortConfig": {
           "isSortable": true
         },
