@@ -1,14 +1,18 @@
 variables:
   E2E_IMAGE_NAME: docker-public.terrestris.de/terrestris/shogun-gis-client-e2e-tests:latest
 
-stages:
-  - deploy
-  - e2e
-
 include:
   - project: 'ci-templates/playwright'
     ref: main
     file: '.gitlab-ci-template.yml'
+  - project: 'ci-templates/syft-sbom-generator'
+    ref: main
+    file: '.gitlab-ci-template.yml'
+
+stages:
+  - deploy
+  - e2e
+  - sbom
 
 deploy-internal:
   stage: deploy
@@ -56,6 +60,265 @@ deploy-internal:
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml pull
     - ssh $SSH_CONNECTION docker compose --file $TARGET_PATH/docker-compose.yml up -d
     - ./scripts/waitForStart.sh $DEPLOY_SSH_HOST_INTERNAL
+
+.common-sbom:
+  rules:
+    - if: $CI_COMMIT_REF_NAME =~ /^\d+\.\d+\.\d+/
+  variables:
+    DOCKER_COMPOSE_FILE_PROD: docker-compose-prod.yml
+    DOCKER_COMPOSE_FILE_COMMON: common-services.yml
+  before_script:
+    - if [ -z $DOCKER_COMPOSE_FILE ]; then echo "Variable DOCKER_COMPOSE_FILE must not be empty"; exit 1; fi
+    - if [ -z $SERVICE_NAME ]; then echo "Variable SERVICE_NAME must not be empty"; exit 1; fi
+    - SYFT_SOURCE=$(awk '/'$SERVICE_NAME':/,/image:/ { if(/image:/) { print $2 } }' $DOCKER_COMPOSE_FILE)
+
+.common-publish-sbom:
+  variables:
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: shogun
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: $CI_COMMIT_REF_NAME
+  before_script:
+    - if [ ! -f sbom.json ]; then echo "File not found"; exit 1; fi
+    - DEPENDENCY_TRACK_PROJECT_VERSION=$(awk '/'$DEPENDENCY_TRACK_PROJECT_NAME':/,/image:/ { if(/image:/) { split($2, a, ":"); split(a[2], b, "@"); print b[1] } }' $DOCKER_COMPOSE_FILE)
+    - !reference [publish-sbom, before_script]
+
+# Disable the default template job(s)
+generate-sbom:
+  rules:
+    - when: never
+
+publish-sbom:
+  rules:
+    - when: never
+
+generate-sbom-print:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    SERVICE_NAME: shogun-print
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-print:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-print
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-print
+
+generate-sbom-geoserver:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-geoserver
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-geoserver:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-geoserver
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-geoserver
+
+generate-sbom-postgis:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    SERVICE_NAME: shogun-postgis
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-postgis:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-postgis
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-postgis
+
+generate-sbom-keycloak:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    SERVICE_NAME: shogun-keycloak
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-keycloak:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-keycloak
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-keycloak
+
+generate-sbom-nginx:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-nginx
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-nginx:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-nginx
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-nginx
+
+generate-sbom-admin:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-admin
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-admin:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-admin
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-admin
+
+generate-sbom-client:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-client
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-client:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-client
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-client
+
+generate-sbom-boot:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-boot
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-boot:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-boot
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-boot
+
+generate-sbom-gs-interceptor:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    SERVICE_NAME: shogun-gs-interceptor
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-gs-interceptor:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-gs-interceptor
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-gs-interceptor
+
+generate-sbom-solr:
+  extends: generate-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    SERVICE_NAME: shogun-solr
+  before_script:
+    - !reference [.common-sbom, before_script]
+    - !reference [generate-sbom, before_script]
+
+publish-sbom-solr:
+  extends: publish-sbom
+  rules: !reference [.common-sbom, rules]
+  variables:
+    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_COMMON]
+    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+    DEPENDENCY_TRACK_PROJECT_NAME: shogun-solr
+  before_script:
+    - !reference [.common-publish-sbom, before_script]
+  needs:
+    - generate-sbom-solr
 
 run_e2e_tests:
   only:
