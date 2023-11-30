@@ -1,4 +1,4 @@
-FROM terrestris/geoserver:2.23.1
+FROM docker.osgeo.org/geoserver:2.24.1
 
 ARG USER_UID
 ARG USER_GID
