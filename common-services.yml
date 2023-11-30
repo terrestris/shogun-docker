@@ -16,7 +16,7 @@ services:
       - ./shogun-geoserver/keystore/cacerts:/etc/ssl/certs/java/cacerts
   shogun-postgis:
     container_name: ${CONTAINER_NAME_PREFIX}-postgis
-    image: postgis/postgis:13-3.4-alpine
+    image: postgis/postgis:16-3.4-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
