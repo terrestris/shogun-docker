@@ -161,6 +161,35 @@ You can test whether the SHOGun application started by visiting the URL
 - SHOGun Admin: `shogun:shogun`
 - GeoServer: `admin:geoserver`
 
+## GeoServer
+
+### Plugins
+
+The following [official extensions](https://geoserver.org/release/stable/) are installed in GeoServer:
+
+- geofence-server
+  - including the dependencies of [hibernate-spatial-postgis](https://maven.geo-solutions.it/org/hibernatespatial/hibernate-spatial-postgis/1.1.3.2/hibernate-spatial-postgis-1.1.3.2.jar) and [postgis-jdbc](https://repo1.maven.org/maven2/org/postgis/postgis-jdbc/1.3.3/postgis-jdbc-1.3.3.jar)
+- importer
+- web-resource
+- [sec-keycloak](https://github.com/geoserver/geoserver/tree/main/src/community/security/keycloak)
+
+#### Build the Keycloak extension
+
+If you need to build the keycloak community extension (e.g. while updating the GeoServer), please proceed as follows:
+
+```bash
+# go to your local GeoServer checkout
+git pull upstream main --tags
+git checkout <VERSION> # e.g. git checkout 2.22.2
+cd src/community
+mvn install -PcommunityRelease -DskipTests # this may take a while!
+mvn assembly:single -N
+
+# release archives available at src/comunity/target/release/
+```
+
+Afterwards [download the gson jar](https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.9) in version 2.8.9 and put it into the extension's zip archive.
+
 ## Keycloak
 
 ### Export
