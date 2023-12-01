@@ -23,6 +23,7 @@ services:
     volumes:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
+      - ./shogun-postgis/init_data/02_init_geofence.sql:/docker-entrypoint-initdb.d/02_init_geofence.sql
   shogun-keycloak:
     container_name: ${CONTAINER_NAME_PREFIX}-keycloak
     image: quay.io/keycloak/keycloak:23.0.1
