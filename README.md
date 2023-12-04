@@ -161,19 +161,115 @@ You can test whether the SHOGun application started by visiting the URL
 - SHOGun Admin: `shogun:shogun`
 - GeoServer: `admin:geoserver`
 
+## PostgreSQL
+
+### Database update
+
+If you have an existing database from a previous startup and you've updated the PostgreSQL version midway, you might
+encounter an error similar to the following:
+
+```
+FATAL: database files are incompatible with server
+DETAIL: The data directory was initialized by PostgreSQL version 13, which is not compatible with this version 16.1.
+```
+
+In this case it's necessary to backup and restore all databases manually:
+
+1. Shutdown all running `shogun-docker` containers (if needed).
+2. Rename the existing database directory, e.g. to `postgresql_data_v13` via
+   `mv ./shogun-postgis/postgresql_data/ ./shogun-postgis/postgresql_data_v13`.
+3. Create a `docker-compose-v13.yml` containing:
+
+```yml
+version: '3.7'
+services:
+  shogun-postgis-old:
+    container_name: shogun-postgis-old
+    # Adjust the db version to your existing one
+    image: postgis/postgis:13-3.4-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      # Set the renamed database directory name from above
+      - ./shogun-postgis/postgresql_data_v13:/var/lib/postgresql/data:Z
+```
+
+4. Start the container via `docker compose -f docker-compose-v13.yml up`.
+5. Create dumps of all relevant databases (usually `keycloak` and `shogun`):
+
+```bash
+# Change the user if needed
+docker exec -it shogun-postgis-old pg_dump -C -h localhost -p 5432 -U shogun -d keycloak > ./shogun-postgis/keycloak.sql
+docker exec -it shogun-postgis-old pg_dump -C -h localhost -p 5432 -U shogun -d shogun > ./shogun-postgis/shogun.sql
+```
+
+6. Stop the container.
+7. Start the updated/current database container via `docker compose up shogun-postgis` (make sure
+   that `./shogun-postgis/postgresql_data` is empty and the directory `./shogun-postgis/init_data` is **not** mounted).
+8. Import the dumps:
+
+```bash
+# Change the user if needed
+docker exec -i shogun-postgis psql -h localhost -p 5432 -U shogun < ./shogun-postgis/keycloak.sql
+docker exec -i shogun-postgis psql -h localhost -p 5432 -U shogun < ./shogun-postgis/shogun.sql
+```
+
+9. Shutdown the database container and restart the full setup with `docker compose up` (remount
+   the `./shogun-postgis/init_data` if needed).
+10. All files/directories created in the steps above (`docker-compose-v13.yml`, `./shogun-postgis/keycloak.sql`,
+    `./shogun-postgis/shogun.sql`, `./shogun-postgis/postgresql_data_v13`) can be removed if needed.
+
+## GeoServer
+
+### Plugins
+
+The following [official extensions](https://geoserver.org/release/stable/) are installed in GeoServer:
+
+- geofence-server
+  - including the dependencies of [hibernate-spatial-postgis](https://maven.geo-solutions.it/org/hibernatespatial/hibernate-spatial-postgis/1.1.3.2/hibernate-spatial-postgis-1.1.3.2.jar) and [postgis-jdbc](https://repo1.maven.org/maven2/org/postgis/postgis-jdbc/1.3.3/postgis-jdbc-1.3.3.jar)
+- importer
+- web-resource
+- [sec-keycloak](https://github.com/geoserver/geoserver/tree/main/src/community/security/keycloak)
+
+#### Build the Keycloak extension
+
+If you need to build the keycloak community extension (e.g. while updating the GeoServer), please proceed as follows:
+
+```bash
+# go to your local GeoServer checkout
+git pull upstream main --tags
+git checkout <VERSION> # e.g. git checkout 2.22.2
+cd src/community
+mvn install -PcommunityRelease -DskipTests # this may take a while!
+mvn assembly:single -N
+
+# release archives available at src/comunity/target/release/
+```
+
+Afterwards [download the gson jar](https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.9) in version 2.8.9 and put it into the extension's zip archive.
+
+### Export GeoFence configuration
+
+To export the current configuration of GeoFence just execute:
+
+```bash
+docker exec -it shogun-postgis pg_dump -C -h localhost -p 5432 -U shogun geofence > ./shogun-postgis/init_data/02_init_geofence.sql
+```
+
 ## Keycloak
 
 ### Export
 
 While the Keycloak docker container is running execute:
 
-```
+```bash
 docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
 ```
 
 Wait until finished and copy the configuration to your host:
 
-```
+```bash
 docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
 ```
 
@@ -181,14 +277,13 @@ docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/
 
 Copy the configuration to the running Keycloak container:
 
-```
+```bash
 docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
 ```
 
 and start the import with:
 
-
-```
+```bash
 docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
 ```
 

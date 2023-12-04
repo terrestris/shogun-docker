@@ -94,16 +94,10 @@ else
 fi
 
 KEYCLOAK_SECURITY_FILTER_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml'
-KEYCLOAK_SECURITY_ROLE_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/role/keycloak/config.xml'
 
 if [ -f "${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE}" ]; then
   printf "\nUpdating ${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
   sed -i -E "s/&quot;auth-server-url&quot;: &quot;https:\/\/(.+)\/auth\/&quot;,&#xd;/\&quot;auth-server-url\&quot;: \&quot;https:\/\/${KEYCLOAK_HOST}\/auth\/\&quot;,\&#xd;/" $KEYCLOAK_SECURITY_FILTER_CONFIG_FILE
-fi
-
-if [ -f "${KEYCLOAK_SECURITY_ROLE_CONFIG_FILE}" ]; then
-  printf "\nUpdating ${KEYCLOAK_SECURITY_ROLE_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
-  sed -i -E "s/<serverURL>https:\/\/(.+)<\/serverURL>/<serverURL>https:\/\/${KEYCLOAK_HOST}<\/serverURL>/" $KEYCLOAK_SECURITY_ROLE_CONFIG_FILE
 fi
 
 printf "Updating the SSL certificate\n"

@@ -10,6 +10,7 @@
       "labelKeyProvDetail": "Keycloak Details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "userDoesNotExistTitle": "Der Nutzer existiert nicht in Keycloak",
       "titleUsername": "Benutzername",
       "titleLink": "Link zum Benutzer",
       "titleOpen": "Öffne User in Keycloak"
@@ -24,6 +25,7 @@
       "labelKeyProvDetail": "Keycloak details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
+      "userDoesNotExistTitle": "User does not exist in Keycloak",
       "titleUsername": "Username",
       "titleLink": "Link to user",
       "titleOpen": "Open user in Keycloak"
@@ -87,7 +89,7 @@
       },
       {
         "title": "#i18n.titleUsername",
-        "dataIndex":  ["providerDetails", "username"],
+        "dataIndex": ["providerDetails", "username"],
         "key": "username",
         "sortConfig": {
           "isSortable": true
@@ -100,6 +102,10 @@
         "title": "#i18n.titleKeyId",
         "dataIndex": "authProviderId",
         "key": "authProviderId",
+        "cellRenderComponentName": "VerifyProviderDetailsCell",
+        "cellRenderComponentProps": {
+          "title": "#i18n.userDoesNotExistTitle"
+        },
         "sortConfig": {
           "isSortable": true
         },
@@ -114,7 +120,7 @@
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
           "title": "#i18n.titleOpen",
-          "template": "/auth/admin/master/console/#/realms/SHOGun/users/{}"
+          "template": "/auth/admin/master/console/#/SHOGun/users/{}/settings"
         }
       }
     ]

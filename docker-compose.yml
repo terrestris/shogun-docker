@@ -61,6 +61,9 @@ services:
     ports:
       - "4711:4711"
       - "9010:9010"
+    # Enable if you want to make use of the external application and log configurations
+    # environment:
+    #   JAVA_TOOL_OPTIONS: "-Dspring.config.location=/config/application.yml -Dlog4j2.configurationFile=/config/log4j2.yml"
     volumes:
       - ${SHOGUN_DIR}/:/shogun/
       - ~/.m2:/root/.m2

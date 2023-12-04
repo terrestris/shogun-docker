@@ -1,5 +1,5 @@
 <gwcQuotaConfiguration>
-  <enabled>true</enabled>
+  <enabled>false</enabled>
   <cacheCleanUpFrequency>10</cacheCleanUpFrequency>
   <cacheCleanUpUnits>SECONDS</cacheCleanUpUnits>
   <maxConcurrentCleanUps>2</maxConcurrentCleanUps>
@@ -8,5 +8,5 @@
     <value>500</value>
     <units>MiB</units>
   </globalQuota>
-  <quotaStore>H2</quotaStore>
+  <quotaStore>HSQL</quotaStore>
 </gwcQuotaConfiguration>
