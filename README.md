@@ -249,6 +249,14 @@ mvn assembly:single -N
 
 Afterwards [download the gson jar](https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.9) in version 2.8.9 and put it into the extension's zip archive.
 
+### Export GeoFence configuration
+
+To export the current configuration of GeoFence just execute:
+
+```bash
+docker exec -it shogun-postgis pg_dump -C -h localhost -p 5432 -U shogun geofence > ./shogun-postgis/init_data/02_init_geofence.sql
+```
+
 ## Keycloak
 
 ### Export
