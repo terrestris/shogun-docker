@@ -39,6 +39,8 @@ services:
       KC_HOSTNAME: ${KEYCLOAK_HOST}
       KC_HOSTNAME_PATH: /auth
       KC_HTTP_RELATIVE_PATH: /auth
+    # Enable if you want to disable caching of the theme templates, e.g. while adjusting the custom shogun one.
+    # command: ["start", "--proxy", "edge", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false"]
     command: ["start", "--proxy", "edge"]
     volumes:
      - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
