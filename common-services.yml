@@ -42,6 +42,7 @@ services:
     command: ["start", "--proxy", "edge"]
     volumes:
      - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
+     - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
     depends_on:
       - shogun-postgis
   shogun-nginx:
