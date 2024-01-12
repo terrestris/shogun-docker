@@ -165,7 +165,7 @@
     </div>
   </div>
   <footer class="kc-footer-container">
-     <p class="col-md-4 mb-0 text-muted">
+     <p>
       &copy; 2021 - present <a href="https://www.terrestris.de">terrestris GmbH & Co. KG</a>
     </p>
   </footer>
