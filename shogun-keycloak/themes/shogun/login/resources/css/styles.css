@@ -1,3 +1,93 @@
 .login-pf body {
-  background: DimGrey none;
+
+  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--bs-body-font-family);
+  @media(min-width: 576px){
+
+    max-width: 540px;
+
+  }
+  @media(min-width: 768px){
+
+    max-width: 720px;
+
+  }
+  @media(min-width: 992px){
+
+    max-width: 960px;
+
+  }
+  @media(min-width: 1200px){
+
+    max-width: 1140px;
+
+  }
+
+  @media(min-width: 1400px) {
+
+    max-width: 1320px;
+
+  }
+
+}
+
+.header-container{
+
+  border-bottom: 1px solid #dee2e6 !important;
+  margin-bottom: 1.5rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+
+}
+
+.shogun-logo{
+
+  height: 50px;
+  margin-left:48%;
+
+}
+
+.login-pf-page{
+
+  color:black;
+
+}
+
+.card-pf{
+
+  position: flex;
+  box-shadow: inset;
+  border-color: #0b5ed7;
+
+}
+
+.kc-footer-container{
+
+  margin-top: 80px !important;
+  margin-bottom: 1.5rem !important;
+  border-top: 1px solid #dee2e6 !important;
+  padding: 1em;
+  position: flex;
+  bottom: 0;
+
+}
+
+#kc-header-wrapper {
+
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: none;
+  text-align: center;
+  padding: 2%;
+
+}
+
+.pf-c-button.pf-m-primary {
+
+  background-color: #0b5ed7;
+
 }
