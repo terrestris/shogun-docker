@@ -1,0 +1,74 @@
+.login-pf body {
+  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+  @media(min-width: 576px){
+    max-width: 540px;
+  }
+  @media(min-width: 768px){
+    max-width: 720px;
+  }
+  @media(min-width: 992px){
+    max-width: 960px;
+  }
+  @media(min-width: 1200px){
+    max-width: 1140px;
+  }
+  @media(min-width: 1400px) {
+    max-width: 1320px;
+  }
+}
+
+.header-container {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem ;
+}
+
+.shogun-logo{
+  height: 50px;
+  margin-left:48%;
+}
+
+.login-pf-page{
+  color:black;
+}
+
+.card-pf{
+  position: flex;
+  box-shadow: inset;
+  border-color: #0b5ed7;
+}
+
+.kc-footer-container{
+  margin-top: 28%;
+  border-top: 1px solid #dee2e6;
+  padding: 1em;
+  position: sticky;
+  background-color: white;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  p{
+    margin: 10px;
+  }
+}
+
+#kc-header-wrapper {
+
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: none;
+  text-align: center;
+  padding: 2%;
+
+}
+
+.pf-c-button.pf-m-primary {
+  background-color: #0b5ed7;
+}
