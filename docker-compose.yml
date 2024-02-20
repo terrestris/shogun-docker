@@ -37,8 +37,6 @@ services:
     build:
       context: ${SHOGUN_CLIENT_DIR}
       dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
     volumes:
       - ${SHOGUN_CLIENT_DIR}:/app
   shogun-admin:
@@ -48,8 +46,6 @@ services:
     build:
       context: ${SHOGUN_ADMIN_DIR}
       dockerfile: Dockerfile.dev
-    ports:
-      - "9090:9090"
     volumes:
       - ${SHOGUN_ADMIN_DIR}:/app
   shogun-boot:
