@@ -91,22 +91,18 @@ your-custom-shogun-workspace-directory/
     -    build:
     -      context: ${SHOGUN_ADMIN_DIR}
     -      dockerfile: Dockerfile.dev
-    -    ports:
-    -      - 9090:9090
     -    volumes:
     -      - ${SHOGUN_ADMIN_DIR}:/app
-    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-admin:9.0.0
+    +    image: docker-public.terrestris.de/terrestris/shogun-admin:13.0.1
     ```
 
     ```diff
     -    build:
     -      context: ${SHOGUN_CLIENT_DIR}
     -      dockerfile: Dockerfile.dev
-    -    ports:
-    -      - 3000:3000
     -    volumes:
     -      - ${SHOGUN_CLIENT_DIR}:/app
-    +    image: nexus.terrestris.de/repository/terrestris-public/shogun-gis-client:4.0.0
+    +    image: docker-public.terrestris.de/terrestris/shogun-gis-client:7.3.1
     ```
 
 1. Remove the `shogun-gs-interceptor` service from the `docker-compose.yml`.
@@ -127,12 +123,12 @@ your-custom-shogun-workspace-directory/
    you might need to adjust the reverse proxy settings in the `shogun-nginx/dev/default.conf` file, e.g.:
 
     ```diff
-    -    proxy_pass https://shogun-admin:9090/;
+    -    proxy_pass http://shogun-admin:8080/;
     +    proxy_pass http://shogun-admin/;
     ```
     ```diff
-    -    proxy_pass https://shogun-client:3000/;
-    +    proxy_pass http://shogun-gis-client/;
+    -    proxy_pass http://shogun-client:8080/;
+    +    proxy_pass http://shogun-client/;
     ```
 
 1. Run the services with `docker compose up` which should be available at `https://localhost/` afterwards.
@@ -298,3 +294,23 @@ sudo addgroup --gid 8983 solr
 sudo chown -R .solr shogun-solr
 sudo chmod -R g+w shogun-solr
 ```
+
+## Notes for production
+
+If you plan to make use of this setup in production, you're highly encouraged to do so.
+
+But after the initial installation we strongly recommend to change some defaults:
+
+- Regenerate the default Keycloak client secrets for all clients of *confidential access* type (e.g. `shogun-geoserver`):
+  - See the [documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#_client-credentials).
+  - The secret for the `shogun-geoserver` client needs to be adjusted in the `shogun-keycloak` role service
+    afterwards.
+- Change all default passwords:
+  - GeoServer:
+    - Change the password of the `admin` user (see the [documentation](https://docs.geoserver.org/stable/en/user/security/webadmin/ugr.html#security-webadmin-ugr)).
+  - PostgreSQL:
+    - Change the password of the `shogun` user via `docker exec shogun-postgis -c psql-u shogun -c "ALTER USER shogun PASSWORD '<new-password>';"`.
+    - The password needs to be changed in the `.env` file accordingly.
+  - Keycloak:
+    - Change the password of the `admin` user (see the [documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#proc-setting-password-user_server_administration_guide)).
+    - The password needs to be changed in the `.env` file accordingly.
