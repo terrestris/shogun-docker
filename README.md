@@ -314,3 +314,5 @@ But after the initial installation we strongly recommend to change some defaults
   - Keycloak:
     - Change the password of the `admin` user (see the [documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#proc-setting-password-user_server_administration_guide)).
     - The password needs to be changed in the `.env` file accordingly.
+
+**Note:** Please recheck your installation critically if you need to adjust other parts as well. We don't give any warranty this list is complete!
