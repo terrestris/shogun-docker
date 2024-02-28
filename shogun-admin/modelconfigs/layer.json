@@ -36,16 +36,16 @@
   "entityName": "#i18n.entityName",
   "navigationTitle": "#i18n.navigationTitle",
   "subTitle": "",
-  "defaultEntity":{
+  "defaultEntity": {
     "type": "TILEWMS",
-    "clientConfig" : {
-        "hoverable":false
-      },
-     "sourceConfig": {
+    "clientConfig": {
+      "hoverable": false
+    },
+    "sourceConfig": {
       "url": "https://ows.terrestris.de/osm/service?",
       "layerNames": "OSM-WMS",
       "useBearerToken": false
-     }
+    }
   },
   "formConfig": {
     "name": "layer",
