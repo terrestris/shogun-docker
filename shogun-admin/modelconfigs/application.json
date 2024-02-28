@@ -201,8 +201,7 @@
         "name": "search",
         "config": {
           "engines": [
-            "nominatim",
-            "solr"
+            "nominatim"
           ]
         }
       }
