@@ -44,6 +44,169 @@
   "entityName": "#i18n.entityName",
   "navigationTitle": "#i18n.navigationTitle",
   "subTitle": "",
+  "defaultEntity": {
+    "clientConfig": {
+      "mapView": {
+        "zoom": 1,
+        "center": [
+          4.9828636,
+          51.7480312
+        ],
+        "projection": "EPSG:3857",
+        "resolutions": [
+          2240,
+          1120,
+          560,
+          280,
+          140,
+          70,
+          28,
+          14,
+          7,
+          2.8,
+          1.4,
+          0.7,
+          0.28,
+          0.14,
+          0.07
+        ]
+      }
+    },
+    "toolConfig": [
+      {
+        "name": "measure_tools",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "measure_tools_distance",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "measure_tools_area",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_point",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_line",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_polygon",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_circle",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_rectangle",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_annotation",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_modify",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_upload",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_download",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_delete",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "draw_tools_style",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "feature_info",
+        "config": {
+          "visible": true,
+          "activeCopyTools": [
+            "COPY_AS_GEOJSON",
+            "COPY_AS_OBJECT"
+          ]
+        }
+      },
+      {
+        "name": "print",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "tree",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "permalink",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "language_selector",
+        "config": {
+          "visible": true
+        }
+      },
+      {
+        "name": "search",
+        "config": {
+          "engines": [
+            "nominatim"
+          ]
+        }
+      }
+    ]
+  },
   "formConfig": {
     "name": "application",
     "fields": [
