@@ -45,8 +45,6 @@ services:
     volumes:
      - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
      - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
-    depends_on:
-      - shogun-postgis
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.25.3-alpine
@@ -61,13 +59,6 @@ services:
       - "443:443"
     environment:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-    depends_on:
-      - shogun-keycloak
-      - shogun-boot
-      - shogun-geoserver
-      - shogun-client
-      - shogun-admin
-      - shogun-print
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-gis-client
   shogun-admin:
@@ -87,9 +78,6 @@ services:
       - ./shogun-boot/keystore/cacerts:/opt/java/openjdk/lib/security/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
       - ./shogun-boot/log4j2.yml:/config/log4j2.yml
-    depends_on:
-      - shogun-postgis
-      - shogun-keycloak
   shogun-gs-interceptor:
     container_name: ${CONTAINER_NAME_PREFIX}-gs-interceptor
     environment:
@@ -101,9 +89,6 @@ services:
     volumes:
       - ./shogun-boot/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-gs-interceptor/application.yml:/config/application.yml
-    depends_on:
-      - shogun-postgis
-      - shogun-keycloak
   shogun-solr:
     container_name: ${CONTAINER_NAME_PREFIX}-solr
     image: solr:9.4.0
