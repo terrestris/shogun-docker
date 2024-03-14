@@ -59,7 +59,7 @@ services:
     image: docker-public.terrestris.de/terrestris/shogun-admin:13.0.1
     restart: unless-stopped
     healthcheck:
-      test: curl --fail http://localhost || exit 1
+      test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
@@ -71,7 +71,7 @@ services:
     image: docker-public.terrestris.de/terrestris/shogun-gis-client:7.3.1
     restart: unless-stopped
     healthcheck:
-      test: curl --fail http://localhost || exit 1
+      test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
@@ -92,7 +92,7 @@ services:
       JAVA_TOOL_OPTIONS: "-Xmx512m -Dspring.config.location=/config/application.yml -Dlog4j2.configurationFile=/config/log4j2.yml"
     restart: unless-stopped
     healthcheck:
-      test: curl --fail "http://localhost:8080" || exit 1
+      test: wget --no-verbose --tries=1 --spider "http://localhost:8080" || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
@@ -104,7 +104,7 @@ services:
     image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:18.0.0
     restart: unless-stopped
     healthcheck:
-      test: curl --fail "http://localhost:8081/shogun-gs-interceptor" || exit 1
+      test: wget --no-verbose --tries=1 --spider "http://localhost:8081/shogun-gs-interceptor/swagger-ui/index.html" || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
