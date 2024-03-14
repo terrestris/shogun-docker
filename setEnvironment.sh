@@ -43,17 +43,43 @@ MODE=$1
 # GEOSERVER_CSRF_WHITELIST
 GEOSERVER_CSRF_WHITELIST=localhost
 
+POSITIONAL_ARGS=()
+NO_CONFIRM=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -y|--yes)
+      NO_CONFIRM=true
+      shift
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}"
+
 if [ "$MODE" = "create" ]; then
-  read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
+  if ! "$NO_CONFIRM"; then
+    read -rp "This will remove the current .env file. Do you really want to continue (y/n)? "
+  fi
 elif [ "$MODE" = "update" ]; then
-  read -rp "This will update the current .env file with your local IP only. Do you want to continue (y/n)? "
+  if ! "$NO_CONFIRM"; then
+    read -rp "This will update the current .env file with your local IP only. Do you want to continue (y/n)? "
+  fi
 else
   echo "Missing argument 'create' or 'update'"
   exit 1
 fi
 
 # Check if prompted to continue
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+if ! "$NO_CONFIRM" && [[ ! $REPLY =~ ^[Yy]$ ]]; then
   exit 1
 fi
 
