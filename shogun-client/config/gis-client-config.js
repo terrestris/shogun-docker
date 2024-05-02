@@ -1,4 +1,5 @@
 var clientConfig = {
+  appLogo: '',
   shogunBase: '/',
   keycloak: {
     enabled: true,
