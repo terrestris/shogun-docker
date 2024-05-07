@@ -95,3 +95,9 @@ services:
     volumes:
       - ./shogun-solr/solr_data:/var/solr:RW
       - ./shogun-solr/jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
+  shogun-gis-client-docs:
+    container_name: ${CONTAINER_NAME_PREFIX}-gis-client-docs
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client-docs:1.0.2
+  shogun-admin-client-docs:
+    container_name: ${CONTAINER_NAME_PREFIX}-admin-client-docs
+    image: docker-public.terrestris.de/terrestris/shogun-admin-client-docs:1.0.2

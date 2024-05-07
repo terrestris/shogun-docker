@@ -81,3 +81,11 @@ services:
       service: shogun-solr
     ports:
       - "8983:8983"
+  shogun-gis-client-docs:
+    extends:
+      file: ./common-services.yml
+      service: shogun-gis-client-docs
+  shogun-admin-client-docs:
+    extends:
+      file: ./common-services.yml
+      service: shogun-admin-client-docs
