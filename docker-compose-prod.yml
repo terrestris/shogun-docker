@@ -43,6 +43,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-nginx
+    image: nexus.terrestris.de/terrestris/nginx:intranet
     volumes:
       - ./shogun-nginx/prod/default.conf:/etc/nginx/templates/default.conf.template
     restart: unless-stopped
