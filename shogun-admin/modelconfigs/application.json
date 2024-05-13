@@ -39,6 +39,7 @@
       "toolTipLink": "Open application"
     }
   },
+  "defaultSortField": "name",
   "endpoint": "/applications",
   "entityType": "application",
   "entityName": "#i18n.entityName",
