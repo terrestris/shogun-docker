@@ -17,7 +17,8 @@
       "titleName": "Name",
       "titleEdit": "Zuletzt editiert am",
       "titleLink": "Link zur Applikation",
-      "toolTipLink": "Öffne Applikation"
+      "toolTipLink": "Öffne Applikation",
+      "isPublic": "Öffentliche Applikation"
     },
     "en": {
       "entityName": "Application",
@@ -36,7 +37,8 @@
       "titleName": "Name",
       "titleEdit": "Last edited on",
       "titleLink": "Link to application",
-      "toolTipLink": "Open application"
+      "toolTipLink": "Open application",
+      "isPublic": "Public application"
     }
   },
   "endpoint": "/applications",
@@ -209,6 +211,7 @@
   },
   "formConfig": {
     "name": "application",
+    "publicKey": "__isPublic__",
     "fields": [
       {
         "dataType": "number",
@@ -247,6 +250,11 @@
         "dataField": "stateOnly",
         "label": "#i18n.labelWork",
         "readOnly": "true"
+      },
+      {
+        "component": "Switch",
+        "dataField": "__isPublic__",
+        "label": "#i18n.isPublic"
       },
       {
         "component": "JSONEditor",

@@ -13,7 +13,8 @@
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Typ",
-      "titlePrev": "Layervorschau"
+      "titlePrev": "Layervorschau",
+      "isPublic": "Öffentlicher Layer"
     },
     "en": {
       "entityName": "Layer",
@@ -28,7 +29,8 @@
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Type",
-      "titlePrev": "Layer preview"
+      "titlePrev": "Layer preview",
+      "isPublic": "Public layer"
     }
   },
   "endpoint": "/layers",
@@ -49,6 +51,7 @@
   },
   "formConfig": {
     "name": "layer",
+    "publicKey": "__isPublic__",
     "fields": [
       {
         "dataType": "number",
@@ -81,6 +84,11 @@
         "dataField": "name",
         "label": "#i18n.labelName",
         "required": "true"
+      },
+      {
+        "component": "Switch",
+        "dataField": "__isPublic__",
+        "label": "#i18n.isPublic"
       },
       {
         "component": "LayerTypeSelect",
