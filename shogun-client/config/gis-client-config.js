@@ -5,7 +5,7 @@ var clientConfig = {
     host: 'https://<!--# echo var="keycloakhost" -->/auth',
     realm: 'SHOGun',
     clientId: 'shogun-client',
-    onLoadAction: 'login-required'
+    onLoadAction: 'check-sso'
   },
   print: {
     url: '/print'
