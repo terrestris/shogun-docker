@@ -33,6 +33,7 @@
       "isPublic": "Public layer"
     }
   },
+  "defaultSortField": "name",
   "endpoint": "/layers",
   "entityType": "layer",
   "entityName": "#i18n.entityName",
