@@ -177,7 +177,6 @@ In this case it's necessary to backup and restore all databases manually:
 3. Create a `docker-compose-v13.yml` containing:
 
 ```yml
-version: '3.7'
 services:
   shogun-postgis-old:
     container_name: shogun-postgis-old

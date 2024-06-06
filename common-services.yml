@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   shogun-print:
     container_name: ${CONTAINER_NAME_PREFIX}-print
@@ -69,7 +68,6 @@ services:
       - shogun-geoserver
       - shogun-boot
       - shogun-client
-      - shogun-client-plugins
       - shogun-gis-client-docs
       - shogun-admin
       - shogun-admin-client-docs
