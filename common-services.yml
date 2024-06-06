@@ -10,6 +10,8 @@ services:
     environment:
       EXTRA_JAVA_OPTS: -Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST} -Dgwc.context.suffix=gwc
       STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak,web-resource
+    depends_on:
+      - shogun-postgis
     volumes:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
       - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
@@ -39,12 +41,14 @@ services:
       KC_HOSTNAME: ${KEYCLOAK_HOST}
       KC_HOSTNAME_PATH: /auth
       KC_HTTP_RELATIVE_PATH: /auth
+    depends_on:
+      - shogun-postgis
     # Enable if you want to disable caching of the theme templates, e.g. while adjusting the custom shogun one.
     # command: ["start", "--proxy", "edge", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false"]
     command: ["start", "--proxy", "edge"]
     volumes:
-     - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
-     - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
+      - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
+      - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
     image: nginx:1.27.0-alpine
@@ -59,6 +63,16 @@ services:
       - "443:443"
     environment:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
+    depends_on:
+      - shogun-print
+      - shogun-keycloak
+      - shogun-geoserver
+      - shogun-boot
+      - shogun-client
+      - shogun-client-plugins
+      - shogun-gis-client-docs
+      - shogun-admin
+      - shogun-admin-client-docs
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-gis-client
   shogun-admin:
@@ -74,6 +88,8 @@ services:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    depends_on:
+      - shogun-postgis
     volumes:
       - ./shogun-boot/keystore/cacerts:/opt/java/openjdk/lib/security/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
