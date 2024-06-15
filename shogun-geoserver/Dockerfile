@@ -1,4 +1,4 @@
-FROM docker.osgeo.org/geoserver:2.24.1
+FROM docker.osgeo.org/geoserver:2.25.2
 
 ARG USER_UID
 ARG USER_GID
