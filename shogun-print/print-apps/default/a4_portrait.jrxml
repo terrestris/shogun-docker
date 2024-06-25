@@ -112,7 +112,7 @@
 				<textElement verticalAlignment="Middle" markup="html">
 					<font size="8.5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Kommentar:" + $P{comment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Kommentar: <br/>" + $P{comment}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="62" y="769" width="500" height="10" uuid="f8217c8e-6c99-418a-8d38-b6b94c67c59f">
