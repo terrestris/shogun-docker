@@ -100,7 +100,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-gs-interceptor
-    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:20.2.1
+    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:20.3.0
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider "http://localhost:8081/shogun-gs-interceptor/swagger-ui/index.html" || exit 1
