@@ -90,19 +90,8 @@
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 			</line>
-			<textField>
-				<reportElement x="467" y="784" width="95" height="30" uuid="21b0a580-9b90-4dac-8a05-6a84deae81b6">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
-					<font size="8.5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{copyright}]]></textFieldExpression>
-			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="5" y="784" width="460" height="30" uuid="ab2fdb11-0704-4e55-90a9-974311bd60cc">
+				<reportElement x="5" y="784" width="557" height="30" uuid="ab2fdb11-0704-4e55-90a9-974311bd60cc">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -110,7 +99,7 @@
 					<printWhenExpression><![CDATA[$P{comment} !=null && !$P{comment}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font size="8.5"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Kommentar: <br/>" + $P{comment}]]></textFieldExpression>
 			</textField>
