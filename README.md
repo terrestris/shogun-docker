@@ -307,9 +307,10 @@ But after the initial installation we strongly recommend to change some defaults
 - Change all default passwords:
   - GeoServer:
     - Change the password of the `admin` user (see the [documentation](https://docs.geoserver.org/stable/en/user/security/webadmin/ugr.html#security-webadmin-ugr)).
+    - [Update the keystore password](https://docs.geoserver.org/stable/en/user/security/webadmin/passwords.html#security-webadmin-masterpasswordprovider), store it somewhere not accessible by anyone and delete the file `shogun-geoserver/geoserver_data/security/masterpw.info`.
   - PostgreSQL:
-    - Change the password of the `shogun` user via `docker exec shogun-postgis -c psql-u shogun -c "ALTER USER shogun PASSWORD '<new-password>';"`.
-    - The password needs to be changed in the `.env` file accordingly.
+    - Change the password of the `shogun` user via `docker exec shogun-postgis psql -U shogun -c "ALTER USER shogun PASSWORD '<new-password>';"`.
+    - The password needs to be changed in the `.env` file and in all relevant GeoServer data sources accordingly.
   - Keycloak:
     - Change the password of the `admin` user (see the [documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#proc-setting-password-user_server_administration_guide)).
     - The password needs to be changed in the `.env` file accordingly.
