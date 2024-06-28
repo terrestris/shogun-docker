@@ -41,6 +41,7 @@
       "isPublic": "Public application"
     }
   },
+  "defaultSortField": "name",
   "endpoint": "/applications",
   "entityType": "application",
   "entityName": "#i18n.entityName",
@@ -184,7 +185,11 @@
       {
         "name": "tree",
         "config": {
-          "visible": true
+          "visible": true,
+          "uploadTools": [
+            "addWMS",
+            "dataUpload"
+          ]
         }
       },
       {
