@@ -14,7 +14,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    image: docker.osgeo.org/geoserver:2.24.1
+    image: docker.osgeo.org/geoserver:2.24.4
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
