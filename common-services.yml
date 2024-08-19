@@ -50,7 +50,7 @@ services:
       - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.27.0-alpine
+    image: nginx:1.27.1-alpine
     volumes:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
