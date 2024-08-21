@@ -14,7 +14,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    image: docker.osgeo.org/geoserver:2.24.4
+    image: docker.osgeo.org/geoserver:2.25.3
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
@@ -55,10 +55,10 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: docker-public.terrestris.de/terrestris/shogun-admin:16.0.0
+    image: docker-public.terrestris.de/terrestris/shogun-admin:15.2.3
     restart: unless-stopped
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1 || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
@@ -79,7 +79,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:20.3.1
+    image: docker-public.terrestris.de/shogun/shogun-boot:20.4.1
     deploy:
       mode: replicated
       replicas: 1
@@ -96,18 +96,18 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
-  shogun-gs-interceptor:
-    extends:
-      file: ./common-services.yml
-      service: shogun-gs-interceptor
-    image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:20.3.1
-    restart: unless-stopped
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider "http://localhost:8081/shogun-gs-interceptor/swagger-ui/index.html" || exit 1
-      interval: 10s
-      retries: 5
-      start_period: 5s
-      timeout: 10s
+  # shogun-gs-interceptor:
+  #   extends:
+  #     file: ./common-services.yml
+  #     service: shogun-gs-interceptor
+  #   image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:20.4.1
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: wget --no-verbose --tries=1 --spider "http://localhost:8081/shogun-gs-interceptor/swagger-ui/index.html" || exit 1
+  #     interval: 10s
+  #     retries: 5
+  #     start_period: 5s
+  #     timeout: 10s
   shogun-solr:
     extends:
       file: ./common-services.yml
@@ -115,6 +115,26 @@ services:
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8983" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
+  shogun-gis-client-docs:
+    extends:
+      file: ./common-services.yml
+      service: shogun-gis-client-docs
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider "http://localhost" || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
+  shogun-admin-client-docs:
+    extends:
+      file: ./common-services.yml
+      service: shogun-admin-client-docs
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider "http://localhost" || exit 1
       interval: 10s
       retries: 5
       start_period: 5s
