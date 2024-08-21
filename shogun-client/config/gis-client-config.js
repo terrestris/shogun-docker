@@ -51,6 +51,7 @@ var clientConfig = {
       'admin'
     ]
   },
+  documentationButtonVisible: true,
   enableFallbackConfig: false,
   plugins: []
 };
