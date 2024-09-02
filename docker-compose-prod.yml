@@ -27,12 +27,6 @@ services:
       file: ./common-services.yml
       service: shogun-postgis
     restart: unless-stopped
-    healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -h localhost -t 5 || exit 1
-      interval: 10s
-      retries: 5
-      start_period: 5s
-      timeout: 10s
   shogun-keycloak:
     extends:
       file: ./common-services.yml
