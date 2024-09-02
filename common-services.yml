@@ -25,6 +25,11 @@ services:
       - ./shogun-postgis/postgresql_data:/var/lib/postgresql/data:Z
       - ./shogun-postgis/init_data/01_init_keycloak.sql:/docker-entrypoint-initdb.d/01_init_keycloak.sql
       - ./shogun-postgis/init_data/02_init_geofence.sql:/docker-entrypoint-initdb.d/02_init_geofence.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
   shogun-keycloak:
     container_name: ${CONTAINER_NAME_PREFIX}-keycloak
     image: quay.io/keycloak/keycloak:25.0.4
@@ -41,7 +46,8 @@ services:
       KC_HOSTNAME_PATH: /auth
       KC_HTTP_RELATIVE_PATH: /auth
     depends_on:
-      - shogun-postgis
+      shogun-postgis:
+        condition: service_healthy
     # Enable if you want to disable caching of the theme templates, e.g. while adjusting the custom shogun one.
     # command: ["start", "--proxy-headers", "xforwarded", "--http-enabled", "true", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false"]
     command: ["start", "--proxy-headers", "xforwarded", "--http-enabled", "true"]
@@ -87,7 +93,8 @@ services:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
     depends_on:
-      - shogun-postgis
+      shogun-postgis:
+        condition: service_healthy
     volumes:
       - ./shogun-boot/keystore/cacerts:/opt/java/openjdk/lib/security/cacerts
       - ./shogun-boot/application.yml:/config/application.yml
