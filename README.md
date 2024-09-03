@@ -32,6 +32,7 @@ components:
 - SHOGun (the backend part)
 - SHOGun-Admin (the UI for handling SHOGun entities)
 - SHOGun-GIS-Client (the default mapping client)
+- SHOGun-GIS-Client example plugin (a dummy example plugin for demonstration purposes)
 
 ### Recommended directory structure
 
@@ -43,6 +44,7 @@ your-shogun-workspace-directory/
 ├── shogun (https://github.com/terrestris/shogun)
 ├── shogun-admin (https://github.com/terrestris/shogun-admin)
 ├── shogun-gis-client (https://github.com/terrestris/shogun-gis-client)
+├── shogun-gis-client-example-plugin (https://github.com/terrestris/shogun-gis-client-example-plugin)
 └── shogun-docker (this repository)
 ```
 

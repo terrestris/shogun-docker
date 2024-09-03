@@ -40,6 +40,15 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ${SHOGUN_CLIENT_DIR}:/app
+  shogun-client-plugins:
+    extends:
+      file: ./common-services.yml
+      service: shogun-client-plugins
+    build:
+      context: ${SHOGUN_CLIENT_PLUGINS_DIR}
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ${SHOGUN_CLIENT_PLUGINS_DIR}:/app
   shogun-admin:
     extends:
       file: ./common-services.yml
