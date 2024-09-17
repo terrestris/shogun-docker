@@ -61,7 +61,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.9.0
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.11.0
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
