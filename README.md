@@ -48,9 +48,13 @@ your-shogun-workspace-directory/
 
 ### Required steps for the very first start
 
-- Check and fulfill all development notes of the child components (e.g. installing the
-  `maven` and `node` dependencies).
+- Check and fulfill all development notes of the child components (e.g. installing the `maven` and `node` dependencies). For the required repositories the following commands should be used:
+  - shogun-gis-client: npm i
+  - shogun-admin: npm i
+  - shogun: mvn clean install -DskipTests -Djib.skip=true
+  - shogun-docker: docker compose pull
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
+- If you are using a different directory layout, make sure to adjust the paths in the `.env` file
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
 
 ### Startup
