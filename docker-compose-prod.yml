@@ -15,6 +15,8 @@ services:
       file: ./common-services.yml
       service: shogun-geoserver
     image: docker.osgeo.org/geoserver:2.25.3
+    environment:
+      PROXY_BASE_URL: ${GEOSERVER_PROXY_BASE_URL}
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
