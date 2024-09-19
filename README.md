@@ -259,13 +259,13 @@ docker exec -it shogun-postgis pg_dump -C -h localhost -p 5432 -U shogun geofenc
 While the Keycloak docker container is running execute:
 
 ```bash
-docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
+docker compose exec shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
 ```
 
 Wait until finished and copy the configuration to your host:
 
 ```bash
-docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
+docker compose cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
 ```
 
 ### Import
@@ -273,13 +273,13 @@ docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/
 Copy the configuration to the running Keycloak container:
 
 ```bash
-docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
+docker compose cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
 ```
 
 and start the import with:
 
 ```bash
-docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
+docker compose exec shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
 ```
 
 ## Solr
