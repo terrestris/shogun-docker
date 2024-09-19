@@ -114,7 +114,7 @@ services:
     container_name: ${CONTAINER_NAME_PREFIX}-solr
     image: solr:9.7.0
     volumes:
-      - ./shogun-solr/solr_data:/var/solr:RW
+      - ./shogun-solr/solr_data:/var/solr
       - ./shogun-solr/jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
   shogun-gis-client-docs:
     container_name: ${CONTAINER_NAME_PREFIX}-gis-client-docs

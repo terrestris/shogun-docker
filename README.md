@@ -56,6 +56,7 @@ your-shogun-workspace-directory/
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - If you are using a different directory layout, make sure to adjust the paths in the `.env` file
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
+- execute `chmod -R a+w shogun-solr/solr_data` to allow the solr service to write to the directory.
 
 ### Startup
 
