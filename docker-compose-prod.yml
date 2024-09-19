@@ -37,6 +37,9 @@ services:
       file: ./common-services.yml
       service: shogun-nginx
     volumes:
+      # makes sure that certificates exist in the environment or use a different image that already contains the certificates
+      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
+      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-nginx/prod/default.conf:/etc/nginx/templates/default.conf.template
     restart: unless-stopped
     healthcheck:

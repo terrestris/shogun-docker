@@ -28,6 +28,8 @@ services:
       file: ./common-services.yml
       service: shogun-nginx
     volumes:
+      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
+      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
   shogun-client:
     extends:
