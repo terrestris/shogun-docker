@@ -16,6 +16,7 @@ services:
       service: shogun-geoserver
     image: docker.osgeo.org/geoserver:2.25.3
     environment:
+      # in some environments the X-Forward-Proto is not picked up correctly, with this variable it can be set manually
       PROXY_BASE_URL: ${GEOSERVER_PROXY_BASE_URL}
     restart: unless-stopped
     healthcheck:
