@@ -48,10 +48,15 @@ your-shogun-workspace-directory/
 
 ### Required steps for the very first start
 
-- Check and fulfill all development notes of the child components (e.g. installing the
-  `maven` and `node` dependencies).
+- Check and fulfill all development notes of the child components (e.g. installing the `maven` and `node` dependencies). For the required repositories the following commands should be used:
+  - shogun-gis-client: npm i
+  - shogun-admin: npm i
+  - shogun: mvn clean install -DskipTests -Djib.skip=true
+  - shogun-docker: docker compose pull
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
+- If you are using a different directory layout, make sure to adjust the paths in the `.env` file
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
+- execute `chmod -R a+w shogun-solr/solr_data` to allow the solr service to write to the directory.
 
 ### Startup
 
@@ -259,13 +264,13 @@ docker exec -it shogun-postgis pg_dump -C -h localhost -p 5432 -U shogun geofenc
 While the Keycloak docker container is running execute:
 
 ```bash
-docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
+docker compose exec shogun-keycloak /opt/keycloak/bin/kc.sh export --file /tmp/keycloak_export.json
 ```
 
 Wait until finished and copy the configuration to your host:
 
 ```bash
-docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
+docker compose cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/keycloak_export.json
 ```
 
 ### Import
@@ -273,13 +278,13 @@ docker cp shogun-keycloak:/tmp/keycloak_export.json ./shogun-keycloak/init_data/
 Copy the configuration to the running Keycloak container:
 
 ```bash
-docker cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
+docker compose cp ./shogun-keycloak/init_data/keycloak_export.json shogun-keycloak:/tmp/keycloak_export.json
 ```
 
 and start the import with:
 
 ```bash
-docker exec -it shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
+docker compose exec shogun-keycloak /opt/keycloak/bin/kc.sh import --file /tmp/keycloak_export.json
 ```
 
 ## Solr

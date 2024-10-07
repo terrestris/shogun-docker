@@ -111,6 +111,7 @@ if [ "$MODE" = "create" ]; then
   echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "GEOSERVER_PROXY_BASE_URL=" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else

@@ -15,6 +15,9 @@ services:
       file: ./common-services.yml
       service: shogun-geoserver
     image: docker.osgeo.org/geoserver:2.25.3
+    environment:
+      # in some environments the X-Forward-Proto is not picked up correctly, with this variable it can be set manually
+      PROXY_BASE_URL: ${GEOSERVER_PROXY_BASE_URL}
     restart: unless-stopped
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web" || exit 1
@@ -27,12 +30,6 @@ services:
       file: ./common-services.yml
       service: shogun-postgis
     restart: unless-stopped
-    healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -h localhost -t 5 || exit 1
-      interval: 10s
-      retries: 5
-      start_period: 5s
-      timeout: 10s
   shogun-keycloak:
     extends:
       file: ./common-services.yml
@@ -44,6 +41,9 @@ services:
       service: shogun-nginx
     image: nexus.terrestris.de/terrestris/nginx:intranet
     volumes:
+      # makes sure that certificates exist in the environment or use a different image that already contains the certificates
+      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
+      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-nginx/prod/default.conf:/etc/nginx/templates/default.conf.template
     restart: unless-stopped
     healthcheck:
@@ -68,7 +68,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.8.0
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.11.0
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
@@ -80,7 +80,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:20.4.1
+    image: docker-public.terrestris.de/shogun/shogun-boot:21.0.0
     deploy:
       mode: replicated
       replicas: 1
