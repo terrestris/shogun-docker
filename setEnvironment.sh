@@ -7,6 +7,7 @@ set -e
 SHOGUN_DIR=../shogun
 SHOGUN_ADMIN_DIR=../shogun-admin
 SHOGUN_CLIENT_DIR=../shogun-gis-client
+SHOGUN_CLIENT_PLUGINS_DIR=../shogun-gis-client-example-plugin
 
 # Container prefix
 CONTAINER_NAME_PREFIX=shogun
@@ -92,6 +93,7 @@ if [ "$MODE" = "create" ]; then
   echo "SHOGUN_DIR=${SHOGUN_DIR}" > $SCRIPT_DIR/$ENV_FILE
   echo "SHOGUN_ADMIN_DIR=${SHOGUN_ADMIN_DIR}" >> $SCRIPT_DIR/$ENV_FILE
   echo "SHOGUN_CLIENT_DIR=${SHOGUN_CLIENT_DIR}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "SHOGUN_CLIENT_PLUGINS_DIR=${SHOGUN_CLIENT_PLUGINS_DIR}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "CONTAINER_NAME_PREFIX=${CONTAINER_NAME_PREFIX}" >> $SCRIPT_DIR/$ENV_FILE
 
