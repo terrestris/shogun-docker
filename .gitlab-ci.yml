@@ -274,28 +274,29 @@ publish-sbom-boot:
   needs:
     - generate-sbom-boot
 
-generate-sbom-gs-interceptor:
-  extends: generate-sbom
-  rules: !reference [.common-sbom, rules]
-  variables:
-    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
-    SERVICE_NAME: shogun-gs-interceptor
-  before_script:
-    - !reference [.common-sbom, before_script]
-    - !reference [generate-sbom, before_script]
+# Not available in the deployment anymore
+# generate-sbom-gs-interceptor:
+#   extends: generate-sbom
+#   rules: !reference [.common-sbom, rules]
+#   variables:
+#     DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+#     SERVICE_NAME: shogun-gs-interceptor
+#   before_script:
+#     - !reference [.common-sbom, before_script]
+#     - !reference [generate-sbom, before_script]
 
-publish-sbom-gs-interceptor:
-  extends: publish-sbom
-  rules: !reference [.common-sbom, rules]
-  variables:
-    DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
-    DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
-    DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
-    DEPENDENCY_TRACK_PROJECT_NAME: shogun-gs-interceptor
-  before_script:
-    - !reference [.common-publish-sbom, before_script]
-  needs:
-    - generate-sbom-gs-interceptor
+# publish-sbom-gs-interceptor:
+#   extends: publish-sbom
+#   rules: !reference [.common-sbom, rules]
+#   variables:
+#     DOCKER_COMPOSE_FILE: !reference [.common-sbom, variables, DOCKER_COMPOSE_FILE_PROD]
+#     DEPENDENCY_TRACK_PARENT_PROJECT_NAME: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_NAME]
+#     DEPENDENCY_TRACK_PARENT_PROJECT_VERSION: !reference [.common-publish-sbom, variables, DEPENDENCY_TRACK_PARENT_PROJECT_VERSION]
+#     DEPENDENCY_TRACK_PROJECT_NAME: shogun-gs-interceptor
+#   before_script:
+#     - !reference [.common-publish-sbom, before_script]
+#   needs:
+#     - generate-sbom-gs-interceptor
 
 generate-sbom-solr:
   extends: generate-sbom
