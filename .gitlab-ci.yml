@@ -70,7 +70,7 @@ deploy-internal:
   before_script:
     - if [ -z $DOCKER_COMPOSE_FILE ]; then echo "Variable DOCKER_COMPOSE_FILE must not be empty"; exit 1; fi
     - if [ -z $SERVICE_NAME ]; then echo "Variable SERVICE_NAME must not be empty"; exit 1; fi
-    - SYFT_SOURCE=$(awk '/'$SERVICE_NAME':/,/image:/ { if(/image:/) { print $2 } }' $DOCKER_COMPOSE_FILE)
+    - SYFT_SOURCE=$(awk '/'$SERVICE_NAME':/,/image:/ { if(/image:/) { print $2; exit; } }' $DOCKER_COMPOSE_FILE)
 
 .common-publish-sbom:
   variables:
