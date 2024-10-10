@@ -13,6 +13,8 @@
       "labelLayerConfig": "Layer-Konfiguration",
       "labelToolConfig": "Werkzeug Konfiguration",
       "labelUserPermissions": "Nutzerberechtigungen",
+      "labelGroupPermissions": "Gruppenberechtigungen",
+      "labelRolePermissions": "Rollenberechtigungen",
       "titleId": "ID",
       "titleName": "Name",
       "titleEdit": "Zuletzt editiert am",
@@ -33,6 +35,8 @@
       "labelLayerConfig": "Layer configuration",
       "labelToolConfig": "Configure Tools",
       "labelUserPermissions": "User permissions",
+      "labelGroupPermissions": "Group permissions",
+      "labelRolePermissions": "Role permissions",
       "titleId": "ID",
       "titleName": "Name",
       "titleEdit": "Last edited on",
@@ -288,6 +292,16 @@
       {
         "component": "UserPermissionGrid",
         "label": "#i18n.labelUserPermissions",
+        "fieldProps": {}
+      },
+      {
+        "component": "GroupPermissionGrid",
+        "label": "#i18n.labelGroupPermissions",
+        "fieldProps": {}
+      },
+      {
+        "component": "RolePermissionGrid",
+        "label": "#i18n.labelRolePermissions",
         "fieldProps": {}
       }
     ]
