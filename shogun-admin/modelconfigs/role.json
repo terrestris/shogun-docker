@@ -1,8 +1,8 @@
 {
   "i18n": {
     "de": {
-      "entityName": "Gruppe",
-      "navigationTitle": "Gruppen",
+      "entityName": "Rolle",
+      "navigationTitle": "Rollen",
       "labelId": "ID",
       "labelEstabl": "Erstellt am",
       "labelEdit": "Zuletzt editiert am",
@@ -10,14 +10,14 @@
       "labelKeyProvDetail": "Keycloak Details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
-      "userDoesNotExistTitle": "Die Gruppe existiert nicht in Keycloak",
-      "titleGroupname": "Gruppenname",
-      "titleLink": "Link zur Gruppe",
-      "titleGroup": "Öffne Gruppe in Keycloak"
+      "roleDoesNotExistTitle": "Die Rolle existiert nicht in Keycloak",
+      "titleRolename": "Rollenname",
+      "titleLink": "Link zur Rolle",
+      "titleOpen": "Öffne Rolle in Keycloak"
     },
     "en": {
-      "entityName": "Group",
-      "navigationTitle": "Groups",
+      "entityName": "Role",
+      "navigationTitle": "Roles",
       "labelId": "ID",
       "labelEstabl": "Created at",
       "labelEdit": "Last edited on",
@@ -25,19 +25,19 @@
       "labelKeyProvDetail": "Keycloak details",
       "titleId": "ID",
       "titleKeyId": "Keycloak ID",
-      "userDoesNotExistTitle": "Group does not exist in Keycloak",
-      "titleGroupname": "Group name",
-      "titleLink": "Link to group",
-      "titleGroup": "Open group in Keycloak"
+      "roleDoesNotExistTitle": "Role does not exist in Keycloak",
+      "titleRolename": "Role name",
+      "titleLink": "Link to role",
+      "titleOpen": "Open role in Keycloak"
     }
   },
-  "endpoint": "/groups",
-  "entityType": "group",
+  "endpoint": "/roles",
+  "entityType": "role",
   "entityName": "#i18n.entityName",
   "navigationTitle": "#i18n.navigationTitle",
   "subTitle": "",
   "formConfig": {
-    "name": "group",
+    "name": "role",
     "fields": [
       {
         "dataType": "number",
@@ -88,7 +88,7 @@
         }
       },
       {
-        "title": "#i18n.titleGroupname",
+        "title": "#i18n.titleRolename",
         "dataIndex": ["providerDetails", "name"],
         "key": "name",
         "sortConfig": {
@@ -104,7 +104,7 @@
         "key": "authProviderId",
         "cellRenderComponentName": "VerifyProviderDetailsCell",
         "cellRenderComponentProps": {
-          "title": "#i18n.groupDoesNotExistTitle"
+          "title": "#i18n.roleDoesNotExistTitle"
         },
         "sortConfig": {
           "isSortable": true
@@ -119,8 +119,8 @@
         "key": "link",
         "cellRenderComponentName": "LinkCell",
         "cellRenderComponentProps": {
-          "title": "#i18n.titleGroup",
-          "template": "/auth/admin/master/console/#/SHOGun/groups/{}"
+          "title": "#i18n.titleOpen",
+          "template": "/auth/admin/master/console/#/SHOGun/clients/6b26da98-7e18-4c7f-9379-412c01e648e5/roles/{}/details"
         }
       }
     ]
