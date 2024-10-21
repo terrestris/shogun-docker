@@ -10,6 +10,9 @@
       "labelType": "Typ",
       "labelConfig": "Konfiguration",
       "labelSource": "Datenquelle",
+      "labelUserPermissions": "Nutzerberechtigungen",
+      "labelGroupPermissions": "Gruppenberechtigungen",
+      "labelRolePermissions": "Rollenberechtigungen",
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Typ",
@@ -26,6 +29,9 @@
       "labelType": "Type",
       "labelConfig": "Configuration",
       "labelSource": "Datasource",
+      "labelUserPermissions": "User permissions",
+      "labelGroupPermissions": "Group permissions",
+      "labelRolePermissions": "Role permissions",
       "titleId": "ID",
       "titleName": "Name",
       "titleType": "Type",
@@ -117,6 +123,21 @@
         "component": "JSONEditor",
         "dataField": "sourceConfig",
         "label": "#i18n.labelSource",
+        "fieldProps": {}
+      },
+      {
+        "component": "UserPermissionGrid",
+        "label": "#i18n.labelUserPermissions",
+        "fieldProps": {}
+      },
+      {
+        "component": "GroupPermissionGrid",
+        "label": "#i18n.labelGroupPermissions",
+        "fieldProps": {}
+      },
+      {
+        "component": "RolePermissionGrid",
+        "label": "#i18n.labelRolePermissions",
         "fieldProps": {}
       }
     ]
