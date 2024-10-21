@@ -68,7 +68,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.11.0
+    image: docker-public.terrestris.de/terrestris/shogun-gis-client:8.11.1
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
@@ -80,7 +80,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:21.0.0
+    image: docker-public.terrestris.de/shogun/shogun-boot:21.1.1
     deploy:
       mode: replicated
       replicas: 1
