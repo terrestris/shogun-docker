@@ -79,7 +79,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:21.1.1
+    image: docker-public.terrestris.de/shogun/shogun-boot:21.1.2
     deploy:
       mode: replicated
       replicas: 1
