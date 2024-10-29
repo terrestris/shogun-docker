@@ -53,5 +53,11 @@ var clientConfig = {
   },
   documentationButtonVisible: true,
   enableFallbackConfig: false,
-  plugins: []
+  plugins: [{
+    name: 'ExamplePlugin',
+    resourcePath: '/client-plugins/index.js',
+    exposedPaths: [
+      './FooterLinks'
+    ]
+  }]
 };

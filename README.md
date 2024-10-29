@@ -32,6 +32,7 @@ components:
 - SHOGun (the backend part)
 - SHOGun-Admin (the UI for handling SHOGun entities)
 - SHOGun-GIS-Client (the default mapping client)
+- SHOGun-GIS-Client example plugin (a dummy example plugin for demonstration purposes)
 
 ### Recommended directory structure
 
@@ -43,20 +44,22 @@ your-shogun-workspace-directory/
 ├── shogun (https://github.com/terrestris/shogun)
 ├── shogun-admin (https://github.com/terrestris/shogun-admin)
 ├── shogun-gis-client (https://github.com/terrestris/shogun-gis-client)
+├── shogun-gis-client-example-plugin (https://github.com/terrestris/shogun-gis-client-example-plugin)
 └── shogun-docker (this repository)
 ```
 
 ### Required steps for the very first start
 
 - Check and fulfill all development notes of the child components (e.g. installing the `maven` and `node` dependencies). For the required repositories the following commands should be used:
-  - shogun-gis-client: npm i
-  - shogun-admin: npm i
-  - shogun: mvn clean install -DskipTests -Djib.skip=true
-  - shogun-docker: docker compose pull
+  - shogun-gis-client: `npm i`
+  - shogun-gis-client-example-plugin: `npm i`
+  - shogun-admin: `npm i`
+  - shogun: `mvn clean install -DskipTests -Djib.skip=true`
+  - shogun-docker: `docker compose pull`
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - If you are using a different directory layout, make sure to adjust the paths in the `.env` file
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
-- execute `chmod -R a+w shogun-solr/solr_data` to allow the solr service to write to the directory.
+- Execute `chmod -R a+w shogun-solr/solr_data` to allow the solr service to write to the directory.
 
 ### Startup
 
