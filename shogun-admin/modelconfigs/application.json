@@ -193,7 +193,8 @@
           "uploadTools": [
             "addWMS",
             "dataUpload"
-          ]
+          ],
+          "metadataVisible": true
         }
       },
       {
