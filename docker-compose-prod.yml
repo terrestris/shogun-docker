@@ -14,7 +14,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    image: docker.osgeo.org/geoserver:2.25.3
+    image: docker.osgeo.org/geoserver:2.26.1
     environment:
       # in some environments the X-Forward-Proto is not picked up correctly, with this variable it can be set manually
       PROXY_BASE_URL: ${GEOSERVER_PROXY_BASE_URL}
