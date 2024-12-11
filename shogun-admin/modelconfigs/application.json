@@ -194,7 +194,8 @@
             "addWMS",
             "dataUpload"
           ],
-          "metadataVisible": true
+          "metadataVisible": true,
+          "layerIconsVisible": false
         }
       },
       {
