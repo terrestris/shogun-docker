@@ -144,12 +144,23 @@ openssl req \
   -keyout ./shogun-nginx/ssl/private/localhost.key \
   -out ./shogun-nginx/ssl/private/localhost.crt
 
+printf "Updating the keystore of shogun-boot\n"
+
 if keytool -list -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
   keytool -delete -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
 fi
 keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
 
+printf "Updating the keystore of shogun-geoserver\n"
+
 if keytool -list -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
   keytool -delete -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
 fi
 keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
+
+printf "Updating the keystore of shogun-keycloak\n"
+
+if keytool -list -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
+  keytool -delete -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit
+fi
+keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit
