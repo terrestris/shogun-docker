@@ -26,6 +26,7 @@ var clientConfig = {
     defaultUseViewBox: true,
     useNominatim: true,
     useSolrHighlighting: true,
+    activateLayerOnClick: true,
     delay: 1000,
     minChars: 3,
     solrQueryConfig: {
