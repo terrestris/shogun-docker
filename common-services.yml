@@ -52,6 +52,7 @@ services:
     # command: ["start", "--proxy-headers", "xforwarded", "--http-enabled", "true", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false"]
     command: ["start", "--proxy-headers", "xforwarded", "--http-enabled", "true"]
     volumes:
+      - ./shogun-keycloak/keystore/cacerts:/etc/pki/ca-trust/extracted/java/cacerts
       - ./shogun-keycloak/providers/event-listener-shogun-jar-with-dependencies.jar:/opt/keycloak/providers/event-listener-shogun-jar-with-dependencies.jar
       - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
   shogun-nginx:
