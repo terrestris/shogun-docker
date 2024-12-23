@@ -30,6 +30,8 @@ KEYCLOAK_HOST=$(ip route get 1 | awk '{gsub("^.*src ",""); print $1; exit}')
 KEYCLOAK_USER=admin
 # The Keycloak admin password
 KEYCLOAK_PASSWORD=shogun
+# The secret of the admin-cli client
+KEYCLOAK_ADMIN_CLIENT_SECRET=supersecret
 
 # The ID of the host user the GS image should run as
 USER_ID=$(id -u)
@@ -107,6 +109,7 @@ if [ "$MODE" = "create" ]; then
   echo "KEYCLOAK_HOST=${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
   echo "KEYCLOAK_USER=${KEYCLOAK_USER}" >> $SCRIPT_DIR/$ENV_FILE
   echo "KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "KEYCLOAK_ADMIN_CLIENT_SECRET=${KEYCLOAK_ADMIN_CLIENT_SECRET}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
