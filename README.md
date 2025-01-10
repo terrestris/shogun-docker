@@ -58,7 +58,7 @@ your-shogun-workspace-directory/
   - shogun-docker: `docker compose pull`
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - If you are using a different directory layout, make sure to adjust the paths in the `.env` file
-- Import the initial Keycloak data, see section [Keycloak Import](#import).
+- Startup Keycloak via `docker compose up shogun-keycloak shogun-postgis`, import the initial Keycloak data as described in section [Keycloak Import](#import) and shutdown the services again.
 - Execute `chmod -R a+w shogun-solr/solr_data` to allow the solr service to write to the directory.
 
 ### Startup
