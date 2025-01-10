@@ -55,7 +55,6 @@ your-shogun-workspace-directory/
   - shogun-gis-client-example-plugin: `npm i`
   - shogun-admin: `npm i`
   - shogun: `mvn clean install -DskipTests -Djib.skip=true`
-  - shogun-docker: `docker compose pull`
 - Set all required environment variables (and create a local SSL certificate) by executing `./setEnvironment.sh create` (and adjusting the values if needed).
 - If you are using a different directory layout, make sure to adjust the paths in the `.env` file
 - Import the initial Keycloak data, see section [Keycloak Import](#import).
