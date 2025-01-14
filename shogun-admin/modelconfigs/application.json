@@ -217,6 +217,12 @@
             "nominatim"
           ]
         }
+      },
+      {
+        "name": "map_toolbar",
+        "config": {
+          "visible": true
+        }
       }
     ]
   },
