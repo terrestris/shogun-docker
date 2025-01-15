@@ -1,15 +1,10 @@
 FROM docker.osgeo.org/geoserver:2.26.1
 
-ARG USER_UID
-ARG USER_GID
-ARG USER_NAME
+RUN <<EOF
+chmod 1777 /tmp
+apt update
+apt clean
+rm -rf /var/lib/apt/lists/*
+EOF
 
-RUN groupadd -g $USER_GID -o $USER_NAME
-RUN useradd -ou $USER_UID -g $USER_GID -s /bin/bash $USER_NAME
-RUN usermod -aG sudo $USER_NAME
-
-RUN chown -R $USER_NAME:$USER_NAME $CATALINA_HOME
-
-EXPOSE 8080
-
-USER $USER_NAME
+# project specific stuff...
