@@ -9,6 +9,9 @@ services:
     environment:
       EXTRA_JAVA_OPTS: -Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST} -Dgwc.context.suffix=gwc
       STABLE_EXTENSIONS: geofence-server,importer,sec-keycloak,web-resource
+      RUN_UNPRIVILEGED: true
+      RUN_WITH_USER_UID: ${UID}
+      RUN_WITH_USER_GID: ${GID}
     depends_on:
       - shogun-postgis
     volumes:

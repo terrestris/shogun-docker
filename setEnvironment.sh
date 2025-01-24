@@ -35,8 +35,6 @@ KEYCLOAK_PASSWORD=shogun
 USER_ID=$(id -u)
 # The group ID of the host user the GS image should run as
 GROUP_ID=$(id -g)
-# The name of the host user the GS image should run as
-USER_NAME=$(whoami)
 
 # The current mode we're in, it's either create or update
 MODE=$1
@@ -110,7 +108,6 @@ if [ "$MODE" = "create" ]; then
 
   echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
-  echo "UNAME=${USER_NAME}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GEOSERVER_PROXY_BASE_URL=" >> $SCRIPT_DIR/$ENV_FILE
