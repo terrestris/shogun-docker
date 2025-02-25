@@ -7,8 +7,6 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    build:
-      context: ./shogun-geoserver
   shogun-postgis:
     extends:
       file: ./common-services.yml
