@@ -7,12 +7,6 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
-    build:
-      context: ./shogun-geoserver
-      args:
-        USER_UID: ${UID}
-        USER_GID: ${GID}
-        USER_NAME: ${UNAME}
   shogun-postgis:
     extends:
       file: ./common-services.yml
