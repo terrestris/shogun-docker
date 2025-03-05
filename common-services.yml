@@ -66,9 +66,6 @@ services:
       - ./shogun-admin/config/admin-client-config.js:/usr/share/nginx/html/admin/config/admin-client-config.js
       - ./shogun-admin/modelconfigs/:/usr/share/nginx/html/admin/modelconfigs/
       - ./shogun-client/config/gis-client-config.js:/usr/share/nginx/html/client/gis-client-config.js
-    ports:
-      - "80:80"
-      - "443:443"
     environment:
       KEYCLOAK_HOST: ${KEYCLOAK_HOST}
     depends_on:
@@ -80,6 +77,24 @@ services:
       - shogun-gis-client-docs
       - shogun-admin
       - shogun-admin-client-docs
+  shogun-firewall:
+    container_name: ${CONTAINER_NAME_PREFIX}-firewall
+    image: owasp/modsecurity-crs:nginx-alpine
+    ports:
+      - "80:8080"
+      - "443:8443"
+    environment:
+      BACKEND: http://shogun-nginx
+      NGINX_ALWAYS_TLS_REDIRECT: on
+      SSL_OCSP_STAPLING: on
+      LOGLEVEL: info
+      PARANOIA: 1
+      BLOCKING_PARANOIA: 1
+      ANOMALY_INBOUND: 5
+      ANOMALY_OUTBOUND: 4
+      REPORTING_LEVEL: 2
+    depends_on:
+      - shogun-nginx
   shogun-client:
     container_name: ${CONTAINER_NAME_PREFIX}-gis-client
   shogun-client-plugins:
