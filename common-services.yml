@@ -61,7 +61,7 @@ services:
       - ./shogun-keycloak/themes/shogun:/opt/keycloak/themes/shogun
   shogun-nginx:
     container_name: ${CONTAINER_NAME_PREFIX}-nginx
-    image: nginx:1.27.4-alpine
+    image: nginx:1.28.0-alpine
     volumes:
       - ./shogun-admin/config/admin-client-config.js:/usr/share/nginx/html/admin/config/admin-client-config.js
       - ./shogun-admin/modelconfigs/:/usr/share/nginx/html/admin/modelconfigs/
