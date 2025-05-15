@@ -1,5 +1,5 @@
 <geofence>
-  <id>-78aa8330:180cc62187d:-8000</id>
+  <id>-6e95473e:196d354bca9:-8000</id>
   <name>geofence</name>
   <className>org.geoserver.geoserver.authentication.auth.GeoFenceAuthenticationProvider</className>
 </geofence>
