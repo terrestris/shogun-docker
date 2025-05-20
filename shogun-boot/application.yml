@@ -112,14 +112,15 @@ spring:
 keycloak:
   enabled: true
   server-url: https://${KEYCLOAK_HOST:shogun-keycloak}/auth
-  username: ${KEYCLOAK_USER}
-  password: ${KEYCLOAK_PASSWORD}
-  master-realm: master
+  master-realm: SHOGun
   admin-client-id: admin-cli
+  admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET}
   realm: SHOGun
   client-id: shogun-boot
   principal-attribute: preferred_username
-  disableHostnameVerification: true
+  disable-hostname-verification: true
+  extract-roles-from-resource: true
+  extract-roles-from-realm: false
 
 controller:
   applications:
