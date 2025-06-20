@@ -125,4 +125,4 @@ services:
     image: docker-public.terrestris.de/terrestris/shogun-gis-client-docs:1.1.2
   shogun-admin-client-docs:
     container_name: ${CONTAINER_NAME_PREFIX}-admin-client-docs
-    image: docker-public.terrestris.de/terrestris/shogun-admin-client-docs:1.1.2
+    image: docker-public.terrestris.de/terrestris/shogun-admin-client-docs:1.1.3
