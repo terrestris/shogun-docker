@@ -26,7 +26,7 @@ ENDPOINTS = [
     '/admin-docs/',
     '/gis-docs/',
 ]
-CONFIG = yaml.safe_load(Path("config.yaml").read_text())
+CONFIG = yaml.safe_load(Path("tests/config.yaml").read_text())
 
 
 def wait_for_service(url, timeout=10):
