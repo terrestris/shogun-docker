@@ -122,8 +122,8 @@ if [ "$MODE" = "create" ]; then
 
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
-  sed -i -E "s#KEYCLOAK_HOST=(.+)#KEYCLOAK_HOST=${KEYCLOAK_HOST}#" .env
-  sed -i -E "s#BASE_URL=(.+)#BASE_URL=${BASE_URL}#" .env
+  sed -i -E "s/KEYCLOAK_HOST=(.+)/KEYCLOAK_HOST=${KEYCLOAK_HOST}/" .env
+  sed -i -E "s/BASE_URL=(.+)/BASE_URL=${BASE_URL}/" .env
 
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi
