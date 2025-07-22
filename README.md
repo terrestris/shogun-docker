@@ -228,8 +228,7 @@ docker exec -i shogun-postgis psql -h localhost -p 5432 -U shogun < ./shogun-pos
 
 The following [official extensions](https://geoserver.org/release/stable/) are installed in GeoServer:
 
-- geofence-server
-  - including the dependencies of [hibernate-spatial-postgis](https://maven.geo-solutions.it/org/hibernatespatial/hibernate-spatial-postgis/1.1.3.2/hibernate-spatial-postgis-1.1.3.2.jar) and [postgis-jdbc](https://repo1.maven.org/maven2/org/postgis/postgis-jdbc/1.3.3/postgis-jdbc-1.3.3.jar)
+- geofence-server-postgres
 - importer
 - web-resource
 - [sec-keycloak](https://github.com/geoserver/geoserver/tree/main/src/community/security/keycloak)
@@ -243,8 +242,7 @@ If you need to build the keycloak community extension (e.g. while updating the G
 git pull upstream main --tags
 git checkout <VERSION> # e.g. git checkout 2.22.2
 cd src/community
-mvn install -PcommunityRelease -DskipTests # this may take a while!
-mvn assembly:single -N
+mvn clean install -PcommunityRelease,assembly -DskipTests # this may take a while!
 
 # release archives available at src/comunity/target/release/
 ```
