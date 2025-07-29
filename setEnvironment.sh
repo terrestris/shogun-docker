@@ -41,9 +41,6 @@ GROUP_ID=$(id -g)
 # The current mode we're in, it's either create or update
 MODE=$1
 
-# The base URL used for the smoke tests
-BASE_URL="https://$(ip route get 1 | awk '/src/ {for(i=1;i<=NF;i++) if($i=="src") print $(i+1)}')"
-
 # GEOSERVER_CSRF_WHITELIST
 GEOSERVER_CSRF_WHITELIST=localhost
 
@@ -115,7 +112,7 @@ if [ "$MODE" = "create" ]; then
   echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
 
-  echo "BASE_URL=${BASE_URL}" >> $SCRIPT_DIR/$ENV_FILE
+  echo "BASE_URL=https://${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GEOSERVER_PROXY_BASE_URL=" >> $SCRIPT_DIR/$ENV_FILE
@@ -123,7 +120,7 @@ if [ "$MODE" = "create" ]; then
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
   sed -i -E "s/KEYCLOAK_HOST=(.+)/KEYCLOAK_HOST=${KEYCLOAK_HOST}/" .env
-  sed -i -E "s/BASE_URL=(.+)/BASE_URL=${BASE_URL}/" .env
+  sed -i -E "s#BASE_URL=https://(.+)#BASE_URL=https://${KEYCLOAK_HOST}#" .env
 
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi
