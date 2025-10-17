@@ -1,0 +1,161 @@
+{
+  "i18n": {
+    "de": {
+      "entityName": "Textinhalt",
+      "navigationTitle": "Textinhalte",
+      "labelId": "ID",
+      "labelEstabl": "Erstellt am",
+      "labelEdit": "Zuletzt editiert am",
+      "labelTitle": "Title",
+      "labelCategory": "Kategorie",
+      "labelSubject": "Inhalt",
+      "titleId": "ID",
+      "titleName": "Titel",
+      "titleCategory": "Kategorie"
+    },
+    "en": {
+      "entityName": "Textual content",
+      "navigationTitle": "Textual contents",
+      "labelId": "ID",
+      "labelEstabl": "Created at",
+      "labelEdit": "Last edited on",
+      "labelTitle": "Titel",
+      "labelCategory": "Category",
+      "labelSubject": "Content",
+      "titleId": "ID",
+      "titleName": "Title",
+      "titleCategory": "Category"
+    }
+  },
+  "endpoint": "/textualcontents",
+  "entityType": "textualContent",
+  "entityName": "#i18n.entityName",
+  "navigationTitle": "#i18n.navigationTitle",
+  "subTitle": "",
+  "defaultEntity": {
+    "category": "NEWS"
+  },
+  "formConfig": {
+    "name": "textualContent",
+    "fields": [
+      {
+        "dataType": "number",
+        "dataField": "id",
+        "label": "#i18n.labelId",
+        "readOnly": "true"
+      },
+      {
+        "dataField": "created",
+        "dataType": "date",
+        "readOnly": "true",
+        "component": "DateField",
+        "label": "#i18n.labelEstabl",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "dataField": "modified",
+        "dataType": "date",
+        "readOnly": "true",
+        "label": "#i18n.labelEdit",
+        "component": "DateField",
+        "fieldProps": {
+          "dateFormat": "DD.MM.YYYY HH:mm"
+        }
+      },
+      {
+        "component": "Input",
+        "dataField": "title",
+        "label": "#i18n.labelTitle"
+      },
+      {
+        "component": "Select",
+        "dataField": "category",
+        "label": "#i18n.labelCategory",
+        "fieldProps": {
+          "options": [
+            {
+              "value": "NEWS",
+              "label": "Neuigkeiten"
+            },
+            {
+              "value": "MISC",
+              "label": "Redaktioneller Beitrag"
+            },
+            {
+              "value": "TERMS",
+              "label": "Nutzungsbedingungen"
+            },
+            {
+              "value": "CONTACT",
+              "label": "Kontakt"
+            },
+            {
+              "value": "PRIVACYPOLICY",
+              "label": "Datenschutz"
+            },
+            {
+              "value": "IMPRINT",
+              "label": "Impressum"
+            },
+            {
+              "value": "LINK_ONLY",
+              "label": "Externer Link"
+            }
+          ]
+        }
+      },
+      {
+        "component": "MarkdownEditor",
+        "dataField": "markdown",
+        "label": "#i18n.labelSubject"
+      }
+    ]
+  },
+  "tableConfig": {
+    "dataMapping": {
+      "category": {
+        "NEWS": "Neuigkeiten",
+        "MISC": "Redaktioneller Beitrag",
+        "TERMS": "Nutzungsbedingungen",
+        "CONTACT": "Kontakt",
+        "PRIVACYPOLICY": "Datenschutz",
+        "IMPRINT": "Impressum",
+        "LINK_ONLY": "Externer Link"
+      }
+    },
+    "columnDefinition": [
+      {
+        "title": "#i18n.titleId",
+        "dataIndex": "id",
+        "sortConfig": {
+          "isSortable": true,
+          "defaultSortOrder": "descend"
+        }
+      },
+      {
+        "title": "#i18n.titleName",
+        "dataIndex": "title",
+        "key": "title",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
+        }
+      },
+      {
+        "title": "#i18n.titleCategory",
+        "dataIndex": "category",
+        "key": "category",
+        "sortConfig": {
+          "isSortable": true
+        },
+        "filterConfig": {
+          "isFilterable": true
+        }
+      }
+    ]
+  }
+}

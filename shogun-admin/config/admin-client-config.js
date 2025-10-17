@@ -29,7 +29,8 @@ var shogunApplicationConfig = {
     'Layer',
     'User',
     'Group',
-    'Role'
+    'Role',
+    'TextualContent'
   ],
   dashboard: {
     news: {
