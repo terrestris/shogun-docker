@@ -78,30 +78,6 @@
             {
               "value": "NEWS",
               "label": "Neuigkeiten"
-            },
-            {
-              "value": "MISC",
-              "label": "Redaktioneller Beitrag"
-            },
-            {
-              "value": "TERMS",
-              "label": "Nutzungsbedingungen"
-            },
-            {
-              "value": "CONTACT",
-              "label": "Kontakt"
-            },
-            {
-              "value": "PRIVACYPOLICY",
-              "label": "Datenschutz"
-            },
-            {
-              "value": "IMPRINT",
-              "label": "Impressum"
-            },
-            {
-              "value": "LINK_ONLY",
-              "label": "Externer Link"
             }
           ]
         }
@@ -116,13 +92,7 @@
   "tableConfig": {
     "dataMapping": {
       "category": {
-        "NEWS": "Neuigkeiten",
-        "MISC": "Redaktioneller Beitrag",
-        "TERMS": "Nutzungsbedingungen",
-        "CONTACT": "Kontakt",
-        "PRIVACYPOLICY": "Datenschutz",
-        "IMPRINT": "Impressum",
-        "LINK_ONLY": "Externer Link"
+        "NEWS": "Neuigkeiten"
       }
     },
     "columnDefinition": [
