@@ -32,6 +32,9 @@ var shogunApplicationConfig = {
     'Role',
     'TextualContent'
   ],
+  entityHistory: {
+    enabled: true
+  },
   dashboard: {
     news: {
       visible: true
