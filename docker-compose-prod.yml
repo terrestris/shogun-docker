@@ -54,7 +54,7 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: docker-public.terrestris.de/terrestris/shogun-admin:17.1.2
+    image: docker-public.terrestris.de/terrestris/shogun-admin:17.2.0
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1 || exit 1
