@@ -100,7 +100,7 @@ your-custom-shogun-workspace-directory/
     -      dockerfile: Dockerfile.dev
     -    volumes:
     -      - ${SHOGUN_ADMIN_DIR}:/app
-    +    image: docker-public.terrestris.de/terrestris/shogun-admin:13.0.1
+    +    image: docker-public.terrestris.de/terrestris/shogun-admin:17.2.0
     ```
 
     ```diff
@@ -109,7 +109,7 @@ your-custom-shogun-workspace-directory/
     -      dockerfile: Dockerfile.dev
     -    volumes:
     -      - ${SHOGUN_CLIENT_DIR}:/app
-    +    image: docker-public.terrestris.de/terrestris/shogun-gis-client:7.3.1
+    +    image: docker-public.terrestris.de/terrestris/shogun-gis-client:10.1.1
     ```
 
 1. Remove the `shogun-gs-interceptor` service from the `docker-compose.yml`.
