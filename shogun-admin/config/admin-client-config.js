@@ -33,7 +33,7 @@ var shogunApplicationConfig = {
     'TextualContent'
   ],
   entityHistory: {
-    enabled: true
+    enabled: false
   },
   dashboard: {
     news: {
