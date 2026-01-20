@@ -117,7 +117,7 @@ services:
   #     - ./shogun-gs-interceptor/application.yml:/config/application.yml
   shogun-solr:
     container_name: ${CONTAINER_NAME_PREFIX}-solr
-    image: solr:9.10.0
+    image: solr:9.10.1
     volumes:
       - ./shogun-solr/solr_data:/var/solr
       - ./shogun-solr/jts.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts.jar
