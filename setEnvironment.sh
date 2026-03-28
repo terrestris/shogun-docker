@@ -112,12 +112,15 @@ if [ "$MODE" = "create" ]; then
   echo "UID=${USER_ID}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GID=${GROUP_ID}" >> $SCRIPT_DIR/$ENV_FILE
 
+  echo "BASE_URL=https://${KEYCLOAK_HOST}" >> $SCRIPT_DIR/$ENV_FILE
+
   echo "GEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST}" >> $SCRIPT_DIR/$ENV_FILE
   echo "GEOSERVER_PROXY_BASE_URL=" >> $SCRIPT_DIR/$ENV_FILE
 
   echo "Successfully wrote $SCRIPT_DIR/$ENV_FILE"
 else
   sed -i -E "s/KEYCLOAK_HOST=(.+)/KEYCLOAK_HOST=${KEYCLOAK_HOST}/" .env
+  sed -i -E "s#BASE_URL=https://(.+)#BASE_URL=https://${KEYCLOAK_HOST}#" .env
 
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi
