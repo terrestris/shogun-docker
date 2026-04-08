@@ -122,11 +122,23 @@ else
   echo "Successfully updated local IP in $SCRIPT_DIR/$ENV_FILE"
 fi
 
-KEYCLOAK_SECURITY_FILTER_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/filter/shogun-keycloak/config.xml'
+KEYCLOAK_JWT_FILTER_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/filter/keycloak-jwt/config.xml'
 
-if [ -f "${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE}" ]; then
-  printf "\nUpdating ${KEYCLOAK_SECURITY_FILTER_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
-  sed -i -E "s/&quot;auth-server-url&quot;: &quot;https:\/\/(.+)\/auth\/&quot;,&#xd;/\&quot;auth-server-url\&quot;: \&quot;https:\/\/${KEYCLOAK_HOST}\/auth\/\&quot;,\&#xd;/" $KEYCLOAK_SECURITY_FILTER_CONFIG_FILE
+if [ -f "${KEYCLOAK_JWT_FILTER_CONFIG_FILE}" ]; then
+  printf "\nUpdating ${KEYCLOAK_JWT_FILTER_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
+  sed -i -E "s/(<validateTokenSignatureURL>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/certs<\/validateTokenSignatureURL>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_JWT_FILTER_CONFIG_FILE
+fi
+
+KEYCLOAK_SSO_FILTER_CONFIG_FILE='./shogun-geoserver/geoserver_data/security/filter/keycloak-sso/config.xml'
+
+if [ -f "${KEYCLOAK_SSO_FILTER_CONFIG_FILE}" ]; then
+  printf "\nUpdating ${KEYCLOAK_SSO_FILTER_CONFIG_FILE} with ${KEYCLOAK_HOST}\n"
+  sed -i -E "s/(<oidcDiscoveryUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/\.well-known\/openid-configuration<\/oidcDiscoveryUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
+  sed -i -E "s/(<oidcTokenUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/token<\/oidcTokenUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
+  sed -i -E "s/(<oidcAuthorizationUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/auth<\/oidcAuthorizationUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
+  sed -i -E "s/(<oidcUserInfoUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/userinfo<\/oidcUserInfoUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
+  sed -i -E "s/(<oidcJwkSetUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/certs<\/oidcJwkSetUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
+  sed -i -E "s/(<oidcLogoutUri>https:\/\/)(.*)(\/auth\/realms\/SHOGun\/protocol\/openid-connect\/logout<\/oidcLogoutUri>)/\1${KEYCLOAK_HOST}\3/g" $KEYCLOAK_SSO_FILTER_CONFIG_FILE
 fi
 
 printf "Updating the SSL certificate\n"
