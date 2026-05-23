@@ -307,7 +307,7 @@ But after the initial installation we strongly recommend to change some defaults
 
 - Regenerate the default Keycloak client secrets for all clients of *confidential access* type (e.g. `shogun-geoserver`):
   - See the [documentation](https://www.keycloak.org/docs/latest/server_admin/index.html#_client-credentials).
-  - The secret for the `shogun-geoserver` client needs to be adjusted in the `shogun-keycloak` role service
+  - The secret for the `shogun-geoserver` client needs to be adjusted in the `keycloak-sso` filter chain
     afterwards.
 - Change all default passwords:
   - GeoServer:
