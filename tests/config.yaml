@@ -1,0 +1,35 @@
+expected_keycloak_clients:
+  - shogun-admin
+  - shogun-boot
+  - shogun-client
+  - shogun-geoserver
+
+expected_keycloak_users:
+  - shogun
+
+expected_geoserver_workspaces:
+  - SHOGUN
+
+expected_geoserver_layers:
+  - SHOGUN:COUNTRIES
+
+expected_geofence_rules:
+  - id: 1
+    priority: 0
+    roleName: ROLE_AUTHENTICATED
+  - id: 2
+    priority: 1
+    roleName: ROLE_ANONYMOUS
+
+expected_geoserver_version: "2.27.1"
+
+expected_plugins:
+  - ExamplePlugin
+
+expected_admin_configs:
+  - security
+  - keycloak
+  - geoserver
+  - models
+  - dashboard
+  - navigation
