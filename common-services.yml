@@ -6,10 +6,10 @@ services:
       - ./shogun-print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z
   shogun-geoserver:
     container_name: ${CONTAINER_NAME_PREFIX}-geoserver
-    image: docker.osgeo.org/geoserver:2.28.0
+    image: docker.osgeo.org/geoserver:2.28.3
     environment:
       EXTRA_JAVA_OPTS: -Xms1g -Xmx2g -DGEOSERVER_CSRF_WHITELIST=${GEOSERVER_CSRF_WHITELIST} -Dgwc.context.suffix=gwc
-      STABLE_EXTENSIONS: geofence-server-postgres,importer,sec-keycloak,web-resource
+      STABLE_EXTENSIONS: geofence-server-postgres,importer,sec-oidc,web-resource
       RUN_UNPRIVILEGED: true
       RUN_WITH_USER_UID: ${UID}
       RUN_WITH_USER_GID: ${GID}
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./shogun-geoserver/geoserver_data:/opt/geoserver_data/:Z
       - ./shogun-geoserver/additional_libs:/opt/additional_libs/:Z
-      - ./shogun-geoserver/keystore/cacerts:/etc/ssl/certs/java/cacerts
+      - ./shogun-geoserver/keystore/cacerts:/opt/java/openjdk/lib/security/cacerts
   shogun-postgis:
     container_name: ${CONTAINER_NAME_PREFIX}-postgis
     image: postgis/postgis:16-3.4-alpine
