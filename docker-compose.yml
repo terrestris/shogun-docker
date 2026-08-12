@@ -22,9 +22,14 @@ services:
       file: ./common-services.yml
       service: shogun-nginx
     volumes:
-      - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
-      - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
+  shogun-firewall:
+    extends:
+      file: ./common-services.yml
+      service: shogun-firewall
+    volumes:
+      - ./shogun-firewall/ssl/private/localhost.crt:/etc/nginx/conf/server.crt
+      - ./shogun-firewall/ssl/private/localhost.key:/etc/nginx/conf/server.key
   shogun-client:
     extends:
       file: ./common-services.yml

@@ -10,8 +10,8 @@ shogun-postgis/postgresql_data
 shogun-redis/redis_data
 shogun-solr/solr_data/data/search/data/
 shogun-solr/solr_data/logs/
-shogun-nginx/ssl/private/*.crt
-shogun-nginx/ssl/private/*.key
+*/ssl/private/*.crt
+*/ssl/private/*.key
 
 *iml
 .idea

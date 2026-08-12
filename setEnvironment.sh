@@ -131,36 +131,36 @@ fi
 
 printf "Updating the SSL certificate\n"
 
-sed -i -E "s/IP.2    = (.+)/IP.2    = ${KEYCLOAK_HOST}/g" shogun-nginx/ssl/localhost.conf
+sed -i -E "s/IP.2    = (.+)/IP.2    = ${KEYCLOAK_HOST}/g" shogun-firewall/ssl/localhost.conf
 
 openssl req \
-  -config ./shogun-nginx/ssl/localhost.conf \
+  -config ./shogun-firewall/ssl/localhost.conf \
   -addext basicConstraints=critical,CA:TRUE,pathlen:1 \
   -batch \
   -x509 \
   -nodes \
   -days 3650 \
   -newkey rsa:2048 \
-  -keyout ./shogun-nginx/ssl/private/localhost.key \
-  -out ./shogun-nginx/ssl/private/localhost.crt
+  -keyout ./shogun-firewall/ssl/private/localhost.key \
+  -out ./shogun-firewall/ssl/private/localhost.crt
 
 printf "Updating the keystore of shogun-boot\n"
 
 if keytool -list -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
   keytool -delete -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
 fi
-keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
+keytool -import -file ./shogun-firewall/ssl/private/localhost.crt -alias DEV -keystore ./shogun-boot/keystore/cacerts -noprompt -storepass changeit
 
 printf "Updating the keystore of shogun-geoserver\n"
 
 if keytool -list -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
   keytool -delete -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
 fi
-keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
+keytool -import -file ./shogun-firewall/ssl/private/localhost.crt -alias DEV -keystore ./shogun-geoserver/keystore/cacerts -noprompt -storepass changeit
 
 printf "Updating the keystore of shogun-keycloak\n"
 
 if keytool -list -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit > /dev/null 2>&1; then
   keytool -delete -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit
 fi
-keytool -import -file ./shogun-nginx/ssl/private/localhost.crt -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit
+keytool -import -file ./shogun-firewall/ssl/private/localhost.crt -alias DEV -keystore ./shogun-keycloak/keystore/cacerts -noprompt -storepass changeit
