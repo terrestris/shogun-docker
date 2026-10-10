@@ -1,0 +1,23 @@
+<JwtHeadersAuthentication>
+  <roleSource class="org.geoserver.security.jwtheaders.filter.GeoServerJwtHeadersFilterConfig$JWTHeaderRoleSource">JWT</roleSource>
+  <id>21ec0edc:19d6ca672fd:-8000</id>
+  <name>keycloak-jwt</name>
+  <className>org.geoserver.security.jwtheaders.filter.GeoServerJwtHeadersFilter</className>
+  <jwtConfiguration>
+    <userNameFormatChoice>JWT</userNameFormatChoice>
+    <userNameJsonPath>preferred_username</userNameJsonPath>
+    <rolesHeaderName>Authorization</rolesHeaderName>
+    <rolesJsonPath>ressource_access.shogun-geoserver.roles</rolesJsonPath>
+    <onlyExternalListedRoles>false</onlyExternalListedRoles>
+    <validateToken>true</validateToken>
+    <validateTokenExpiry>true</validateTokenExpiry>
+    <validateTokenSignature>true</validateTokenSignature>
+    <validateTokenSignatureURL>https://{{KEYCLOAK_HOST}}/auth/realms/SHOGun/protocol/openid-connect/certs</validateTokenSignatureURL>
+    <validateTokenAgainstURL>false</validateTokenAgainstURL>
+    <validateSubjectWithEndpoint>false</validateSubjectWithEndpoint>
+    <validateTokenAudience>false</validateTokenAudience>
+    <validateTokenAudienceClaimName>azp</validateTokenAudienceClaimName>
+    <userNameHeaderAttributeName>Authorization</userNameHeaderAttributeName>
+    <JwtHeaderRoleSource>JWT</JwtHeaderRoleSource>
+  </jwtConfiguration>
+</JwtHeadersAuthentication>
