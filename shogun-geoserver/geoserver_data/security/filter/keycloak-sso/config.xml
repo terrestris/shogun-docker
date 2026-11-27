@@ -1,0 +1,45 @@
+<oauth2LoginAuthentication>
+  <id>-6316e721:1a218bc714e:-8000</id>
+  <name>keycloak-sso</name>
+  <className>org.geoserver.security.oauth2.login.GeoServerOAuth2LoginAuthenticationFilter</className>
+  <roleSource class="org.geoserver.security.oauth2.config.OpenIdRoleSource">AccessToken</roleSource>
+  <baseRedirectUri>https://localhost/geoserver/</baseRedirectUri>
+  <googleEnabled>false</googleEnabled>
+  <googleUserNameAttribute>email</googleUserNameAttribute>
+  <googleRedirectUri>https://localhost/geoserver/web/login/oauth2/code/google</googleRedirectUri>
+  <gitHubEnabled>false</gitHubEnabled>
+  <gitHubUserNameAttribute>id</gitHubUserNameAttribute>
+  <gitHubRedirectUri>https://localhost/geoserver/web/login/oauth2/code/gitHub</gitHubRedirectUri>
+  <msEnabled>false</msEnabled>
+  <msUserNameAttribute>sub</msUserNameAttribute>
+  <msRedirectUri>https://localhost/geoserver/web/login/oauth2/code/microsoft</msRedirectUri>
+  <msScopes>openid profile email</msScopes>
+  <oidcEnabled>true</oidcEnabled>
+  <oidcClientId>shogun-geoserver</oidcClientId>
+  <oidcClientSecret>6zVR0mOUAdksTnBkFRJMrmHcCvcXnIzn</oidcClientSecret>
+  <oidcUserNameAttribute>email</oidcUserNameAttribute>
+  <oidcRedirectUri>https://localhost/geoserver/web/login/oauth2/code/oidc</oidcRedirectUri>
+  <oidcScopes>openid profile email</oidcScopes>
+  <oidcDiscoveryUri>https://1.2.3.4/auth/realms/SHOGun/.well-known/openid-configuration</oidcDiscoveryUri>
+  <oidcTokenUri>https://1.2.3.4/auth/realms/SHOGun/protocol/openid-connect/token</oidcTokenUri>
+  <oidcAuthorizationUri>https://1.2.3.4/auth/realms/SHOGun/protocol/openid-connect/auth</oidcAuthorizationUri>
+  <oidcUserInfoUri>https://1.2.3.4/auth/realms/SHOGun/protocol/openid-connect/userinfo</oidcUserInfoUri>
+  <oidcJwkSetUri>https://1.2.3.4/auth/realms/SHOGun/protocol/openid-connect/certs</oidcJwkSetUri>
+  <oidcLogoutUri>https://1.2.3.4/auth/realms/SHOGun/protocol/openid-connect/logout</oidcLogoutUri>
+  <oidcForceAuthorizationUriHttps>true</oidcForceAuthorizationUriHttps>
+  <oidcForceTokenUriHttps>true</oidcForceTokenUriHttps>
+  <oidcUsePKCE>false</oidcUsePKCE>
+  <oidcAuthenticationMethodPostSecret>false</oidcAuthenticationMethodPostSecret>
+  <disableSignatureValidation>false</disableSignatureValidation>
+  <oidcAllowUnSecureLogging>false</oidcAllowUnSecureLogging>
+  <tokenRolesClaim>resource_access.shogun-geoserver.roles</tokenRolesClaim>
+  <postLogoutRedirectUri>https://localhost/geoserver/web/</postLogoutRedirectUri>
+  <enableRedirectAuthenticationEntryPoint>false</enableRedirectAuthenticationEntryPoint>
+  <enableResourceServerMode>true</enableResourceServerMode>
+  <validateTokenAudience>false</validateTokenAudience>
+  <validateTokenAudienceClaimName>aud</validateTokenAudienceClaimName>
+  <msGraphMemberOf>false</msGraphMemberOf>
+  <msGraphAppRoleAssignments>false</msGraphAppRoleAssignments>
+  <keycloakUseCompositeRoles>true</keycloakUseCompositeRoles>
+  <onlyExternalListedRoles>false</onlyExternalListedRoles>
+</oauth2LoginAuthentication>

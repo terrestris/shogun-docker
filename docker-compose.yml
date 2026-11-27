@@ -3,20 +3,24 @@ services:
     extends:
       file: ./common-services.yml
       service: shogun-print
+
   shogun-geoserver:
     extends:
       file: ./common-services.yml
       service: shogun-geoserver
+
   shogun-postgis:
     extends:
       file: ./common-services.yml
       service: shogun-postgis
     ports:
       - "5555:5432"
+
   shogun-keycloak:
     extends:
       file: ./common-services.yml
       service: shogun-keycloak
+
   shogun-nginx:
     extends:
       file: ./common-services.yml
@@ -25,6 +29,7 @@ services:
       - ./shogun-nginx/ssl/private/localhost.crt:/etc/nginx/ssl/private/localhost.crt
       - ./shogun-nginx/ssl/private/localhost.key:/etc/nginx/ssl/private/localhost.key
       - ./shogun-nginx/dev/default.conf:/etc/nginx/templates/default.conf.template
+
   shogun-client:
     extends:
       file: ./common-services.yml
@@ -34,6 +39,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ${SHOGUN_CLIENT_DIR}:/app
+
   shogun-client-plugins:
     extends:
       file: ./common-services.yml
@@ -43,6 +49,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ${SHOGUN_CLIENT_PLUGINS_DIR}:/app
+
   shogun-admin:
     extends:
       file: ./common-services.yml
@@ -52,6 +59,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ${SHOGUN_ADMIN_DIR}:/app
+
   shogun-boot:
     extends:
       file: ./common-services.yml
@@ -67,6 +75,7 @@ services:
     volumes:
       - ${SHOGUN_DIR}/:/shogun/
       - ~/.m2:/root/.m2
+
   # shogun-gs-interceptor:
   #   extends:
   #     file: ./common-services.yml
@@ -79,16 +88,19 @@ services:
   #   volumes:
   #     - ${SHOGUN_DIR}/:/shogun/
   #     - ~/.m2:/root/.m2
+
   shogun-solr:
     extends:
       file: ./common-services.yml
       service: shogun-solr
     ports:
       - "8983:8983"
+
   shogun-gis-client-docs:
     extends:
       file: ./common-services.yml
       service: shogun-gis-client-docs
+
   shogun-admin-client-docs:
     extends:
       file: ./common-services.yml

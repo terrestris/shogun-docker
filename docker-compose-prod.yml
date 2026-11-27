@@ -10,6 +10,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-geoserver:
     extends:
       file: ./common-services.yml
@@ -24,16 +25,19 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-postgis:
     extends:
       file: ./common-services.yml
       service: shogun-postgis
     restart: unless-stopped
+
   shogun-keycloak:
     extends:
       file: ./common-services.yml
       service: shogun-keycloak
     restart: unless-stopped
+
   shogun-nginx:
     extends:
       file: ./common-services.yml
@@ -50,6 +54,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-admin:
     extends:
       file: ./common-services.yml
@@ -62,6 +67,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-client:
     extends:
       file: ./common-services.yml
@@ -74,6 +80,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   # shogun-client-plugins:
   #   extends:
   #     file: ./common-services.yml
@@ -86,6 +93,7 @@ services:
   #     retries: 5
   #     start_period: 5s
   #     timeout: 10s
+
   shogun-boot:
     extends:
       file: ./common-services.yml
@@ -107,6 +115,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   # shogun-gs-interceptor:
   #   extends:
   #     file: ./common-services.yml
@@ -119,6 +128,7 @@ services:
   #     retries: 5
   #     start_period: 5s
   #     timeout: 10s
+
   shogun-solr:
     extends:
       file: ./common-services.yml
@@ -130,6 +140,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-gis-client-docs:
     extends:
       file: ./common-services.yml
@@ -140,6 +151,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-admin-client-docs:
     extends:
       file: ./common-services.yml
