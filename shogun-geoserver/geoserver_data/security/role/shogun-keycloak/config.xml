@@ -2,7 +2,7 @@
   <id>65747529:18c20a5bc8a:-8000</id>
   <name>shogun-keycloak</name>
   <className>org.geoserver.security.keycloak.KeycloakRoleService</className>
-  <serverURL>http://shogun-keycloak:8080</serverURL>
+  <serverURL>http://shogun-keycloak:8080/auth</serverURL>
   <realm>SHOGun</realm>
   <clientID>shogun-geoserver</clientID>
   <clientSecret>6zVR0mOUAdksTnBkFRJMrmHcCvcXnIzn</clientSecret>

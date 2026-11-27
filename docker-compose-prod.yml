@@ -10,6 +10,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-geoserver:
     extends:
       file: ./common-services.yml
@@ -24,16 +25,19 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-postgis:
     extends:
       file: ./common-services.yml
       service: shogun-postgis
     restart: unless-stopped
+
   shogun-keycloak:
     extends:
       file: ./common-services.yml
       service: shogun-keycloak
     restart: unless-stopped
+
   shogun-nginx:
     extends:
       file: ./common-services.yml
@@ -50,11 +54,12 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-admin:
     extends:
       file: ./common-services.yml
       service: shogun-admin
-    image: docker-public.terrestris.de/terrestris/shogun-admin:18.1.1
+    image: hub.terrestris.de/shogun/shogun-admin:18.1.5
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1:8080 || exit 1
@@ -62,11 +67,12 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-client:
     extends:
       file: ./common-services.yml
       service: shogun-client
-    image: docker-public.terrestris.de/terrestris/shogun-gis-client:11.1.2
+    image: hub.terrestris.de/shogun/shogun-gis-client:12.0.3
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
@@ -74,6 +80,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   # shogun-client-plugins:
   #   extends:
   #     file: ./common-services.yml
@@ -86,11 +93,12 @@ services:
   #     retries: 5
   #     start_period: 5s
   #     timeout: 10s
+
   shogun-boot:
     extends:
       file: ./common-services.yml
       service: shogun-boot
-    image: docker-public.terrestris.de/shogun/shogun-boot:24.0.1
+    image: hub.terrestris.de/shogun/shogun-boot:25.1.1
     deploy:
       mode: replicated
       replicas: 1
@@ -107,11 +115,12 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   # shogun-gs-interceptor:
   #   extends:
   #     file: ./common-services.yml
   #     service: shogun-gs-interceptor
-  #   image: docker-public.terrestris.de/shogun/shogun-gs-interceptor:23.0.0
+  #   image: hub.terrestris.de/shogun/shogun-gs-interceptor:25.1.1
   #   restart: unless-stopped
   #   healthcheck:
   #     test: wget --no-verbose --tries=1 --spider "http://localhost:8081/shogun-gs-interceptor/swagger-ui/index.html" || exit 1
@@ -119,6 +128,7 @@ services:
   #     retries: 5
   #     start_period: 5s
   #     timeout: 10s
+
   shogun-solr:
     extends:
       file: ./common-services.yml
@@ -130,6 +140,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-gis-client-docs:
     extends:
       file: ./common-services.yml
@@ -140,6 +151,7 @@ services:
       retries: 5
       start_period: 5s
       timeout: 10s
+
   shogun-admin-client-docs:
     extends:
       file: ./common-services.yml
